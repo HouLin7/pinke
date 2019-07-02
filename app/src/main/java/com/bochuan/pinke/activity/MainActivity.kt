@@ -46,7 +46,7 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         myFragmentTabAdapter = MyFragmentTabAdapter(supportFragmentManager)
-        view_pager.setAdapter(myFragmentTabAdapter)
+        view_pager.adapter = myFragmentTabAdapter
         view_pager.addOnPageChangeListener(this)
 
         initTextBadgeItems(myFragmentTabAdapter!!.getCount())

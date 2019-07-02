@@ -3,4 +3,16 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="app_gray_divider">#f5f5f5</color>
+    <color name="app_red">#FF3737</color>
+    <color name="app_black">#333333</color>
+    <color name="app_black_light">#666666</color>
+    <color name="app_gray_light">#999999</color>
+    <color name="app_background">#f5f5f5</color>
+
+    <color name="app_yellow">#F5A623</color>
+    <color name="app_recycler_view_divider">#E4E4E4</color>
 </resources>
