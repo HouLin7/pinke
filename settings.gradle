@@ -1,0 +1,1 @@
+include ':app', ':appLibrary', ':work-core', ':work-common', ':msgPush', ':umengSDK'

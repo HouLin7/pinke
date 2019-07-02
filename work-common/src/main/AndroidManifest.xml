@@ -1,0 +1,45 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.gome.work.common">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        >
+        <provider
+            android:name=".MyFileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <meta-data
+            android:name="com.gome.work.common.glide.MyGlideModule"
+            android:value="GlideModule"/>
+
+        <activity
+            android:name=".webview.CommonWebActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".activity.PhotoViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBar.Fullscreen.Transparent"
+            />
+        <activity
+            android:name=".activity.QRCodeActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".activity.QRCodeResultActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".activity.PhotoPickerActivity"
+            android:screenOrientation="portrait"
+            />
+    </application>
+</manifest>

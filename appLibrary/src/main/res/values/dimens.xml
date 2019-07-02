@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="divier_height">1dp</dimen>
+
+    <!--<dimen name="text_size_mini">12sp</dimen>-->
+    <!--<dimen name="text_size_small">13sp</dimen>-->
+
+    <!--<dimen name="text_size_normal">16sp</dimen>-->
+    <!--<dimen name="text_size_big">18sp</dimen>-->
+    <!--<dimen name="text_size_large">22sp</dimen>-->
+</resources>

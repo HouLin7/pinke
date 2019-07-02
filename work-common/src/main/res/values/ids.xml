@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--treeview 使用ID-->
+    <item name="node_header" type="id"/>
+    <item name="node_items" type="id"/>
+    <item name="tree_items" type="id"/>
+    <item name="address_book" type="id"/>
+
+    <item name="statusbarutil_fake_status_bar_view" type="id"/>
+    <item name="statusbarutil_translucent_view" type="id"/>
+
+    <item name="iv_right_icon" type="id"/>
+
+    <item name="iv_close_icon" type="id"/>
+
+    <item name="tv_title_center" type="id"/>
+
+</resources>

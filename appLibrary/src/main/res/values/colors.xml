@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#fff9f9f9</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF3737</color>
+
+    <color name="theme_blue">#ff028be6</color>
+
+    <color name="theme_blue_gray">#ff199bf1</color>
+
+    <color name="text_black">#ff333333</color>
+
+    <color name="background_tab_pressed">#6633B5E5</color>
+
+</resources>

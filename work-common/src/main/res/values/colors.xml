@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--原来engine color-->
+    <color name="dialog_btn_text">#666666</color>
+    <color name="gray">#808080</color>
+
+    <color name="hint_text_color">#999999</color>
+    <!--纯白-->
+    <color name="divider_list">#cccccc</color>
+    <color name="help_button_view">#ffcccccc</color>
+
+    <!--自己的color-->
+    <color name="none_list_selector">#00000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="color_f1">#f1f1f1</color>
+
+    <color name="gray_01">#999999</color>
+    <color name="gray_02">#d9d9d9</color>
+    <color name="gray_05">#FF999999</color>
+    <color name="gray_06">#FF333333</color>
+    <color name="divider_color">#e6e6e6</color>
+
+    <!-- Ripple Color -->
+    <color name="ripple_color_cover_light_grey">#d7d7d7</color>
+
+
+    <!-- 下划线风格文本字体颜色 -->
+
+    <color name="divider_line">#e6e6e6</color>
+
+    <color name="conversation_item_line">#EBEBEB</color>
+    <!-- im -->
+
+    <!--主页低栏背景色-->
+
+    <!--消息列表置顶项背景色-->
+    <color name="bg_item_message">#fffeee</color>
+
+    <!--approvaldetail color-->
+    <color name="approval_detail_agree">#d8d8d8</color>
+
+    <!--审批详情流程线-->
+
+    <color name="color_modify_pw">#F1F1F1</color>
+
+    <color name="forgot_password">#FF4590E4</color>
+
+
+    <color name="text_color_333333">#333333</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="color_4590e4">#4590e4</color>
+
+    <!--pickerUi color-->
+    <color name="timetimepicker_default_text_color">#999999</color>
+    <color name="blue_bar">#4590e4</color>
+    <color name="blue_bar_press">#3773B6</color>
+
+    <!--switchButton 使用用颜色-->
+
+    <!--升级对话框-->
+    <color name="update_text_color">#333333</color>
+    <color name="update_tips_color">#999999</color>
+
+    <!--<color name="black2">#484848</color>-->
+    <!--<color name="black3">#959595</color>-->
+    <!--<color name="black4">#FF666666</color>-->
+
+    <color name="image_choose_button_unchoose_text">#999999</color>
+
+    <color name="chat_iamge_alpha">#B3000000</color>
+    <!--     分割线       -->
+
+    <color name="color_pop_window">#FFEDEDED</color>
+
+    <!--员工列表九种颜色值-->
+    <color name="bg_user_color1">#FFBEE188</color>
+    <color name="bg_user_color2">#FF91A7C2</color>
+    <color name="bg_user_color3">#FFD294D3</color>
+    <color name="bg_user_color4">#FF487CC2</color>
+    <color name="bg_user_color5">#FFC9B9CE</color>
+    <color name="bg_user_color6">#FF6E9FBD</color>
+    <color name="bg_user_color7">#FF4A8AE3</color>
+    <color name="bg_user_color8">#FFD2ADE5</color>
+    <color name="bg_user_color9">#FF6F99CE</color>
+    <color name="blue">#4a9be4</color>
+    <color name="gray_bg">#f1f1f1</color>
+    <color name="btn_gray_normal">#cccccc</color>
+
+    <!--im item-->
+    <color name="im_item_name">#999999</color>
+
+    <color name="background_write">#FFFFFF</color>
+    <color name="color_half_trasluction">#80000000</color>
+    <color name="bg_chat_bottom">#ffffff</color>
+    <!--timeselector-->
+    <color name="time_selector_color">#333333</color>
+
+
+    <color name="refresh_text_color">#4590E4</color>
+    <color name="search_text_color">#7A7881</color>
+    <color name="search_layout_bg_color">#e3e3e3</color>
+
+    <color name="color_969FA9">#969FA9</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_333333">#333333</color>
+    <color name="black_half_transparency">#80000000</color>
+
+    <color name="channel_title_color">#2D2E36</color>
+    <color name="channel_deliver">#EBEBEB</color>
+    <color name="channel_content_color">#969FA9</color>
+
+
+    <color name="color_common_title_commontext">#ffffff</color>
+    <color name="color_common_title_bg">#58C2FB</color>
+    <color name="color_common_title_translation_commontext">#804590e4</color>
+
+
+    <color name="bg_gray">#f5f5f5</color>
+    <color name="text_gray">#999999</color>
+
+    <color name="black">#2E2E2E</color>
+    <color name="grey_help">#55585B</color>
+
+    <color name="theme_primary">#ffffff</color>
+
+    <color name="theme_primary_dark">#11000000</color>
+
+    <color name="bg_pressed">#f6f6f6</color>
+
+    <color name="color_1296db">#1296db</color>
+
+    <color name="positive_button_color">#008ee8</color>
+    <color name="negative_button_color">#000000</color>
+
+    <color name="color_F3F1F3">#F3F1F3</color>
+
+    <color name="title_name_color">#666666</color>
+
+    <color name="app_gray_divider">#f5f5f5</color>
+    <color name="app_red">#FF3737</color>
+    <color name="app_black">#333333</color>
+    <color name="app_black_light">#666666</color>
+    <color name="app_gray_light">#999999</color>
+    <color name="app_background">#f5f5f5</color>
+
+    <color name="app_btn_bg_gray">#E6E6E6</color>
+    <color name="app_yellow">#F5A623</color>
+    <color name="app_recycler_view_divider">#E4E4E4</color>
+
+    <color name="im_chat_background">#EBEBEB</color>
+    <color name="im_chat_message_right_bg">#C8EBF8</color>
+    <color name="im_chat_text_content">#333333</color>
+    <color name="im_chat_text_send_time">#CDCDCD</color>
+</resources>

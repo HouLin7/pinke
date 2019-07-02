@@ -1,0 +1,117 @@
+ext {
+
+
+    android = [
+            applicationId = "com.gome.smartoffice",
+            compileSdkVersion = 28,
+            buildToolsVersion = "28.0.3",
+            minSdkVersion = 17,
+            targetSdkVersion = 28,
+            versionCode = 49,
+            versionName = "1.5.2",
+    ]
+
+    versions = [
+            kotlin_version: '1.3.31',
+            support       : '28.0.0',
+            module        : '1.3.3',
+            greendao      : '3.2.2',
+            imsdk_dev     : 'channel_2.1.35',
+            imsdk_release : 'channel_2.0.31_release',
+            impushsdk     : '1.0.17',
+            avsdk         : '1.1.8',
+            okhttp        : '3.4.1',
+            retrofit      : '2.2.0',
+            butterknife   : "8.5.1",
+            huaweipush    : "2.6.3.301",
+            butterknife   : "9.0.0"
+    ]
+
+
+    dependencies = [
+
+            "kotlin-stdlib"                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin_version}",
+
+            "multidex"                      : "com.android.support:multidex:1.0.0",
+            "greendao"                      : "org.greenrobot:greendao:${versions.greendao}",
+            "greendao-generator"            : "org.greenrobot:greendao-generator:${versions.greendao}",
+
+            "support-v4"                    : "com.android.support:support-v4:${versions.support}",
+            "appcompat-v7"                  : "com.android.support:appcompat-v7:${versions.support}",
+            "design"                        : "com.android.support:design:${versions.support}",
+            "cardview-v7"                   : "com.android.support:cardview-v7:${versions.support}",
+            "recyclerview-v7"               : "com.android.support:recyclerview-v7:${versions.support}",
+            "support-annotations"           : "com.android.support:support-annotations:${versions.support}",
+            "percent"                       : "com.android.support:percent:${versions.support}",
+
+            "butterknife"                   : "com.jakewharton:butterknife:${versions.butterknife}",
+            "gson"                          : "com.google.code.gson:gson:2.6.2",
+            "commons-lang"                  : "org.apache.commons:commons-lang3:3.1",
+            "commons-io"                    : "commons-io:commons-io:2.4",
+
+            "viewpagerindicator"            : "com.mcxiaoke.viewpagerindicator:library:2.4.1@aar",
+            "constraintLayout"              : "com.android.support.constraint:constraint-layout:1.1.3",
+            "retrofit"                      : "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+            "retrofit-converter-gson"       : "com.squareup.retrofit2:converter-gson:${versions.retrofit}",
+            "retrofit-adapter-rxjava"       : "com.squareup.retrofit2:adapter-rxjava:${versions.retrofit}",
+
+            "okhttp"                        : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+            "okhttp-logging-interceptor"    : "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+            "orhanobut-logger"              : "com.github.orhanobut:logger:1.12",
+
+            "eventbus"                      : "org.greenrobot:eventbus:3.0.0",
+            "rxjava"                        : "io.reactivex.rxjava2:rxjava:2.2.2",
+            "rxandroid"                     : "io.reactivex.rxjava2:rxandroid:2.1.0",
+
+            "pullrefreshlayout"             : "com.baoyz.pullrefreshlayout:library:1.0.1",
+            "autoscrollviewpager"           : "cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2",
+//            "umenganalytics"                : "com.umeng.analytics:analytics:latest.integration",
+            "XhsEmoticonsKeyboard"          : "com.github.w446108264:XhsEmoticonsKeyboard:2.0.4",
+            "AndroidEmoji"                  : "com.github.w446108264:AndroidEmoji:1.0.0",
+            "viewpagertransforms"           : "com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar",
+            "convenientbanner"              : "com.bigkoo:ConvenientBanner:2.1.4",
+            "mockito"                       : "org.mockito:mockito-core:1.10.19",
+//            "junit"                         : "junit:junit:4.12",
+            "espresso"                      : "com.android.support.test.espresso:espresso-core:2.2.2",
+            "espresso_contrib"              : "com.android.support.test.espresso:espresso-contrib:2.2.2",
+//            "suspension_indexbar"           : "com.github.mcxtzhang:SuspensionIndexBar:V1.0.0",
+            "apache_collections"            : "org.apache.commons:commons-collections4:4.1",
+
+            "glide"                         : "com.github.bumptech.glide:glide:3.7.0",
+
+            "tinypinyin"                    : "com.github.promeg:tinypinyin:2.0.3",
+            "ahocorasick"                   : "org.ahocorasick:ahocorasick:0.3.1",
+            "filedownloader"                : "com.liulishuo.filedownloader:library:1.6.4",
+            "okDownload"                    : "com.liulishuo.okdownload:okhttp:1.0.3",
+            "jaredrummler"                  : "com.jaredrummler:android-processes:1.0.9",
+            "zxing"                         : "com.google.zxing:core:3.3.0",
+            "opengl-api"                    : "org.khronos:opengl-api:gl1.1-android-2.1_r1",
+//            "kareluo"                       : "me.kareluo.intensify:image:1.1.0",
+            "bugly"                         : "com.tencent.bugly:crashreport:latest.release",
+            "assertj"                       : 'org.assertj:assertj-core:1.7.0',
+            "robolectric"                   : 'org.robolectric:robolectric:3.1.4',
+            "robolectric-shadows-support-v4": 'org.robolectric:shadows-support-v4:3.0',
+            "junit"                         : 'junit:junit:4.12',
+            "hamcrest"                      : 'org.hamcrest:hamcrest-all:1.3',
+            "hamcrest-library"              : 'org.hamcrest:hamcrest-library:1.3',
+            "qrcode"                        : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.4',//二维码扫描
+            "floatingactionbutton"          : 'com.getbase:floatingactionbutton:1.10.1',//悬浮按钮
+            "logger"                        : 'com.orhanobut:logger:2.2.0',//log日志
+
+            "support-test-runner"           : 'com.android.support.test:runner:0.4.1',
+            "support-test-rules"            : 'com.android.support.test:rules:0.4.1',
+
+            "circleimageview"               : 'de.hdodenhof:circleimageview:2.2.0',
+
+            "android-database-sqlcipher"    : 'net.zetetic:android-database-sqlcipher:3.5.4@aar',
+            "percent-layout"                : 'com.android.support:percent:22.2.0',
+            "timepickerdialog"              : 'com.contrarywind:Android-PickerView:4.1.6',
+
+            "huaweipush"                    : "com.huawei.android.hms:push:${versions.huaweipush}",
+            "map_gaode"                     : 'com.amap.api:map2d:latest.integration',//高德2D地图
+            "map_gaode_search"              : 'com.amap.api:search:latest.integration',//高德搜索
+            "map_gaode_location"            : 'com.amap.api:location:latest.integration'//高德定位
+    ]
+}
+
+

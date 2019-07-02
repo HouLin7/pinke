@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    dataBinding {
+        enabled = true
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation rootProject.ext.dependencies["junit"]
+    api rootProject.ext.dependencies["constraintLayout"]
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["tinypinyin"]
+    api rootProject.ext.dependencies["butterknife"]
+    api rootProject.ext.dependencies["circleimageview"]
+    api rootProject.ext.dependencies["logger"]
+    api rootProject.ext.dependencies["timepickerdialog"]
+
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-12'
+    api project(':work-core')
+
+    api 'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation rootProject.ext.dependencies["qrcode"]
+    api rootProject.ext.dependencies["floatingactionbutton"]
+
+    api('com.jph.takephoto:takephoto_library:4.0.0') {
+        exclude group: 'com.github.bumptech.glide'
+    }
+    implementation rootProject.ext.dependencies["floatingactionbutton"]
+
+    api 'com.makeramen:roundedimageview:2.3.0'
+
+    api 'com.github.razerdp:BasePopup:2.0.9'
+
+    api 'com.r0adkll:slidableactivity:2.0.6'
+
+
+}
+

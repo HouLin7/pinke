@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CirclePageIndicator">
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" format="boolean"/>
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" format="color"/>
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" format="color"/>
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation"/>
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" format="dimension"/>
+        <!-- Whether or not the checked indicator snaps to the circles. -->
+        <attr name="snap" format="boolean"/>
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" format="color"/>
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" format="dimension"/>
+        <!-- View background -->
+        <attr name="indicatorBackground" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ViewPagerIndicator">
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+        <!-- Style of the icon indicator's views. -->
+        <!--<attr name="vpiIconPageIndicatorStyle" format="reference" />-->
+        <!-- Style of the line indicator. -->
+        <attr name="vpiLinePageIndicatorStyle" format="reference"/>
+        <!-- Style of the title indicator. -->
+        <attr name="vpiTitlePageIndicatorStyle" format="reference"/>
+        <!-- Style of the tab indicator's tabs. -->
+        <attr name="vpiTabPageIndicatorStyle" format="reference"/>
+        <attr name="vpiTabPageIndicatorStyleLayout" format="reference"/>
+        <!-- Style of the underline indicator. -->
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference"/>
+
+        <attr name="vpiUnderlineMargin" format="dimension"/>
+
+        <attr name="vpiTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <!--switchButton用自定义属性-->
+    <declare-styleable name="SwitchButton">
+        <attr name="gomeThumbDrawable" format="reference"/>
+        <attr name="gomeThumbColor" format="color|reference"/>
+        <attr name="gomeThumbMargin" format="dimension|reference"/>
+        <attr name="gomeThumbMarginTop" format="dimension|reference"/>
+        <attr name="gomeThumbMarginBottom" format="dimension|reference"/>
+        <attr name="gomeThumbMarginLeft" format="dimension|reference"/>
+        <attr name="gomeThumbMarginRight" format="dimension|reference"/>
+        <attr name="gomeThumbWidth" format="dimension|reference"/>
+        <attr name="gomeThumbHeight" format="dimension|reference"/>
+        <attr name="gomeThumbRadius" format="dimension|reference"/>
+        <attr name="gomeBackRadius" format="dimension|reference"/>
+        <attr name="gomeBackDrawable" format="reference"/>
+        <attr name="gomeBackColor" format="color|reference"/>
+        <attr name="gomeFadeBack" format="boolean"/>
+        <attr name="gomeBackMeasureRatio" format="float"/>
+        <attr name="gomeAnimationDuration" format="integer"/>
+        <attr name="gomeTintColor" format="color|reference"/>
+        <attr name="gomeTextOn" format="string"/>
+        <attr name="gomeTextOff" format="string"/>
+        <attr name="gomeTextMarginH" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ItemSettingStyle">
+        <attr name="leftTextSetting" format="string"/>
+        <attr name="rightTextSetting" format="string"/>
+        <attr name="leftIconSetting" format="reference"/>
+        <attr name="rightIconSetting" format="reference"/>
+    </declare-styleable>
+
+    <!--可删除RecyclerView  item-->
+    <declare-styleable name="BGASwipeItemLayout">
+        <attr name="bga_sil_swipeDirection" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+        <attr name="bga_sil_bottomMode" format="enum">
+            <enum name="pullOut" value="0"/>
+            <enum name="layDown" value="1"/>
+        </attr>
+        <attr name="bga_sil_springDistance" format="dimension"/>
+        <attr name="bga_sil_swipeAble" format="boolean"/>
+    </declare-styleable>
+
+    <!--     分割线       -->
+
+    <declare-styleable name="SwipeBackLayout">
+        <attr name="edge_size" format="dimension"/>
+        <attr name="edge_flag">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="bottom" value="2"/>
+            <enum name="all" value="3"/>
+        </attr>
+        <attr name="shadow_left" format="reference"/>
+        <attr name="shadow_right" format="reference"/>
+        <attr name="shadow_bottom" format="reference"/>
+    </declare-styleable>
+
+    <attr name="SwipeBackLayoutStyle" format="reference"/>
+
+    <declare-styleable name="ChatImageView">
+        <attr name="chat_image_mask" format="reference"/>
+        <attr name="shadeShow" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="NumberCircleProgressBar">
+        <attr name="progress" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="progress_unreached_color" format="color"/>
+        <attr name="progress_reached_color" format="color"/>
+        <attr name="progress_text_size" format="dimension"/>
+        <attr name="progress_text_color" format="color"/>
+        <attr name="progress_circle_radius" format="dimension"/>
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+        <attr name="progress_fill_mode" format="enum">
+            <enum name="rotate" value="0"/>
+            <enum name="rising_water" value="1"/>
+            <enum name="rotate_cut" value="2"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="Themes">
+        <attr name="numberProgressBarStyle" format="reference"/>
+    </declare-styleable>
+
+    <attr name="indexBarTextSize" format="dimension"/>
+
+    <declare-styleable name="IndexBar">
+        <attr name="indexBarTextSize"/>
+        <attr name="indexBarPressBackground" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="TitleBarView">
+        <attr name="leftTextSize" format="dimension"/>
+        <attr name="midTextSize" format="dimension"/>
+        <attr name="rightTextSize" format="dimension"/>
+        <attr name="leftTextColor" format="reference|color"/>
+        <attr name="midTextColor" format="reference|color"/>
+        <attr name="rightTextColor" format="reference|color"/>
+        <attr name="leftText" format="string"/>
+        <attr name="midText" format="string"/>
+        <attr name="rightText" format="string"/>
+        <!-- 左边图标资源  -->
+        <attr name="leftIcon" format="reference|color"/>
+        <!-- 右边图标资源  -->
+        <attr name="rightIcon" format="reference|color"/>
+        <!-- 右边图标资源  -->
+        <attr name="rightImage" format="reference|color"/>
+        <!-- 是否显示底部分割线  -->
+        <attr name="isShowDividerView" format="boolean"/>
+        <!-- 是否显示左边图标  -->
+        <attr name="isShowLeftIcon" format="boolean"/>
+        <!-- 左边按钮是否是圆形图片  -->
+        <attr name="isLeftCircleIcon" format="boolean"/>
+        <!-- 左边圆形图标资源  -->
+        <attr name="leftCircleIcon" format="reference|color"/>
+        <attr name="backgroundColor" format="reference|color"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="ButtonSelectGroupView">
+        <attr name="itemSpacing" format="dimension"/>
+    </declare-styleable>
+</resources>

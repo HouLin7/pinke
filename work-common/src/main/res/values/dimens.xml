@@ -1,0 +1,130 @@
+<resources>
+
+    <!--engine dimens-->
+    <!--定义一些常用的距离-->
+    <dimen name="margin_1.5dp">1.5dip</dimen>
+    <dimen name="margin_30dp">30dip</dimen>
+    <dimen name="margin_25dp">25dip</dimen>
+    <dimen name="margin_20dp">20dip</dimen>
+    <dimen name="margin_50dp">50dip</dimen>
+    <dimen name="margin_1dp">0.6dip</dimen>
+    <dimen name="margin_12dp">12dip</dimen>
+    <dimen name="margin_15dp">15dip</dimen>
+    <dimen name="margin_18dp">18dip</dimen>
+    <dimen name="margin_8dp">8dip</dimen>
+    <dimen name="margin_0dp">0dip</dimen>
+    <dimen name="margin_40dp">40dip</dimen>
+    <dimen name="margin_16dp">16dip</dimen>
+    <dimen name="margin_65dp">65dip</dimen>
+    <dimen name="margin_32dp">32dip</dimen>
+    <dimen name="margin_14dp">14dip</dimen>
+    <dimen name="padding_10">10dp</dimen>
+
+    <dimen name="line_divider_0.5">0.5dp</dimen>
+    <dimen name="sp_17">17sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_13">13sp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_11">11sp</dimen>
+
+    <dimen name="rl_height_50">50dp</dimen>
+    <dimen name="comm_margin_10">10dp</dimen>
+
+
+    <!-- Common dimen defination -->
+
+    <dimen name="default_rounded_corner_radius">4dp</dimen>
+
+    <dimen name="line_height">0.5dp</dimen>
+    <dimen name="view_padding_10">10dp</dimen>
+
+    <dimen name="view_space_6">6dp</dimen>
+    <dimen name="view_space_15">15dp</dimen>
+    <dimen name="view_space_19">19dp</dimen>
+    <dimen name="view_space_20">20dp</dimen>
+    <dimen name="view_space_25">25dp</dimen>
+    <dimen name="view_space_30">30dp</dimen>
+    <dimen name="view_space_35">35dp</dimen>
+    <dimen name="view_space_36">36dp</dimen>
+    <dimen name="view_space_40">40dp</dimen>
+    <dimen name="view_space_45">45dp</dimen>
+    <dimen name="view_space_47">47dp</dimen>
+    <dimen name="view_space_50">50dp</dimen>
+    <dimen name="view_space_55">55dp</dimen>
+    <dimen name="view_space_150">150dp</dimen>
+
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!--locatino dimen-->
+
+    <!--dialog width and height-->
+    <dimen name="dialog_fragment_width">300dp</dimen>
+    <dimen name="dialog_fragment_height">150dp</dimen>
+
+    <dimen name="comm_margin_15">15dp</dimen>
+    <dimen name="comm_padding_10">10dp</dimen>
+    <dimen name="comm_padding_15">15dp</dimen>
+
+    <!-- dimensions -->
+
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="margin_5dp">5dip</dimen>
+    <dimen name="margin_10dp">10dip</dimen>
+
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+
+    <dimen name="view_space_10">10dp</dimen>
+
+    <dimen name="font_size_14">14sp</dimen>
+
+    <!--pickerUI dimen-->
+    <dimen name="picker_dialog_height">190dp</dimen>
+    <dimen name="textview_default_padding">5dp</dimen>
+    <dimen name="picker_line_mar">15dp</dimen>
+    <dimen name="picker_height">230dp</dimen>
+
+    <!--switchButton 使用尺寸-->
+
+    <dimen name="title_bar_padding_small">45dp</dimen>
+    <dimen name="title_bar_padding_middle">62dp</dimen>
+    <dimen name="title_bar_padding_big">104dp</dimen>
+
+    <!--     分割线       -->
+    <dimen name="view_padding_15">15dp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_17">17sp</dimen>
+    <dimen name="font_size_30">30sp</dimen>
+    <dimen name="font_size_28">28sp</dimen>
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="title_bar_height">56dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="view_space_60">60dp</dimen>
+    <dimen name="view_space_5">5dp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+
+    <!--im-->
+    <dimen name="im_item_max_width">250dp</dimen>
+    <dimen name="im_item_head_icon">40dp</dimen>
+    <dimen name="im_item_image_width">173dp</dimen>
+    <dimen name="im_item_image_height">106dp</dimen>
+
+
+    <dimen name="news_text">16sp</dimen>
+
+    <dimen name="divider_height">1dp</dimen>
+
+    <dimen name="text_size_mini">12sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_big">19sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="index_width">20dp</dimen>
+
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="activity_style" parent="Base.Activity.Style">
+
+    </style>
+
+
+    <style name="Translucent_statusbar_Theme" parent="activity_style">
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+</resources>

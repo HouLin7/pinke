@@ -1,0 +1,63 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:1-20:12
+	package
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:3:5-34
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:5:5-30
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:4:5-28
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+uses-sdk
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+	android:targetSdkVersion
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:7:5-8:11
+		INJECTED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:10:5-78
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:11:5-75
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:11:22-73
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:12:5-80
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:12:22-78
+uses-permission#android.permission.CALL_PHONE
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:13:5-68
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:13:22-66
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:14:5-74
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:14:22-72
+application
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:17:5-19:19
+service#com.gome.update.UpdateService
+ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:18:9-64
+	android:name
+		ADDED from /Users/houlin/AndroidStudioProjects/PinKe/appLibrary/src/main/AndroidManifest.xml:18:18-62

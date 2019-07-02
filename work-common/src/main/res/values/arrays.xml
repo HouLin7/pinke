@@ -1,0 +1,28 @@
+<resources>
+
+    <string-array name="schedule_appId">
+        <item>b7abf2b27ea3d95c</item>
+        <item>bc4ceba9ee8af4e1</item>
+        <item>3195ca59b1e10587</item>
+    </string-array>
+
+    <string-array name="meeting_appId">
+        <item>5e909ad809d9a487</item>
+        <item>874552b3c9826ade</item>
+        <item>4b7e4d59e61d754c</item>
+    </string-array>
+
+    <string-array name="oa_appId">
+        <item>ecf37bd4ebc459dc</item>
+        <item>92082fb3fdd3152a</item>
+        <item>0d214d0bf0edc83e</item>
+    </string-array>
+
+    <!-- 投屏 -->
+    <string-array name="cast_appId">
+        <item>133826337aa6fe7e</item>
+        <item>133826337aa6fe7e</item>
+        <item>133826337aa6fe7e</item>
+    </string-array>
+
+</resources>

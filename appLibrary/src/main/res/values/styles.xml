@@ -1,0 +1,30 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@color/theme_blue</item>
+        <!-- Toolbar颜色 -->
+        <item name="colorPrimary">@color/theme_blue</item>
+        <item name="colorAccent">@color/theme_blue_gray</item>
+        <!-- 返回键样式 -->
+        <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
+    </style>
+      
+     <style name="MenuTextStyle">
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="DrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
+
+
+    <style name="pop_window_animation_fade" parent="android:Animation">
+            <item name="android:windowEnterAnimation">@anim/fade_in</item>
+            <item name="android:windowExitAnimation">@anim/fade_out</item>
+        </style>
+</resources>

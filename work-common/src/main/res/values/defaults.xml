@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_circle_indicator_page_color">#FFFFFFFF</color>
+    <color name="default_circle_indicator_fill_color">#ffc3c3c3</color>
+    <color name="default_circle_indicator_stroke_color">#FFc3c3c3</color>
+
+    <integer name="default_circle_indicator_orientation">0</integer>
+    <bool name="default_circle_indicator_centered">true</bool>
+    <bool name="default_circle_indicator_snap">false</bool>
+
+    <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
+    <dimen name="default_circle_indicator_radius">3dp</dimen>
+
+    <integer name="password_max_length">20</integer>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/btnAlbum"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/recycler_item_selector"
+        android:padding="15dip"
+        android:text="相册"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_normal" />
+
+    <ImageView
+        android:id="@+id/imgViewDivider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/btnAlbum"
+        android:background="@color/divider_color" />
+
+    <TextView
+        android:id="@+id/btnCamera"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/recycler_item_selector"
+        android:padding="15dip"
+        android:text="拍照"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_size_normal" />
+
+</LinearLayout>

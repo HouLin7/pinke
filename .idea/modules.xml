@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PinKe.iml" filepath="$PROJECT_DIR$/PinKe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appLibrary/appLibrary.iml" filepath="$PROJECT_DIR$/appLibrary/appLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easeui/easeui.iml" filepath="$PROJECT_DIR$/easeui/easeui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/msgPush/msgPush.iml" filepath="$PROJECT_DIR$/msgPush/msgPush.iml" />
+      <module fileurl="file://$PROJECT_DIR$/umengSDK/umengSDK.iml" filepath="$PROJECT_DIR$/umengSDK/umengSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work-common/work-common.iml" filepath="$PROJECT_DIR$/work-common/work-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work-core/work-core.iml" filepath="$PROJECT_DIR$/work-core/work-core.iml" />
+    </modules>
+  </component>
+</project>

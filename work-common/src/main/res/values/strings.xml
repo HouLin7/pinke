@@ -1,0 +1,153 @@
+<resources>
+    <string name="app_name">work-common</string>
+    <string name="updating_now">正在升级</string>
+    <string name="choose_pic_max_tips_btn">我知道了</string>
+    <string name="choose_pic_max_tips_contents">最多只能选择%d张图片</string>
+    <!--pickUi string-->
+    <string name="picker_sure">确定</string>
+    <string name="picker_cancel">取消</string>
+
+    <string name="confirm">确定</string>
+
+    <string name="picker_title">选择时间</string>
+    <string name="search_item_phone_tag">手机号：</string>
+
+
+    <!--mine模块使用-->
+    <!--设置页面-->
+    <string name="about_us">关于我们</string>
+    <string name="login_out">退出登录</string>
+    <string name="modify_password">修改密码</string>
+
+    <string name="account_safe">账号与安全</string>
+    <string name="modify_phone">更改手机号</string>
+
+    <string name="loading">请稍后</string>
+
+    <string name="feedback">你的建议是我们前进的动力！</string>
+    <string name="commit">提交</string>
+
+    <string name="copy">复制</string>
+    <string name="delete">删除</string>
+    <string name="certain">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="version_update">版本更新</string>
+    <string name="latest_new_version">当前版本已是最新版本</string>
+
+    <string name="update_ready">马上升级</string>
+    <string name="update_has_tips">新版发布，立刻更新</string>
+    <string name="update_failure">下载失败</string>
+    <string name="update_complete_delete_apk">安装成功，安装包已自动为您删除</string>
+    <string name="about_info1">国美互联网企业云&#160;&#160;版权所有</string>
+
+    <!--收藏-->
+
+    <!--我的-->
+    <string name="help">帮助与反馈</string>
+    <string name="notification_sending">消息推送</string>
+    <string name="notification_setting">提醒设置</string>
+
+    <string name="notifaction_open_tips">关闭后，您将不会收到Aeromind的消息推送</string>
+    <string name="notifaction_off_tips">开启消息推送，及时处理工作消息</string>
+
+    <!--密码格式-->
+
+    <string name="attach_location">位置</string>
+    <string name="button_send">发送</string>
+
+    <string name="downloading">下载中...</string>
+
+    <string name="network_error">网络异常，请检查网络!</string>
+    <string name="connect_network_error">当前网络不可用</string>
+    <string name="socket_timeout_error">网络连接超时！</string>
+    <string name="parse_json_error">解析异常</string>
+
+    <string name="web_view_load_fail">加载失败，点击重试</string>
+
+    <string name="image_description">Image</string>
+
+    <string name="normal_system_message_body">%s新版本功能介绍</string>
+
+    <!--公共状态码处理文案-->
+
+
+    <string name="hint">提示</string>
+    <string name="hint_content">您的账户出现异常</string>
+    <string name="see">知道了</string>
+
+    <string name="no_more_data">没有更多内容了</string>
+
+    <string name="feedback_bottom">意见反馈</string>
+
+    <string name="address_book">通讯录</string>
+
+    <string name="query">搜索</string>
+    <string name="is_loading">加载中.</string>
+
+    <string name="member_not_activite_text">该用户尚未激活，暂无法发送消息</string>
+
+    <string name="av_network_wifi_mobile">当前非WiFi环境，继续使用将产生一定手机流量，确定继续？</string>
+    <string name="av_network_error">当前网络不佳，无法通话，请检查你的网络设置</string>
+    <string name="av_network_mobile_tips_title">温馨提示</string>
+    <string name="av_network_toast_error">网络异常，通话中断，请稍后再试</string>
+
+
+    <string name="float_window_authority_content">你的手机没有授权Aeromind获得悬浮窗权限，最小化功能不能正常使用</string>
+    <string name="float_window_authority_title">浮窗权限未获取</string>
+
+    <string name="user_dialing">正在电话中，请稍后再试</string>
+
+    <string name="get_codes">获取验证码</string>
+
+    <!--h5-->
+    <string name="approval_h5_left">左滑可删除该草稿</string>
+
+
+    <string name="kickPersonDialogHint">您的账号已于%s在其他设备上登录。如果这不是您的操作，请及时修改登录密码。</string>
+<!-- 解散企业错误码处理 -->
+    <string name="company_dismission">您所在的企业“%s”已被管理员解散，请退出以个人身份重新登录</string>
+
+
+    <!-- Suffix added to a number to signify size in bytes. -->
+    <string name="byteShort">B</string>
+    <!-- Suffix added to a number to signify size in kilobytes. -->
+    <string name="kilobyteShort">KB</string>
+    <!-- Suffix added to a number to signify size in megabytes. -->
+    <string name="megabyteShort">MB</string>
+    <!-- Suffix added to a number to signify size in gigabytes. -->
+    <string name="gigabyteShort">GB</string>
+    <!-- Suffix added to a number to signify size in terabytes. -->
+    <string name="terabyteShort">TB</string>
+    <!-- Suffix added to a number to signify size in petabytes. -->
+    <string name="petabyteShort">PB</string>
+
+    <!-- 频道-->
+    <string name="channel_pullrefresh_fail">加载失败</string>
+    <string name="channel_announcement">公告</string>
+    <string name="trans_auth_desc">将成为新的频道管理员，你将自动放弃频道管理员身份</string>
+
+    <string name="pic_save_success">图片成功保存到</string>
+    <string name="pic_save_fail">图片保存失败</string>
+    <string name="pic_load_fail">图片加载失败</string>
+    <string name="offical">官方</string>
+    <string name="personal">个人</string>
+    <string name="all_personal">&#160;&#160;全员</string>
+    <string name="department">&#160;&#160;部门</string>
+
+
+    <string name="activate_service_agreement">《Aeromind用户协议》</string>
+    <string name="privacy_policy">《隐私政策》</string>
+
+    <!--相机-->
+    <string name="camera_open_error">启动相机失败</string>
+    <string name="not_specify_a_directory">未指定存储目录</string>
+
+    <string name="my_app">我的应用</string>
+    <string name="my_app_hint">(按住拖动调整排序)</string>
+    <string name="app_manager">应用管理</string>
+
+    <string name="text_search_no_data">无查询结果</string>
+    <string name="text_no_data">无数据</string>
+    <string name="error_gif">无数据</string>
+</resources>
