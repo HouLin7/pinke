@@ -19,7 +19,7 @@ import com.gome.work.common.activity.BaseGomeWorkActivity;
 import com.gome.work.core.event.BaseEventConsumer;
 import com.gome.work.core.event.IEventConsumer;
 import com.gome.work.core.event.model.EventInfo;
-import com.gome.work.core.model.AccessTokenBean;
+import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.utils.SharedPreferencesHelper;
 
 public class BaseGomeWorkFragment extends Fragment {
@@ -44,7 +44,7 @@ public class BaseGomeWorkFragment extends Fragment {
 
 
     public String getLoginUserId() {
-        AccessTokenBean bean = SharedPreferencesHelper.getAccessTokenInfo();
+        AccessTokenInfo bean = SharedPreferencesHelper.getAccessTokenInfo();
         if (bean != null) {
             return bean.userInfo == null ? "" : bean.userInfo.getId();
         }

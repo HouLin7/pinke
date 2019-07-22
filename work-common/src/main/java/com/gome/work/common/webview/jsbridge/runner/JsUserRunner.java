@@ -10,18 +10,14 @@ import com.gome.work.common.webview.jsbridge.JsTask;
 import com.gome.work.common.webview.model.JsShareInfo;
 import com.gome.work.core.Constants;
 import com.gome.work.core.event.EventDispatcher;
-import com.gome.work.core.event.model.BaseChooseParamInfo;
 import com.gome.work.core.event.model.EventInfo;
 import com.gome.work.core.event.model.ToChatWithChatBeanParamInfo;
 import com.gome.work.core.event.model.UserChooseParamInfo;
-import com.gome.work.core.model.AccessTokenBean;
+import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.model.ISelectableItem;
 import com.gome.work.core.model.UserInfo;
-import com.gome.work.core.model.im.BillExtraData;
-import com.gome.work.core.model.im.ShareExtraData;
 import com.gome.work.core.utils.GsonUtil;
 import com.gome.work.core.utils.SharedPreferencesHelper;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,9 +52,9 @@ public class JsUserRunner extends MyBaseJsRunner {
                 return jsonObject.toString();
             case JsActions.ACTION_GET_USER:
                 UserInfo user = SharedPreferencesHelper.getUserDetailInfo();
-                AccessTokenBean tokenInfo = SharedPreferencesHelper.getAccessTokenInfo();
+                AccessTokenInfo tokenInfo = SharedPreferencesHelper.getAccessTokenInfo();
                 jsonObject = new JSONObject();
-                jsonObject.put("name", user.getName());
+                jsonObject.put("name", user.getNickname());
                 jsonObject.put("email", user.getEmail());
                 jsonObject.put("userId", tokenInfo.userInfo.getId());
                 jsonObject.put("account", SharedPreferencesHelper.getString(Constants.PreferKeys.ACCOUNT));
@@ -84,7 +80,7 @@ public class JsUserRunner extends MyBaseJsRunner {
                     for (UserInfo userItem : mSelectUsers) {
                         Map<String, String> item = new HashMap<>();
                         item.put("user_id", userItem.getId() + "");
-                        item.put("user_name", userItem.getName());
+                        item.put("user_name", userItem.getNickname());
                         if (!TextUtils.isEmpty(userItem.getAvatar())) {
                             item.put("user_avatar", userItem.getAvatar());
                         }
@@ -103,12 +99,12 @@ public class JsUserRunner extends MyBaseJsRunner {
                 return jsonObject.toString();
             case JsActions.ACTION_CHAT_TO:
                 jsonObject = new JSONObject();
-                if (TextUtils.isEmpty(task.param) || !handleChatMsg(task.param)) {
-                    jsonObject.put("errorMsg", "未选择");
-                } else {
-                    jsonObject.put("result", "OK");
-
-                }
+//                if (TextUtils.isEmpty(task.param) || !handleChatMsg(task.param)) {
+//                    jsonObject.put("errorMsg", "未选择");
+//                } else {
+//                    jsonObject.put("result", "OK");
+//
+//                }
                 return jsonObject.toString();
             default:
                 break;
@@ -142,80 +138,16 @@ public class JsUserRunner extends MyBaseJsRunner {
         }
         if (mSelectableItems != null && !mSelectableItems.isEmpty()) {
             ISelectableItem selectableItem = mSelectableItems.get(0);
-            ShareExtraData shareExtraData = new ShareExtraData();
-            shareExtraData.title = jsShareInfo.title;
-            shareExtraData.content = jsShareInfo.content;
-            shareExtraData.linkUrl = jsShareInfo.linkUrl;
-            shareExtraData.imgUrl = jsShareInfo.imageUrl;
-            startChat(selectableItem, shareExtraData);
+//            ShareExtraData shareExtraData = new ShareExtraData();
+//            shareExtraData.title = jsShareInfo.title;
+//            shareExtraData.content = jsShareInfo.content;
+//            shareExtraData.linkUrl = jsShareInfo.linkUrl;
+//            shareExtraData.imgUrl = jsShareInfo.imageUrl;
+//            startChat(selectableItem, shareExtraData);
             return true;
         }
         return false;
     }
-
-    private boolean handleChatMsg(String paramData) {
-        if (TextUtils.isEmpty(paramData)) {
-            return false;
-        }
-        try {
-            JSONObject jsonObject = new JSONObject(paramData);
-            String userId = jsonObject.optString("userId");
-            String message = jsonObject.optString("message");
-            String extraData = jsonObject.optString("extraData");
-            if (TextUtils.isEmpty(message) || TextUtils.isEmpty(extraData)) {
-                return false;
-            }
-            ISelectableItem selectableItem = null;
-            Serializable extraDataObj = null;
-            if (TextUtils.isEmpty(userId)) {
-                BaseChooseParamInfo info = new BaseChooseParamInfo(mActivity);
-                info.chooseModel = Constants.MODEL_PICK_SINGLE;
-                info.maxCount = 1;
-                info.requestCode = JsNativeImpl.REQUEST_CODE_FORWARDING;
-                EventDispatcher.postEvent(EventInfo.FLAG_FORWARDING, info);
-                synchronized (JsUserRunner.this) {
-                    JsUserRunner.this.wait();
-                }
-
-                if (mSelectableItems != null && !mSelectableItems.isEmpty()) {
-                    selectableItem = mSelectableItems.get(0);
-                }
-            }
-
-            if (!TextUtils.isEmpty(extraData)) {
-                JSONArray array = new JSONArray(extraData);
-                ArrayList<BillExtraData> billList = new ArrayList<>();
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject billJson = array.getJSONObject(i);
-                    BillExtraData billExtraData = new BillExtraData();
-                    billExtraData.billCode = billJson.getString("billNo");
-                    billExtraData.mainTitle = "审批";
-                    billExtraData.subTitle = billJson.optString("requisitionUserName") + "的" + billJson.getString("billName");
-                    billExtraData.billTitle = billJson.optString("billTitle");
-                    billExtraData.billTime = billJson.optString("createTime");
-                    billExtraData.billName = billJson.optString("billName");
-                    billExtraData.billLinkUrl = billJson.optString("targetUrl");
-                    billList.add(billExtraData);
-                    extraDataObj = billList;
-                }
-
-            }
-
-            if (selectableItem != null || extraData != null) {
-                startChat(selectableItem, extraDataObj);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 
     private void startChat(ISelectableItem selectableItem, Serializable extraData) {
         ToChatWithChatBeanParamInfo paramInfo = new ToChatWithChatBeanParamInfo(mActivity);

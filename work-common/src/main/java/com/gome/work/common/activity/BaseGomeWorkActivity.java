@@ -3,21 +3,17 @@ package com.gome.work.common.activity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -37,7 +33,7 @@ import com.gome.work.core.SystemFramework;
 import com.gome.work.core.event.BaseEventConsumer;
 import com.gome.work.core.event.IEventConsumer;
 import com.gome.work.core.event.model.EventInfo;
-import com.gome.work.core.model.AccessTokenBean;
+import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.persistence.DaoUtil;
 import com.gome.work.core.utils.SharedPreferencesHelper;
 
@@ -92,6 +88,8 @@ public class BaseGomeWorkActivity extends BaseActivity {
 
     protected DaoUtil mDaoUtil;
 
+    protected BaseGomeWorkActivity mActivity;
+
     private List<Disposable> mDisposableList = new ArrayList<>();
 
     @Override
@@ -106,6 +104,10 @@ public class BaseGomeWorkActivity extends BaseActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         mDaoUtil = new DaoUtil(this);
+        mActivity = this;
+
+//        ToastUtil.showToast(this, this.getClass().getSimpleName());
+
     }
 
 
@@ -435,7 +437,7 @@ public class BaseGomeWorkActivity extends BaseActivity {
 
 
     public String getLoginUserId() {
-        AccessTokenBean bean = SharedPreferencesHelper.getAccessTokenInfo();
+        AccessTokenInfo bean = SharedPreferencesHelper.getAccessTokenInfo();
         if (bean != null) {
             return bean.userInfo == null ? "" : bean.userInfo.getId();
         }

@@ -37,7 +37,7 @@ import com.gome.work.common.databinding.ActivityCommonWebBinding;
 import com.gome.work.common.webview.jsbridge.JsNativeImpl;
 import com.gome.work.common.webview.model.JsMenuInfo;
 import com.gome.work.core.Constants;
-import com.gome.work.core.model.AccessTokenBean;
+import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.model.UserInfo;
 import com.gome.work.core.model.appmarket.AppItemBean;
 import com.gome.work.core.utils.GomeBpUtils;
@@ -197,15 +197,15 @@ public class CommonWebActivity extends BaseGomeWorkActivity {
     }
 
     protected Map<String, Object> buildBusinessTagData() {
-        AccessTokenBean accessTokenBean = SharedPreferencesHelper.getAccessTokenInfo();
+        AccessTokenInfo accessTokenInfo = SharedPreferencesHelper.getAccessTokenInfo();
         UserInfo userInfoBean = SharedPreferencesHelper.getUserDetailInfo();
         Map<String, Object> result = new HashMap<>();
         if (userInfoBean != null) {
             Map<String, Object> department = new HashMap<>();
             result.put("department", department);
         } else {
-            if (accessTokenBean != null) {
-//                result.put("userId", accessTokenBean.userInfo.getEmployeeId());
+            if (accessTokenInfo != null) {
+//                result.put("userId", accessTokenInfo.userInfo.getEmployeeId());
             }
         }
         return result;

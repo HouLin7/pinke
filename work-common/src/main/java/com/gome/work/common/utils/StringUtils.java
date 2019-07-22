@@ -1,7 +1,5 @@
 package com.gome.work.common.utils;
 
-import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.io.BufferedReader;
@@ -22,20 +20,6 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    /**
-     * 获取strings.xml 中的文本
-     *
-     * @param context
-     * @param id
-     * @return
-     */
-    public static String getStringText(Context context, int id) {
-        return context.getResources().getString(id);
-    }
-
-    public static String getStringText(Activity activity, int id) {
-        return activity.getResources().getString(id);
-    }
 
     public static ArrayList<String> getStringList(List<Long> lists) {
         if (lists.isEmpty())
@@ -145,6 +129,7 @@ public class StringUtils {
 
     /**
      * 获取指定url中的某个参数
+     *
      * @param url
      * @param name
      * @return
@@ -156,7 +141,7 @@ public class StringUtils {
         Pattern r = Pattern.compile(pattern);
 
         Matcher m = r.matcher(url);
-        if (m.find( )) {
+        if (m.find()) {
             return m.group(0).split("=")[1].replace("&", "");
         } else {
             return null;
@@ -167,5 +152,12 @@ public class StringUtils {
         Pattern p = Pattern.compile("^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\\.([a-zA-Z0-9_-])+)+$");
         Matcher m = p.matcher(email);
         return m.matches();
+    }
+
+    public static boolean checkPhone(String phoneNum){
+        Pattern p = Pattern.compile("^(1[3-9])\\d{9}$");
+        Matcher m = p.matcher(phoneNum);
+        return m.matches();
+
     }
 }

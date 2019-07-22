@@ -20,6 +20,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gome.work.common.R;
@@ -30,6 +31,7 @@ import com.gome.work.core.event.EventDispatcher;
 import com.gome.work.core.event.model.BaseChooseParamInfo;
 import com.gome.work.core.event.model.EventInfo;
 import com.gome.work.core.event.model.PhotoChooseParamInfo;
+import com.gome.work.core.model.im.ConversationInfo;
 
 import java.lang.reflect.Field;
 
@@ -386,16 +388,19 @@ public class UiUtils {
     }
 
     public static void getSelectPicList(Activity context, int typeScope, int requestCode) {
-//        BaseChooseParamInfo info = new BaseChooseParamInfo(context);
-//        info.maxCount = 10;
-//        info.requestCode = requestCode;
-//        info.chooseModel = Constants.MODEL_PICK_MULTI;
-//        EventDispatcher.postEvent(EventInfo.FLAG_PHOTO_CHOOSE, info);
         PhotoChooseParamInfo info = new PhotoChooseParamInfo(context);
         info.chooseModel = Constants.MODEL_PICK_MULTI;
         info.maxCount = 10;
         info.typeScope = typeScope;
         info.requestCode = requestCode;
         EventDispatcher.postEvent(EventInfo.FLAG_PHOTO_CHOOSE, info);
+    }
+
+    public static int getResColorValue(Context context, int colorResId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getColor(colorResId);
+        } else {
+            return context.getResources().getColor(colorResId);
+        }
     }
 }

@@ -3,7 +3,7 @@
 
     <style name="thin_divider">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/line_divider_0.5</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/divider_color</item>
     </style>
 
@@ -63,7 +63,7 @@
     <style name="Activity.Dialog" parent="Base.Activity.Dialog"/>
 
     <style name="MyCustomTabTextAppearance">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="textAllCaps">true</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -133,7 +133,7 @@
 
     <style name="MenuTextStyle" parent="@style/TextAppearance.AppCompat.Menu">">
         <item name="android:textSize">@dimen/text_size_big</item>
-        <item name="android:textColor">@color/app_red</item>
+        <item name="android:textColor">@color/theme_green</item>
     </style>
 
     <style name="activity_style" parent="Base.Activity.Style">

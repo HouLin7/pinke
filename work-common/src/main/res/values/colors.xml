@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="theme_blue">#00D7BE</color>
+    <color name="theme_blue_gray">#ff199bf1</color>
+
+    <color name="theme_green">#00B36A</color>
+    <color name="theme_green_gray">#00d38A</color>
+
     <!--原来engine color-->
     <color name="dialog_btn_text">#666666</color>
     <color name="gray">#808080</color>

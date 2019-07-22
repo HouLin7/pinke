@@ -28,6 +28,8 @@ android {
 
 
 dependencies {
+    testImplementation 'junit:junit:4.12'
+    testImplementation rootProject.ext.dependencies["support-test-runner"]
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation rootProject.ext.dependencies["junit"]
     api rootProject.ext.dependencies["constraintLayout"]

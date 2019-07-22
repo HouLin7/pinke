@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:padding="@dimen/padding_5"
+        android:padding="5dp"
         android:textColor="@color/title_name_color"
         android:textSize="@dimen/text_size_big"
         tools:text="标题"/>
