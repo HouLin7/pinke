@@ -1,126 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <variable
-                name="viewModel"
-                type="com.bochuan.pinke.activity.LoginActivity"/>
-    </data>
-
-
-    <LinearLayout
-            android:id="@+id/login_layout_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/frame_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_login">
 
         <com.makeramen.roundedimageview.RoundedImageView
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
-                app:riv_corner_radius="15dp"
-        />
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"
+            app:riv_corner_radius="15dp" />
+
+    </FrameLayout>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/frame_view"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/theme_blue"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/theme_blue"
+        app:tabTextAppearance="@style/MyCustomTabTextAppearance"
+        app:tabTextColor="@color/app_gray_light" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_above="@+id/button_login"
+        android:layout_below="@+id/tab_layout"></android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="专注办公      高效协作"
-                android:textColor="@color/app_gray_light"
-                android:textSize="@dimen/text_size_normal"/>
+            android:id="@+id/tv_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="忘记密码"
+            android:textColor="@color/theme_blue"
+            android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="新用户注册"
+            android:textColor="@color/theme_blue"
+            android:textSize="@dimen/text_size_normal" />
+    </RelativeLayout>
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_login_btn_selector"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textColorHint="@color/app_gray_light"
+        android:textSize="@dimen/text_size_normal" />
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/divider_color"/>
+</LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="15dp"
-                    android:theme="@style/LoginEditTextStyle"
-                    app:errorEnabled="false">
-
-                <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/edit_account"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="域账号"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:textColor="@color/text_black"
-                        android:textColorHint="@color/btn_gray_normal"
-                        android:textSize="@dimen/text_size_normal"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:theme="@style/LoginEditTextStyle"
-                    app:errorEnabled="false"
-                    app:passwordToggleEnabled="true">
-
-                <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/edit_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="密码"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"
-                        android:maxLength="@integer/password_max_length"
-                        android:maxLines="1"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        android:textColor="@color/text_black"
-                        android:textColorHint="@color/btn_gray_normal"
-                        android:textSize="@dimen/text_size_normal"/>
-            </android.support.design.widget.TextInputLayout>
-
-
-        </LinearLayout>
-
-
-        <Button
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/view_space_45"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/bg_login_btn_selector"
-                android:gravity="center"
-                android:onClick="@{viewModel::login}"
-                android:text="@string/login"
-                android:textColor="@color/white"
-                android:textColorHint="@color/app_gray_light"
-                android:textSize="@dimen/text_size_normal"/>
-
-
-    </LinearLayout>
-
-</layout>

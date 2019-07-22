@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frame_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_login">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:visibility="gone"
+            app:riv_corner_radius="15dp" />
+
+    </FrameLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="手机号"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toLeftOf="@+id/button_captcha_get"
+            android:theme="@style/LoginEditTextStyle"
+            app:errorEnabled="false"
+            app:passwordToggleEnabled="false">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edit_captcha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="验证码"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="@integer/password_max_length"
+                android:maxLines="1"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/btn_gray_normal"
+                android:textSize="@dimen/text_size_normal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_captcha_get"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_login_btn_selector"
+            android:text="获取"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入密码"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="@integer/password_max_length"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="确认密码"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="@integer/password_max_length"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_login_btn_selector"
+        android:gravity="center"
+        android:imeOptions="actionDone"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textColorHint="@color/app_gray_light"
+        android:textSize="@dimen/text_size_normal" />
+
+</LinearLayout>
+

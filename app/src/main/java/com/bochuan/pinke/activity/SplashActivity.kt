@@ -45,18 +45,23 @@ class SplashActivity : BaseGomeWorkActivity() {
         requestPermission(
             arrayOf(
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+
+
             )
         ) { permission, isSuccess ->
             permissionResult[permission] = isSuccess
-            if (permissionResult.containsKey(Manifest.permission.READ_PHONE_STATE) && permissionResult.containsKey(
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                )
+            if (permissionResult.containsKey(Manifest.permission.READ_PHONE_STATE)
+                && permissionResult.containsKey(Manifest.permission.READ_EXTERNAL_STORAGE)
+                && permissionResult.contains(Manifest.permission.ACCESS_COARSE_LOCATION)
+                && permissionResult.contains(Manifest.permission.ACCESS_FINE_LOCATION)
             ) {
                 if (permissionResult[Manifest.permission.READ_PHONE_STATE]!! && permissionResult[Manifest.permission.READ_PHONE_STATE]!!) {
                     showSplash()
                 } else {
-                    AlertDialog.Builder(this@SplashActivity).setMessage("获取权限失败，程序无法运行")
+                    AlertDialog.Builder(this@SplashActivity).setMessage("获取基本权限失败，程序无法运行")
                         .setCancelable(false)
                         .setPositiveButton(R.string.confirm) { dialog, which -> finish() }.show()
 

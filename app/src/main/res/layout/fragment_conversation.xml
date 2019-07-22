@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/custom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/title_bar_height"
+        android:layout_alignParentTop="true" />
 
-    
-    <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_navigation_bar_container"
-            android:layout_marginBottom="56dp"
-            android:fitsSystemWindows="true">
+            android:layout_height="wrap_content" />
 
-    </android.support.v4.view.ViewPager>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <com.ashokvarma.bottomnavigation.BottomNavigationBar
-            android:id="@+id/bottom_navigation_bar_container"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            app:bnbActiveColor="@color/app_red"
-            app:bnbAutoHideEnabled="false"
-            app:bnbBackgroundColor="@color/white"
-            app:bnbInactiveColor="@color/app_gray_divider"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
 
 
 

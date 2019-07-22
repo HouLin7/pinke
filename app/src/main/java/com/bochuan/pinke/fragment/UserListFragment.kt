@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bochuan.pinke.R
@@ -18,6 +17,8 @@ import kotlinx.android.synthetic.main.adapter_user_list_item.*
 import kotlinx.android.synthetic.main.simple_list_view.*
 
 class UserListFragment : BaseFragment() {
+
+    override fun getLayoutID(): Int = R.layout.simple_list_view
 
     private var testData: MutableList<UserInfo>? = null;
 
@@ -32,17 +33,12 @@ class UserListFragment : BaseFragment() {
             testData!!.add(item)
         }
 
+
     }
 
 
     override fun refreshData() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var contentView: View = View.inflate(activity, R.layout.simple_list_view, null);
-        return contentView
     }
 
 
@@ -52,7 +48,7 @@ class UserListFragment : BaseFragment() {
             CustomNewsDivider(
                 context,
                 DividerItemDecoration.HORIZONTAL,
-                2,
+                1,
                 R.color.divider_color
             )
         )
@@ -79,7 +75,7 @@ class UserListFragment : BaseFragment() {
         inner class MyViewHolder(view: View) : KotlinViewHolder<UserInfo>(view) {
 
             override fun bind(t: UserInfo) {
-                tv_user_nickname.text = t.name;
+                tv_user_nickname.text = t.nickname;
                 tv_user_address.text = t.address
                 ImageLoader.loadImage(activity, t.avatar, iv_avatar);
             }

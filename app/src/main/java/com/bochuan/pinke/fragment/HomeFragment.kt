@@ -1,7 +1,12 @@
 package com.bochuan.pinke.fragment
 
+import android.Manifest
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.animation.ValueAnimator
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -10,15 +15,18 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.baidu.location.BDLocation
+import com.baidu.location.Poi
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
+import com.bochuan.pinke.activity.ConversationActivity
+import com.bochuan.pinke.util.BCLocationManager
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.ToastUtil
 import com.gome.work.common.KotlinViewHolder
@@ -34,6 +42,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
+    override fun getLayoutID(): Int = R.layout.fragment_home
+
     private var mBannerList: MutableList<BannerBean> = mutableListOf();
 
     private var mBestTeacherList: MutableList<UserInfo> = mutableListOf();
@@ -44,6 +54,7 @@ class HomeFragment : BaseFragment() {
 
     private var mAdapterTeacher: AdapterTeacher? = null;
 
+
     init {
         createTestData();
     }
@@ -51,8 +62,31 @@ class HomeFragment : BaseFragment() {
     override fun refreshData() {
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    private fun getLocation() {
+        val locManager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            mActivity!!.showAlertDlg("请先打开手机定位开关")
+
+        }
+        var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION);
+        mActivity!!.requestPermission(
+            permissions
+        ) { permission, isSuccess ->
+            if (isSuccess) {
+                val locationManager = BCLocationManager(activity!!);
+                locationManager.getLocation(object : BCLocationManager.ILocationCallback {
+                    override fun call(loc: BDLocation) {
+                        tv_address.text = loc.address.district + loc.address.street
+                        tv_city.text = loc.city
+                    }
+
+                })
+            } else {
+
+            }
+
+        }
     }
 
 
@@ -68,7 +102,7 @@ class HomeFragment : BaseFragment() {
 
         var teacher = UserInfo();
         teacher.avatar = "http://b-ssl.duitang.com/uploads/item/201711/09/20171109200813_2vtKE.jpeg";
-        teacher.name = "推荐老师"
+        teacher.nickname = "推荐老师"
         mBestTeacherList.add(teacher)
         mBestTeacherList.add(teacher)
         mBestTeacherList.add(teacher)
@@ -83,13 +117,14 @@ class HomeFragment : BaseFragment() {
         mBestOrganizationList.add(organize)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view: View? = inflater.inflate(R.layout.fragment_home, null)
-        return view
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        layout_bg.visibility = View.VISIBLE
+        tv_city.text = ""
+        tv_address.text = ""
+
         iv_ad_1.setImageResource(R.mipmap.ic_launcher)
         iv_ad_2.setImageResource(R.mipmap.ic_launcher)
         iv_ad_3.setImageResource(R.mipmap.ic_launcher)
@@ -107,7 +142,7 @@ class HomeFragment : BaseFragment() {
         recyclerView_near_best_teacher.adapter = mAdapterTeacher;
 
 
-        var conven: ConvenientBanner<BannerBean> = convenientBanner as ConvenientBanner<BannerBean>
+        var conven: ConvenientBanner<BannerBean> = convenientBanner!! as ConvenientBanner<BannerBean>
         conven.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
                 return BannerHolder(itemView)
@@ -163,6 +198,14 @@ class HomeFragment : BaseFragment() {
             floating_action_menu.collapse()
         }
         layout_bg.isClickable = false;
+
+        iv_message.setOnClickListener { startActivity(Intent(mActivity,ConversationActivity::class.java)) }
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        getLocation()
     }
 
 
@@ -207,7 +250,7 @@ class HomeFragment : BaseFragment() {
         inner class MyViewHolder(view: View) : KotlinViewHolder<UserInfo>(view) {
 
             override fun bind(t: UserInfo) {
-                tv_user_nickname.text = t.name;
+                tv_user_nickname.text = t.nickname;
                 ImageLoader.loadImage(activity, t.avatar, iv_user_avatar);
             }
         }
@@ -269,7 +312,7 @@ class HomeFragment : BaseFragment() {
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return titleList!![position]
+            return titleList[position]
         }
     }
 

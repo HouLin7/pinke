@@ -13,7 +13,6 @@ import com.bochuan.pinke.databinding.ActivityGuidePagesBinding
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.core.Constants
 import com.gome.work.core.utils.SharedPreferencesHelper
-import java.util.*
 
 class GuidePagesActivity : BaseGomeWorkActivity() {
 
@@ -28,12 +27,7 @@ class GuidePagesActivity : BaseGomeWorkActivity() {
 
 
     private fun initPage() {
-        pageImages = ArrayList()
-        //        pageImages.add(R.mipmap.guide_page_1);
-        //        pageImages.add(R.mipmap.guide_page_2);
-        //        pageImages.add(R.mipmap.guide_page_3);
-        //        pageImages.add(R.mipmap.guide_page_4);
-
+        pageImages = listOf(R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.bg_login)
         binding!!.convenientBanner.setPages(object : CBViewHolderCreator {
             override fun createHolder(itemView: View): Holder<*> {
                 return GuideHolderView(itemView)
@@ -76,7 +70,7 @@ class GuidePagesActivity : BaseGomeWorkActivity() {
 
         override fun updateUI(data: Int?) {
             imageView!!.setImageResource(data!!)
-            if (pageImages!!.indexOf(data) != pageImages!!.size - 1) {
+            if (data != pageImages!!.last()) {
                 btnEnter!!.visibility = View.GONE
             } else {
                 btnEnter!!.visibility = View.VISIBLE

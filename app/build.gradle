@@ -70,9 +70,10 @@ android {
         }
         debug {
             buildConfigField("boolean", "LOG_DEBUG", "true")
-            buildConfigField("String", "SERVER_FLAG", "\"TEST\"")
             resValue "string", "app_name", "佰师伴读"
-//            buildConfigField("String", "SERVER_FLAG", "\"PRE_RELEASE\"")
+
+//            buildConfigField("String", "SERVER_FLAG", "\"TEST\"")
+            buildConfigField("String", "SERVER_FLAG", "\"PRE_RELEASE\"")
 //            buildConfigField("String", "SERVER_FLAG", "\"RELEASE\"")
 //            applicationIdSuffix ".debug200"
 
@@ -132,6 +133,7 @@ dependencies {
 
     implementation project(":umengSDK")
 
+    implementation project(":easeui")
     implementation rootProject.ext.dependencies["bugly"]
 
 

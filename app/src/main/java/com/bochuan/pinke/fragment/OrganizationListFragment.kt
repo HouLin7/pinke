@@ -18,19 +18,16 @@ import kotlinx.android.synthetic.main.simple_list_view.*
 
 class OrganizationListFragment : BaseFragment() {
 
-    override fun refreshData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getLayoutID(): Int = R.layout.simple_list_view
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var contentView: View = View.inflate(activity, R.layout.simple_list_view, null);
-        return contentView
+    override fun refreshData() {
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity);
         recyclerView.addItemDecoration(
             CustomNewsDivider(
                 context,

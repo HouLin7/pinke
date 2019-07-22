@@ -1,9 +1,15 @@
 package com.bochuan.pinke.activity
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.SparseArray
 import android.view.ViewGroup
@@ -11,14 +17,20 @@ import android.widget.Toast
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
+import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
 import com.bochuan.pinke.fragment.*
+import com.bochuan.pinke.util.BCLocationManager
 import com.gome.work.common.activity.BaseGomeWorkActivity
+import com.gome.work.core.model.RegionItem
+import com.gome.work.core.net.IResponseListener
+import com.gome.work.core.net.WebApi
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+
 
 open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener {
 
@@ -51,8 +63,20 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
 
         initTextBadgeItems(myFragmentTabAdapter!!.getCount())
         initNavigationBar(bottom_navigation_bar_container)
+//        goLoginActivity()
+
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        if (!isLogined) {
+            finish()
+            var intent = Intent(mActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
 
     override fun onBackPressed() {
         val index = view_pager.currentItem
@@ -76,7 +100,7 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
         val numberBadgeItem = TextBadgeItem()
         numberBadgeItem.hide(true)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            numberBadgeItem.setBackgroundColor(resources.getColor(R.color.red, theme))
+            numberBadgeItem.setBackgroundColor(getColor(R.color.red))
         } else {
             numberBadgeItem.setBackgroundColor(resources.getColor(R.color.red))
         }
@@ -104,14 +128,21 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
         )
 
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "我的课程")
+            BottomNavigationItem(R.mipmap.ic_launcher, "课程")
                 .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(2))
         )
 
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "我的")
+            BottomNavigationItem(R.mipmap.ic_launcher, "课表")
                 .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(3))
         )
+
+        naviBar.addItem(
+            BottomNavigationItem(R.mipmap.ic_launcher, "我")
+                .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(3))
+        )
+
+
 
         naviBar.setFirstSelectedPosition(0).initialise()
         naviBar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
@@ -126,7 +157,7 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
             override fun onTabReselected(position: Int) {
                 if (position == 0) {
                     val fragment = myFragmentTabAdapter?.getItem(0) as BaseFragment
-                    fragment?.refreshData()
+                    fragment.refreshData()
                 }
             }
         })
@@ -156,10 +187,16 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
             }).open();
     }
 
+    fun goLoginActivity() {
+        var intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+
+    }
+
     /**
      * 初始化Fragment
      */
-    internal class MyFragmentTabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    internal class MyFragmentTabAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
         var mFragmentList = SparseArray<BaseFragment>()
 
@@ -170,19 +207,21 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
                     0 -> fragment = HomeFragment()
                     1 -> fragment = ConversationFragment()
                     2 -> fragment = MyCourseFragment()
-                    3 -> fragment = MineFragment()
+                    3 -> fragment = CourseScheduleFragment()
+                    4 -> fragment = MineFragment()
                 }
                 mFragmentList.put(position, fragment)
             }
             return fragment
         }
 
+
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             super.destroyItem(container, position, `object`)
         }
 
         override fun getCount(): Int {
-            return 4
+            return 5
         }
     }
 

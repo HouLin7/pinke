@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:hint="用户名"
+            android:id="@+id/edit_account"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:maxLines="1"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:hint="密码"
+            android:id="@+id/edit_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:maxLength="@integer/password_max_length"
+            android:maxLines="1"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
+
+
+
+
+
+
