@@ -409,11 +409,9 @@ int color switch_thumb_material_light 0x7f060054
 int color switch_thumb_normal_material_dark 0x7f060055
 int color switch_thumb_normal_material_light 0x7f060056
 int color text_black 0x7f060057
-int color theme_blue 0x7f060058
-int color theme_blue_gray 0x7f060059
-int color tooltip_background_dark 0x7f06005a
-int color tooltip_background_light 0x7f06005b
-int color white 0x7f06005c
+int color tooltip_background_dark 0x7f060058
+int color tooltip_background_light 0x7f060059
+int color white 0x7f06005a
 int dimen abc_action_bar_content_inset_material 0x7f070001
 int dimen abc_action_bar_content_inset_with_nav 0x7f070002
 int dimen abc_action_bar_default_height_material 0x7f070003

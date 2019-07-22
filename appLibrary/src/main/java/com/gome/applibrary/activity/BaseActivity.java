@@ -276,7 +276,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         return resIds;
     }
 
-    protected void showAlertDlg(String text) {
+    public void showAlertDlg(String text) {
         showAlertDlg(text, null);
     }
 
