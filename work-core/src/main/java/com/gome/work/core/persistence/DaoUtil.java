@@ -1,7 +1,6 @@
 package com.gome.work.core.persistence;
 
 import android.content.Context;
-
 import com.gome.core.greendao.*;
 import com.gome.work.core.model.dao.FileTransferTaskInfo;
 
@@ -44,8 +43,9 @@ public class DaoUtil {
         return mManager.getDaoSession().getGroupInfoDao();
     }
 
-    public NoticeAssociationTabDao getNoticeAssociationTabDao() {
-        return mManager.getDaoSession().getNoticeAssociationTabDao();
+
+    public ConversationInfoDao getConversationInfoDao() {
+        return mManager.getDaoSession().getConversationInfoDao();
     }
 
     public PushDataExtraInfoDao getPushDataExtraInfoDao() {

@@ -67,7 +67,7 @@ public class ContactsNodeItem implements Serializable {
     public UserInfo toUserBean() {
         UserInfo result = new UserInfo();
         result.setId(id);
-        result.setName(name);
+        result.setNickname(name);
         result.setAvatar(avatar);
         result.setImId(imId);
         return result;

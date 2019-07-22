@@ -17,7 +17,6 @@ import java.security.GeneralSecurityException;
 public final class EncryptedPreferencesValue {
 	private static final String ENCRIPTSUFFIX		= "liu101245le456tao78";//只包含字母和数字
 	private static final String ENCRYPTPASSWORD 	= "liuletao20160811";
-	private static final String PREFERENCENAME 		= "test_work";//sp文件名称
 
 	private static EncryptedPreferencesValue encryptedPreferences;
 	private final SharedPreferences sharedPreferences;

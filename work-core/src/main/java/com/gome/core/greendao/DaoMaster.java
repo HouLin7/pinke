@@ -31,9 +31,9 @@ public class DaoMaster extends AbstractDaoMaster {
         MyFriendInfoDao.createTable(db, ifNotExists);
         AppItemBeanDao.createTable(db, ifNotExists);
         UserInfoDao.createTable(db, ifNotExists);
+        ConversationInfoDao.createTable(db, ifNotExists);
         PushDataExtraInfoDao.createTable(db, ifNotExists);
         GroupInfoDao.createTable(db, ifNotExists);
-        NoticeAssociationTabDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -48,9 +48,9 @@ public class DaoMaster extends AbstractDaoMaster {
         MyFriendInfoDao.dropTable(db, ifExists);
         AppItemBeanDao.dropTable(db, ifExists);
         UserInfoDao.dropTable(db, ifExists);
+        ConversationInfoDao.dropTable(db, ifExists);
         PushDataExtraInfoDao.dropTable(db, ifExists);
         GroupInfoDao.dropTable(db, ifExists);
-        NoticeAssociationTabDao.dropTable(db, ifExists);
     }
 
     /**
@@ -79,9 +79,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(MyFriendInfoDao.class);
         registerDaoClass(AppItemBeanDao.class);
         registerDaoClass(UserInfoDao.class);
+        registerDaoClass(ConversationInfoDao.class);
         registerDaoClass(PushDataExtraInfoDao.class);
         registerDaoClass(GroupInfoDao.class);
-        registerDaoClass(NoticeAssociationTabDao.class);
     }
 
     public DaoSession newSession() {

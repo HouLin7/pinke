@@ -33,6 +33,7 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
         public final static Property Url = new Property(6, String.class, "url", false, "URL");
         public final static Property IsRead = new Property(7, boolean.class, "isRead", false, "IS_READ");
         public final static Property AppId = new Property(8, String.class, "appId", false, "APP_ID");
+        public final static Property CreateTime = new Property(9, long.class, "createTime", false, "CREATE_TIME");
     }
 
 
@@ -56,7 +57,8 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
                 "\"TITLE\" TEXT," + // 5: title
                 "\"URL\" TEXT," + // 6: url
                 "\"IS_READ\" INTEGER NOT NULL ," + // 7: isRead
-                "\"APP_ID\" TEXT);"); // 8: appId
+                "\"APP_ID\" TEXT," + // 8: appId
+                "\"CREATE_TIME\" INTEGER NOT NULL );"); // 9: createTime
     }
 
     /** Drops the underlying database table. */
@@ -109,6 +111,7 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
         if (appId != null) {
             stmt.bindString(9, appId);
         }
+        stmt.bindLong(10, entity.getCreateTime());
     }
 
     @Override
@@ -155,6 +158,7 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
         if (appId != null) {
             stmt.bindString(9, appId);
         }
+        stmt.bindLong(10, entity.getCreateTime());
     }
 
     @Override
@@ -173,7 +177,8 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // title
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // url
             cursor.getShort(offset + 7) != 0, // isRead
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // appId
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // appId
+            cursor.getLong(offset + 9) // createTime
         );
         return entity;
     }
@@ -189,6 +194,7 @@ public class PushDataExtraInfoDao extends AbstractDao<PushDataExtraInfo, Long> {
         entity.setUrl(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setIsRead(cursor.getShort(offset + 7) != 0);
         entity.setAppId(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCreateTime(cursor.getLong(offset + 9));
      }
     
     @Override

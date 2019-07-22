@@ -4,14 +4,9 @@ package com.gome.work.core.net;
 public interface APIConstants {
 
     /**
-     * 登录并获取token
+     * 获取验证码
      */
-    String GET_TOKEN = "app/oauth/authroize.do";
-
-    /**
-     * 获取域账号
-     */
-    String GET_DOMAIN_ACCOUNTS = "app/get/getDomainUserByName.do";
+    String GET_CAPTCHA = "communal/verify/sms";
 
     /**
      * 获取用户详情
@@ -23,11 +18,6 @@ public interface APIConstants {
      */
 
     String UPDATE_USER_AVATA = "app/user/headportrait.do";
-
-    /**
-     * 获取通讯录结构
-     */
-    String GET_ORGANIZE = "app/organize/{nodeId}.do";
 
     /**
      * 获取好友列表
@@ -142,25 +132,6 @@ public interface APIConstants {
      */
     String GET_GROUP_NOTICE = "app/groups/notice/show.do";
 
-    /**
-     * 获取IMTOKEN
-     */
-    String GET_IM_REFRESH_TOKEN = "app/user/getImToken.do";
-    /**
-     * 获取通知列表
-     */
-    String GET_NOTICE_LIST = "app/push/get_message.do";
-
-
-    /**
-     * 获取待办任务
-     */
-    String GET_BACK_LOG_LIST = "app/todoTask.do";
-
-    /**
-     * 获取已办任务
-     */
-    String GET_COMPLETE_TASK_LIST = "app/completeTask.do";
 
 
     /**
@@ -230,22 +201,6 @@ public interface APIConstants {
     String CANCEL_APP_PRAIS_DATA = "app_shop/apps/praise_cancel.do";
 
     /**
-     * 获取APP详情
-     */
-    String GET_APP_DETAIL = "app_shop/apps/show/{appId}.do";
-
-
-    /**
-     * 获取已收藏应用列表
-     */
-    String GET_APP_FAVORITES_LIST = "app_shop/apps/favorites/show.do";
-
-    /**
-     * 同步我的收藏排序
-     */
-    String UPDATE_FAVORITE_SORT = "app_shop/apps/favorite/order/update.do";
-
-    /**
      * 获取“工作”tab中广告
      */
     String GET_BANNER_LIST = "app_shop/banner/show.do";
@@ -260,10 +215,6 @@ public interface APIConstants {
      */
     String UPLOAD_FILE = "app/gfs/uploadFileGfsNew.do";
 
-    /**
-     * 查看token信息
-     */
-    String GET_TOKEN_INFO = "app/oauth/get_token_info.do";
 
     /**
      * 日程查询接口

@@ -3,7 +3,7 @@ package com.gome.work.core.utils;
 
 import android.text.TextUtils;
 import com.gome.work.core.Constants;
-import com.gome.work.core.model.AccessTokenBean;
+import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.model.UserInfo;
 import com.gome.work.core.utils.encrypt.EncryptedPreferencesValue;
 import com.google.gson.Gson;
@@ -55,19 +55,19 @@ public class SharedPreferencesHelper {
         return EncryptedPreferencesValue.getInstance().getEdit().putBoolean(key, value).commit();
     }
 
-    public static void saveAccessTokenInfo(AccessTokenBean accessTokenBean) {
+    public static void saveAccessTokenInfo(AccessTokenInfo accessTokenInfo) {
         Gson gson = new Gson();
-        String data = gson.toJson(accessTokenBean);
+        String data = gson.toJson(accessTokenInfo);
         commitString(Constants.PreferKeys.ACCESS_TOKEN_INFO, data);
-        commitString(Constants.PreferKeys.ACCESS_TOKEN, accessTokenBean.token);
+        commitString(Constants.PreferKeys.ACCESS_TOKEN, accessTokenInfo.token);
     }
 
-    public static AccessTokenBean getAccessTokenInfo() {
-        AccessTokenBean result = new AccessTokenBean();
+    public static AccessTokenInfo getAccessTokenInfo() {
+        AccessTokenInfo result = new AccessTokenInfo();
         String data = SharedPreferencesHelper.getString(Constants.PreferKeys.ACCESS_TOKEN_INFO, "");
         if (!TextUtils.isEmpty(data)) {
             Gson gson = new Gson();
-            result = gson.fromJson(data, AccessTokenBean.class);
+            result = gson.fromJson(data, AccessTokenInfo.class);
         }
         return result;
     }

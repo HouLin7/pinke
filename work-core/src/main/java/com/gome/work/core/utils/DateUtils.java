@@ -22,7 +22,7 @@ public class DateUtils {
     }
 
     public static String getDate(String format) {
-        SimpleDateFormat sf =  new SimpleDateFormat(format, Locale.getDefault());
+        SimpleDateFormat sf = new SimpleDateFormat(format, Locale.getDefault());
         Date date = new Date(System.currentTimeMillis());
         return sf.format(date);
     }
@@ -40,6 +40,15 @@ public class DateUtils {
         } catch (NumberFormatException e) {
             return time;
         }
+    }
+
+
+    public static boolean isSameDay(long time1, long time2) {
+        Calendar c1 = Calendar.getInstance();
+        c1.setTimeInMillis(time1);
+        Calendar c2 = Calendar.getInstance();
+        c2.setTimeInMillis(time2);
+        return isSameDay(c1, c2);
     }
 
     public static boolean isSameDay(Calendar c1, Calendar c2) {
@@ -212,24 +221,9 @@ public class DateUtils {
         return day + "天" + hour + "小时" + min + "分钟";
     }
 
-    /**
-     * 返回当前日期之后 count 天的日期
-     *
-     * @param count
-     * @return
-     */
-    public static String getDateLaterbyCount(int count) {
-        Date date = new Date();//取时间
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(calendar.DAY_OF_YEAR, count);//增加一天,负数为减少一天
-        date = calendar.getTime();
-        return format(date, "MM月dd日");
-    }
 
-
-    public static Calendar getCalendar(String dateStr){
-        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    public static Calendar getCalendar(String dateStr) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = null;
         try {
             date = sdf.parse(dateStr);
@@ -239,6 +233,20 @@ public class DateUtils {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
+    }
+
+    public static long getPreDay(long timeInMillis) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeInMillis);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        return cal.getTimeInMillis();
+    }
+
+    public static long getNextDay(long timeInMillis) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(timeInMillis);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        return cal.getTimeInMillis();
     }
 
 }

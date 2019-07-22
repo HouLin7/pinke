@@ -57,8 +57,6 @@ public interface Constants {
 
         public String ACCOUNT = "pre.account";
 
-        public String PASSWORD = "pre.password";
-
         public String ACCESS_TOKEN_INFO = "pre.access.token.info";
 
         /**
@@ -90,6 +88,8 @@ public interface Constants {
          * 工作banner广告
          */
         public static final String JSON_WORK_BANNER = "json.work.banner";
+
+        public static final String CITY_DATA = "city.data";
 
         /**
          * 通讯录我的好友

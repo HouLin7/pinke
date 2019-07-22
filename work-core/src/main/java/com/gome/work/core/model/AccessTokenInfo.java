@@ -7,18 +7,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by chenhang01 on 2016/6/6.
- * Modify by Marlon on 2018/5/22
- * 修改内容：根据新OA登录接口加 @SerializedName()适配新数据接口
+ *
+ *
  */
-public class AccessTokenBean {
+public class AccessTokenInfo {
 
     @Expose
-    @SerializedName("user_info")
     public UserInfo userInfo;
 
     @Expose
-    @SerializedName("access_token")
+    @SerializedName("token")
     public String token;
 
     @Expose
@@ -29,8 +27,6 @@ public class AccessTokenBean {
     @SerializedName("expire_date")
     public long expireDate;
 
-    @Expose
-    public boolean isImLogin;
 
     /**
      * 存取令牌是否有效
@@ -38,7 +34,7 @@ public class AccessTokenBean {
      * @return
      */
     public boolean isValid() {
-        return userInfo != null && !TextUtils.isEmpty(token) && !TextUtils.isEmpty(userInfo.getId());
+        return userInfo != null && !TextUtils.isEmpty(token);
     }
 
 }

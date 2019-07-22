@@ -20,6 +20,7 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Expose
     @Unique
     @Id
+    @SerializedName("uid")
     private String id;
 
     @Expose
@@ -33,9 +34,13 @@ public class UserInfo implements Serializable, ISelectableItem {
     private String email;
 
     @Expose
-    private String name;
+    private String username;
 
     @Expose
+    private String nickname;
+
+    @Expose
+    @SerializedName("gender")
     private String sex;
 
     @Expose
@@ -51,15 +56,16 @@ public class UserInfo implements Serializable, ISelectableItem {
 
 
 
-    @Generated(hash = 345053740)
+    @Generated(hash = 1529530149)
     public UserInfo(String id, String imId, String avatar, String email,
-            String name, String sex, String address, String phone,
-            String firstLetter) {
+            String username, String nickname, String sex, String address,
+            String phone, String firstLetter) {
         this.id = id;
         this.imId = imId;
         this.avatar = avatar;
         this.email = email;
-        this.name = name;
+        this.username = username;
+        this.nickname = nickname;
         this.sex = sex;
         this.address = address;
         this.phone = phone;
@@ -69,8 +75,8 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Generated(hash = 1279772520)
     public UserInfo() {
     }
-
-
+    
+    
 
     @Override
     public String toString() {
@@ -79,7 +85,7 @@ public class UserInfo implements Serializable, ISelectableItem {
                 ", imId='" + imId + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
+                ", name='" + nickname + '\'' +
                 ", sex='" + sex + '\'' +
                 ", phone='" + phone + '\'' +
                 ", firstLetter='" + firstLetter + '\'' +
@@ -118,13 +124,7 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.email = email;
     }
 
-    public String getName() {
-        return this.name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getSex() {
         return this.sex;
@@ -173,4 +173,22 @@ public class UserInfo implements Serializable, ISelectableItem {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return this.nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+
 }

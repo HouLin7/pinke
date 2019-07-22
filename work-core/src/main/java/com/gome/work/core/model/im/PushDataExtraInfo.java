@@ -13,15 +13,7 @@ import org.greenrobot.greendao.annotation.Generated;
 public class PushDataExtraInfo implements Serializable {
 
     private static final long serialVersionUID = -7921370680221939565L;
-    /**
-     * activity :
-     * content : qwe
-     * extra : eyJleHRyYURhdGEiOiJxd2VxdyIsImFwcElkIjoiYTdkYTk0MjM3ZmMwZWY1NSIsImxpbmtVcmwi
-     OiIifQ==
-     * msgId :
-     * title : qweq
-     * url :
-     */
+
     @Id(autoincrement = true)
     private Long id;
     private String activity;
@@ -32,10 +24,13 @@ public class PushDataExtraInfo implements Serializable {
     private String url;
     private boolean isRead;
     private String appId;
+    private long  createTime;
 
-    @Generated(hash = 1480494452)
+
+    @Generated(hash = 1014822102)
     public PushDataExtraInfo(Long id, String activity, String content, String extra,
-            String msgId, String title, String url, boolean isRead, String appId) {
+            String msgId, String title, String url, boolean isRead, String appId,
+            long createTime) {
         this.id = id;
         this.activity = activity;
         this.content = content;
@@ -45,11 +40,13 @@ public class PushDataExtraInfo implements Serializable {
         this.url = url;
         this.isRead = isRead;
         this.appId = appId;
+        this.createTime = createTime;
     }
 
     @Generated(hash = 802723199)
     public PushDataExtraInfo() {
     }
+    
 
     public boolean isRead() {
         return isRead;
@@ -129,5 +126,13 @@ public class PushDataExtraInfo implements Serializable {
 
     public void setAppId(String appId) {
         this.appId = appId;
+    }
+
+    public long getCreateTime() {
+        return this.createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
     }
 }

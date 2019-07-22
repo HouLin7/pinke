@@ -2,7 +2,6 @@
 package com.gome.work.core.net;
 
 
-import com.gome.work.core.Constants;
 import com.gome.work.core.model.*;
 import com.gome.work.core.model.im.*;
 import com.gome.work.core.model.schedule.ScheduleInfo;
@@ -10,8 +9,6 @@ import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.net.api.ApiService;
 import com.gome.work.core.upload.FileUploadManager;
 import com.gome.work.core.upload.IUploadListener;
-import com.gome.work.core.utils.Base64;
-import com.gome.work.core.utils.SharedPreferencesHelper;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -34,11 +31,35 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void login(String account, String password, IResponseListener<AccessTokenBean> listener) {
-        String authStr = account + "|" + password;
-        String base64Str = "Basic " + Base64.encode(authStr.getBytes());
-        SharedPreferencesHelper.commitString(Constants.PreferKeys.REQUEST_TOKEN, base64Str);
-        Call<BaseRspInfo<AccessTokenBean>> result = service.login();
+    public void login(String account, String password, String loginType, IResponseListener<AccessTokenInfo> listener) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", account);
+        params.put("password", password);
+        params.put("loginType", loginType);
+//        SharedPreferencesHelper.commitString(Constants.PreferKeys.REQUEST_TOKEN, base64Str);
+        Call<BaseRspInfo<AccessTokenInfo>> result = service.login(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void register(String account, String password, String captcha, IResponseListener<String> listener) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", account);
+        params.put("password", password);
+        params.put("code", captcha);
+        Call<BaseRspInfo<String>> result = service.register(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getCityData(IResponseListener<List<RegionItem>> listener) {
+        Call<BaseRspInfo<List<RegionItem>>> result = service.getCity(3);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getCaptcha(String phoneNum, IResponseListener<CaptchaItem> listener) {
+        Call<BaseRspInfo<CaptchaItem>> result = service.getCaptcha(phoneNum);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -73,7 +94,6 @@ class WebApiImpl extends WebApi {
         Call<BaseRspInfo<String>> result = service.updateUserAvatar(body);
         result.enqueue(new MyCallback(listener));
     }
-
 
 
     @Override
@@ -118,15 +138,6 @@ class WebApiImpl extends WebApi {
         result.enqueue(new MyCallback(listener));
     }
 
-
-    @Override
-    public void updateFavoriteSort(List<FavoriteSortBean> list, IResponseListener<String> listener) {
-//        String json = new Gson().toJson(list);
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), json);
-//        Call<BaseRspInfo<String>> result = service.updateFavoriteSort(requestBody);
-        Call<BaseRspInfo<String>> result = service.updateFavoriteSort(list);
-        result.enqueue(new MyCallback(listener));
-    }
 
     @Override
     public void getBannerList(IResponseListener<List<BannerBean>> listener) {
@@ -192,7 +203,7 @@ class WebApiImpl extends WebApi {
             for (UserInfo info : list) {
                 EditGroupInfo editGroupInfo = new EditGroupInfo();
                 editGroupInfo.setUserId(info.getId());
-                editGroupInfo.setNickName(info.getName());
+                editGroupInfo.setNickName(info.getNickname());
                 groupInfoList.add(editGroupInfo);
             }
             GroupSetRequestInfo info = new GroupSetRequestInfo();
@@ -220,7 +231,7 @@ class WebApiImpl extends WebApi {
             for (UserInfo info : list) {
                 EditGroupInfo editGroupInfo = new EditGroupInfo();
                 editGroupInfo.setUserId(info.getId());
-                editGroupInfo.setNickName(info.getName());
+                editGroupInfo.setNickName(info.getNickname());
                 groupInfoList.add(editGroupInfo);
             }
             GroupSetRequestInfo bean = new GroupSetRequestInfo();
@@ -255,7 +266,7 @@ class WebApiImpl extends WebApi {
             for (UserInfo info : list) {
                 EditGroupInfo editGroupInfo = new EditGroupInfo();
                 editGroupInfo.setUserId(info.getId());
-                editGroupInfo.setNickName(info.getName());
+                editGroupInfo.setNickName(info.getNickname());
                 groupInfoList.add(editGroupInfo);
             }
             GroupSetRequestInfo bean = new GroupSetRequestInfo();
@@ -317,42 +328,6 @@ class WebApiImpl extends WebApi {
         result.enqueue(new MyCallback(listener));
     }
 
-    @Override
-    public void imGetNoticeList(String appId, long since_id, long max_id, int count, IResponseListener<List<NoticeInfo>> listener) {
-        Map<String, String> params = new HashMap<>();
-        params.put("appId", appId);
-        if (since_id > 0) {
-            params.put("since_id", String.valueOf(since_id));
-        }
-        if (since_id > 0) {
-            params.put("max_id", String.valueOf(max_id));
-        }
-        if (count > 0) {
-            params.put("count", String.valueOf(count));
-        }
-
-        Call<BaseRspInfo<List<NoticeInfo>>> result = service.imGetNoticeList(params);
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
-    public void imGetRefreshToken(IResponseListener<IMLoginBean> listener) {
-
-        Call<BaseRspInfo<IMLoginBean>> result = service.imGetRefreshToken();
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
-    public void getBackLogList(IResponseListener<List<BackLogItem>> listener) {
-        Call<BaseRspInfo<List<BackLogItem>>> result = service.getBackLogListData();
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
-    public void getCompleteTaskList(IResponseListener<List<BackLogItem>> listener) {
-        Call<BaseRspInfo<List<BackLogItem>>> result = service.getCompleteTaskList();
-        result.enqueue(new MyCallback(listener));
-    }
 
     @Override
     public void getRequestGrant(String requestToken, IResponseListener<RequestGrantBean> listener) {
@@ -372,11 +347,11 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void getRequestGeantLogin(String requestToken, String captcha, IResponseListener<AccessTokenBean> listener) {
+    public void getRequestGeantLogin(String requestToken, String captcha, IResponseListener<AccessTokenInfo> listener) {
         Map<String, String> map = new HashMap<>();
         map.put("request_token", requestToken);
         map.put("captcha", captcha);
-        Call<BaseRspInfo<AccessTokenBean>> result = service.getRequestGeantLogin(map);
+        Call<BaseRspInfo<AccessTokenInfo>> result = service.getRequestGeantLogin(map);
         result.enqueue(new MyCallback(listener));
     }
 

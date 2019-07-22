@@ -27,7 +27,21 @@ public abstract class WebApi {
     }
 
 
-    public abstract void login(String account, String password, IResponseListener<AccessTokenBean> listener);
+    /**
+     * @param account
+     * @param password
+     * @param loginType
+     * @param listener
+     */
+    public abstract void login(String account, String password, String loginType, IResponseListener<AccessTokenInfo> listener);
+
+
+    public abstract void register(String account, String password, String captcha, IResponseListener<String> listener);
+
+
+    public abstract void getCityData(IResponseListener<List<RegionItem>> listener);
+
+    public abstract void getCaptcha(String phoneNum, IResponseListener<CaptchaItem> listener);
 
 
     /**
@@ -58,23 +72,6 @@ public abstract class WebApi {
      */
     public abstract void updateUserAvatar(File file, IUploadListener<String> listener);
 
-
-    /**
-     * 获取待办任务
-     *
-     * @param listener
-     */
-    public abstract void getBackLogList(IResponseListener<List<BackLogItem>> listener);
-
-
-    /**
-     * 获取已办任务
-     *
-     * @param listener
-     */
-    public abstract void getCompleteTaskList(IResponseListener<List<BackLogItem>> listener);
-
-
     /**
      * APP请求授权
      *
@@ -96,7 +93,7 @@ public abstract class WebApi {
      *
      * @param listener
      */
-    public abstract void getRequestGeantLogin(String requestToken, String captcha, IResponseListener<AccessTokenBean> listener);
+    public abstract void getRequestGeantLogin(String requestToken, String captcha, IResponseListener<AccessTokenInfo> listener);
 
 
     /**
@@ -141,12 +138,6 @@ public abstract class WebApi {
      */
     public abstract void cancelAppPraisData(String appId, IResponseListener<String> listener);
 
-    /**
-     * 同步我的收藏排序
-     *
-     * @param listener
-     */
-    public abstract void updateFavoriteSort(List<FavoriteSortBean> list, IResponseListener<String> listener);
 
     /**
      * 获取“工作”tab中广告
@@ -270,15 +261,6 @@ public abstract class WebApi {
      */
     public abstract void imGetGroupNotice(String groupId, IResponseListener<GroupNoticeBean> listener);
 
-    /**
-     * 获取通知消息列表
-     */
-    public abstract void imGetNoticeList(String appId, long since_id, long max_id, int count, IResponseListener<List<NoticeInfo>> listener);
-
-    /**
-     * 获取刷新imtoken
-     */
-    public abstract void imGetRefreshToken(IResponseListener<IMLoginBean> listener);
 
     /**
      * 日程-查询有日程的日期接口
@@ -309,8 +291,6 @@ public abstract class WebApi {
      * 问题反馈
      */
     public abstract void submitFeedback(FeedBackBean feedBackBean, IResponseListener<String> listener);
-
-
 
 
 }

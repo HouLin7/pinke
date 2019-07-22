@@ -2,17 +2,7 @@ package com.gome.work.core.persistence;
 
 import android.content.Context;
 
-import com.gome.core.greendao.DaoMaster;
-import com.gome.core.greendao.FileItemInfoDao;
-import com.gome.core.greendao.FileTransferTaskInfoDao;
-import com.gome.core.greendao.FileUploadRecordInfoDao;
-import com.gome.core.greendao.MyAppInfoDao;
-import com.gome.core.greendao.MyFavoriteAppInfoDao;
-import com.gome.core.greendao.MyFriendInfoDao;
-import com.gome.core.greendao.MyGroupInfoDao;
-import com.gome.core.greendao.NoticeAssociationTabDao;
-import com.gome.core.greendao.PushDataExtraInfoDao;
-import com.gome.core.greendao.TagDataInfoDao;
+import com.gome.core.greendao.*;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -33,7 +23,7 @@ class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
                 FileItemInfoDao.class,
                 FileTransferTaskInfoDao.class,
                 FileUploadRecordInfoDao.class,
-                NoticeAssociationTabDao.class,
+                ConversationInfoDao.class,
                 PushDataExtraInfoDao.class,
                 MyGroupInfoDao.class,
                 MyFriendInfoDao.class,

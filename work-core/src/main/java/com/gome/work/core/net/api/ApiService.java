@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 新OA通讯录接口
- * Created by Marlon on 2018/5/25 16:59.
+ *
+ *
  */
 public interface ApiService {
 
@@ -25,8 +25,24 @@ public interface ApiService {
      *
      * @return
      */
-    @POST(APIConstants.GET_TOKEN)
-    Call<BaseRspInfo<AccessTokenBean>> login();
+    @POST("auth/login")
+    Call<BaseRspInfo<AccessTokenInfo>> login(@Body Map<String, String> params);
+
+    @POST("auth/register")
+    Call<BaseRspInfo<String>> register(@Body Map<String, String> params);
+
+    @POST("auth/reset/password")
+    Call<BaseRspInfo<String>> resetPassword(@Body Map<String, String> params);
+
+
+    @GET("communal/verify/sms")
+    Call<BaseRspInfo<CaptchaItem>> getCaptcha(@Query("mobile") String phoneNum);
+
+    /**
+     * 获取城市
+     */
+    @GET("communal/city")
+    Call<BaseRspInfo<List<RegionItem>>> getCity(@Query("level") int level);
 
     /**
      * 添加好友
@@ -55,18 +71,6 @@ public interface ApiService {
     @POST(APIConstants.UPDATE_USER_AVATA)
     Call<BaseRspInfo<String>> updateUserAvatar(@Part MultipartBody.Part file);
 
-    /**
-     * 获取待办任务
-     */
-    @GET(APIConstants.GET_BACK_LOG_LIST)
-    Call<BaseRspInfo<List<BackLogItem>>> getBackLogListData();
-
-
-    /**
-     * 获取待办任务
-     */
-    @GET(APIConstants.GET_COMPLETE_TASK_LIST)
-    Call<BaseRspInfo<List<BackLogItem>>> getCompleteTaskList();
 
     /**
      * APP请求授权
@@ -84,7 +88,7 @@ public interface ApiService {
      * APP执行登录
      */
     @POST(APIConstants.GET_REQUEST_GRANT_LOGIN)
-    Call<BaseRspInfo<AccessTokenBean>> getRequestGeantLogin(@Body Map<String, String> params);
+    Call<BaseRspInfo<AccessTokenInfo>> getRequestGeantLogin(@Body Map<String, String> params);
 
     /**
      * 获取应用全部分类
@@ -123,11 +127,6 @@ public interface ApiService {
     @POST(APIConstants.CANCEL_APP_PRAIS_DATA)
     Call<BaseRspInfo<String>> cancelAppPraisData(@Body Map<String, String> params);
 
-    /**
-     * 同步我的收藏排序
-     */
-    @POST(APIConstants.UPDATE_FAVORITE_SORT)
-    Call<BaseRspInfo<String>> updateFavoriteSort(@Body List<FavoriteSortBean> favoriteSortBeans);
 
     /**
      * 获取“工作”tab中广告
@@ -294,19 +293,6 @@ public interface ApiService {
      */
     @POST(APIConstants.GET_GROUP_NOTICE)
     Call<BaseRspInfo<GroupNoticeBean>> imGetGroupNotice(@Body Map<String, String> params);
-
-    /**
-     * 根据appid获取通知列表
-     */
-    @GET(APIConstants.GET_NOTICE_LIST)
-    Call<BaseRspInfo<List<NoticeInfo>>> imGetNoticeList(@QueryMap Map<String, String> params);
-
-    /**
-     * 获取IMTOKEN
-     */
-    @POST(APIConstants.GET_IM_REFRESH_TOKEN)
-    Call<BaseRspInfo<IMLoginBean>> imGetRefreshToken();
-
 
     //******************************IM相关接口↑↑↑↑↑↑↑*****************************************
 

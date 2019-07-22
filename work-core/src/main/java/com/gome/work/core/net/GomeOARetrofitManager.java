@@ -37,9 +37,9 @@ public class GomeOARetrofitManager {
 
 //    public static final String RELEASE_BASE_URL = "http://125.254.153.78/";
 
-    public static final String PRE_RELEASE_BASE_URL = "http://10.115.88.28/";
+    public static final String PRE_RELEASE_BASE_URL = "https://api.baichuan11.com/api/";
 
-//    public static final String TEST_BASE_URL = "http://10.112.68.100/portal/";
+    //    public static final String TEST_BASE_URL = "http://10.112.68.100/portal/";
     public static final String TEST_BASE_URL = "http://10.115.88.29:8080/";
 
 //    public static final String TEST_BASE_URL = "http://10.144.38.164:8080/portal/";
@@ -118,13 +118,14 @@ public class GomeOARetrofitManager {
         });
         if (certificate) {
             try {
-//                InputStream trustIns = mContext.getAssets().open("client.truststore");
-                String cerFileName = environment == SystemFramework.Environment.RELEASE ? "server_release.cer" : "server_debug.cer";
+//                String cerFileName = environment == SystemFramework.Environment.RELEASE ? "server_release.cer" : "server_debug.cer";
+//                InputStream cerIns = mContext.getAssets().open(cerFileName);
+//                SSLSocketFactory sslSocketFactory = SSLFactoryUtil.getSSLSocketFactory(cerIns);
+//
+//                X509TrustManager x509TrustManager = Platform.get().trustManager(sslSocketFactory);
 
-                InputStream cerIns = mContext.getAssets().open(cerFileName);
-//                SSLSocketFactory sslSocketFactory = SSLFactoryUtil.getSSLSocketFactory(trustIns, "123456");
-                SSLSocketFactory sslSocketFactory = SSLFactoryUtil.getSSLSocketFactory(cerIns);
-                X509TrustManager x509TrustManager = Platform.get().trustManager(sslSocketFactory);
+                SSLSocketFactory sslSocketFactory = SSLFactoryUtil.getTrustAllFactory();
+                X509TrustManager x509TrustManager = new SSLFactoryUtil.AllowX509TrustManager();
                 builder.sslSocketFactory(sslSocketFactory, x509TrustManager);
             } catch (Exception e) {
                 e.printStackTrace();
