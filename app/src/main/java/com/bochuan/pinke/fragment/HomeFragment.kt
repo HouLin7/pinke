@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
+import com.bochuan.pinke.activity.AddressEditActivity
 import com.bochuan.pinke.activity.ConversationActivity
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.GsonUtil
@@ -114,6 +115,10 @@ class HomeFragment : BaseFragment() {
         layout_bg.visibility = View.VISIBLE
         tv_city.text = ""
         tv_address.text = ""
+        tv_address.setOnClickListener {
+            var intent = Intent(mActivity, AddressEditActivity::class.java)
+            startActivity(intent)
+        }
 
         iv_ad_1.setImageResource(R.mipmap.ic_launcher)
         iv_ad_2.setImageResource(R.mipmap.ic_launcher)
@@ -209,7 +214,6 @@ class HomeFragment : BaseFragment() {
         getBanner()
         getAdList()
     }
-
 
 
     private fun initBannerData() {

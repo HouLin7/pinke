@@ -1,9 +1,7 @@
 package com.bochuan.pinke.activity
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
@@ -20,6 +18,7 @@ import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
 import com.bochuan.pinke.fragment.*
 import com.bochuan.pinke.util.BCLocationManager
+import com.gome.utils.CommonUtils
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.core.Constants
 import com.gome.work.core.event.EventDispatcher
@@ -27,7 +26,6 @@ import com.gome.work.core.event.model.EventInfo
 import com.gome.work.core.model.AdBean
 import com.gome.work.core.utils.GsonUtil
 import com.gome.work.core.utils.SharedPreferencesHelper
-import com.google.gson.reflect.TypeToken
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -73,9 +71,9 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
     }
 
     private fun getLocation() {
-        val locManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+        if (!CommonUtils.isGPSOpen(this)) {
             showAlertDlg("请先打开手机定位开关")
+            return;
         }
         requestPermission(
             ACCESS_FINE_LOCATION
