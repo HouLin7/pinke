@@ -193,8 +193,7 @@
                             android:layout_height="80dp"
                             android:layout_margin="5dp"
                             android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:text="找课程" />
+                            android:scaleType="centerCrop" />
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_ad_2"
@@ -224,7 +223,6 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:scaleType="centerCrop"
-                            android:text="找机构"
                             android:textSize="@dimen/text_size_normal" />
 
                     </TableRow>

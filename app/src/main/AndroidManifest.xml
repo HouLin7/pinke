@@ -75,6 +75,11 @@
         <activity
             android:name=".activity.ConversationActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.PwdModifyActivity" />
+        <activity android:name=".activity.PwdForgotActivity" />
 
         <service
             android:name="com.baidu.location.f"

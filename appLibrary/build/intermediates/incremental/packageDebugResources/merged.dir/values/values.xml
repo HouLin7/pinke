@@ -20,12 +20,12 @@
     <string name="owner">持有人:</string>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        
+        <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@color/theme_blue</item>
-        
+        <!-- Toolbar颜色 -->
         <item name="colorPrimary">@color/theme_blue</item>
         <item name="colorAccent">@color/theme_blue_gray</item>
-        
+        <!-- 返回键样式 -->
         <item name="drawerArrowStyle">@style/DrawerArrowToggle</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
@@ -61,15 +61,15 @@
         <attr format="dimension" name="pstsTabPaddingLeftRight"/>
         <attr format="dimension" name="pstsScrollOffset"/>
         <attr format="reference" name="pstsTabBackground"/>
-        
+        <!-- 该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false -->
         <attr format="boolean" name="pstsShouldExpand"/>
         <attr format="boolean" name="pstsTextAllCaps"/>
         <attr format="color" name="pstsTextSelectedColor"/>
-        
+        <!-- 缩放的最大值,0.3表示放大后最大是原来的0.3倍,默认未0.3 -->
         <attr format="float" name="pstsScaleZoomMax"/>
         <attr format="boolean" name="pstsSmoothScrollWhenClickTab"/>
-        
-        
+        <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样 -->
+        <!-- <attr name="pstsIndicatorWrap" format="boolean" /> -->
     </declare-styleable>
     <declare-styleable name="RoundProgressBar">
         <attr format="color" name="roundColor"/>

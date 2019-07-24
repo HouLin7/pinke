@@ -22,7 +22,7 @@ import com.gome.work.core.event.model.EventInfo;
 import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.utils.SharedPreferencesHelper;
 
-public class BaseGomeWorkFragment extends Fragment {
+public class BaseWorkFragment extends Fragment {
 
     public static final String EXTRA_DATA = BaseActivity.EXTRA_DATA;
     private IEventConsumer mEventConsumerHolder;
@@ -141,7 +141,7 @@ public class BaseGomeWorkFragment extends Fragment {
 
             @Override
             public void handleEvent(EventInfo event) {
-                BaseGomeWorkFragment.this.handleEvent(event);
+                BaseWorkFragment.this.handleEvent(event);
             }
         };
         mEventConsumerHolder.attach();

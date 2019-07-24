@@ -206,11 +206,6 @@ public interface APIConstants {
     String GET_BANNER_LIST = "app_shop/banner/show.do";
 
     /**
-     * 获取开屏广告
-     */
-    String GET_AD_DATA = "app_shop/welcome/show.do";
-
-    /**
      * 上传文件接口
      */
     String UPLOAD_FILE = "app/gfs/uploadFileGfsNew.do";

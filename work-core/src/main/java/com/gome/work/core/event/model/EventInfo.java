@@ -40,9 +40,10 @@ public class EventInfo implements Serializable {
 
 
     /**
-     * 新闻状态变化
+     * 位置信息更新
      */
-    public final static int FLAG_NEWS_INFO_CHANGED = 12;
+    public final static int FLAG_LOCATION_RECEIVE= 12;
+
 
     /**
      * 文件选取事件,做事件统计用
@@ -258,9 +259,9 @@ public class EventInfo implements Serializable {
 
     public int what;
 
-    public Serializable data;
+    public Object data;
 
-    public EventInfo(int what, Serializable data) {
+    public EventInfo(int what, Object data) {
         this.what = what;
         this.data = data;
     }

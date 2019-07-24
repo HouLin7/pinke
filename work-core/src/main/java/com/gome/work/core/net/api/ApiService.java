@@ -15,7 +15,6 @@ import java.util.Map;
 
 /**
  *
- *
  */
 public interface ApiService {
 
@@ -43,6 +42,42 @@ public interface ApiService {
      */
     @GET("communal/city")
     Call<BaseRspInfo<List<RegionItem>>> getCity(@Query("level") int level);
+
+    /**
+     * 获取推荐列表
+     */
+    @GET("communal/recommend")
+    Call<BaseRspInfo<String>> getRecommendList(@Query("position") String pos, @Query("recommend") String type);
+
+    /**
+     * 获取广告位
+     */
+    @GET("communal/adver")
+    Call<BaseRspInfo<AdBean>> getAd();
+
+    /**
+     * 获取banner数据
+     */
+    @GET("communal/banner")
+    Call<BaseRspInfo<List<BannerBean>>> getBanner(@Query("position") String pos);
+
+    /**
+     * 获取banner数据
+     */
+    @GET("communal/launcher")
+    Call<BaseRspInfo<List<AdBean>>> getLauncherPic();
+
+    /**
+     * 修改密码
+     */
+    @POST("reset/password")
+    Call<BaseRspInfo<String>> modifyPassword(@Body Map<String, String> params);
+
+    /**
+     * 忘记密码
+     */
+    @POST("reset/password")
+    Call<BaseRspInfo<String>> forgetPassword(@Body Map<String, String> params);
 
     /**
      * 添加好友
@@ -133,12 +168,6 @@ public interface ApiService {
      */
     @GET(APIConstants.GET_BANNER_LIST)
     Call<BaseRspInfo<List<BannerBean>>> getBannerList();
-
-    /**
-     * 获取开屏广告
-     */
-    @GET(APIConstants.GET_AD_DATA)
-    Call<BaseRspInfo<AdBean>> getAdData();
 
 //    /**
 //     * 上传文件

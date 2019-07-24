@@ -74,12 +74,12 @@ class SplashActivity : BaseGomeWorkActivity() {
      * 获取广告
      */
     private fun getAdData() {
-        WebApi.getInstance().getAdData(object : IResponseListener<AdBean> {
+        WebApi.getInstance().getLauncherPic(object : IResponseListener<List<AdBean>> {
             override fun onError(code: String, message: String) {
-                dismissProgressDlg()
+//                dismissProgressDlg()
             }
 
-            override fun onSuccess(result: AdBean?) {
+            override fun onSuccess(result: List<AdBean>?) {
                 if (result != null) {
                     val resultStr = GsonUtil.objectToJson(result)
                     SharedPreferencesHelper.commitString(Constants.PreferKeys.AD_DATA, resultStr)

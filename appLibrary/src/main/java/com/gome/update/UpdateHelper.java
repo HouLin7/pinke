@@ -32,7 +32,7 @@ import retrofit2.http.Path;
 
 public class UpdateHelper {
 
-    public static final String RELEASE_BASE_URL = "https://office.gome.com.cn/";
+    public static final String RELEASE_BASE_URL = "https://api.baichuan11.com/app/version";
 
     public static final String DEV_BASE_URL = "http://10.112.68.100/portal/";
 

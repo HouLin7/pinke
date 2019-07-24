@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.Uri;
@@ -18,16 +17,16 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
-
 import com.android.common.media.CameraHelper;
 import com.gome.applibrary.activity.BaseActivity;
 import com.gome.utils.ContentUriUtils;
 import com.gome.utils.FileCacheUtils;
 import com.gome.utils.PictureUtils;
-import com.gome.work.common.databinding.CustomToolbarBinding;
+import com.gome.work.common.R;
 import com.gome.work.common.utils.ActivityStack;
 import com.gome.work.common.widget.MenuPopup;
 import com.gome.work.common.widget.MyBasePopupWindow;
+import com.gome.work.common.widget.MyToolbarView;
 import com.gome.work.common.widget.SlideFromBottomPopup;
 import com.gome.work.core.SystemFramework;
 import com.gome.work.core.event.BaseEventConsumer;
@@ -36,13 +35,12 @@ import com.gome.work.core.event.model.EventInfo;
 import com.gome.work.core.model.AccessTokenInfo;
 import com.gome.work.core.persistence.DaoUtil;
 import com.gome.work.core.utils.SharedPreferencesHelper;
+import io.reactivex.disposables.Disposable;
+import razerdp.basepopup.BasePopupWindow;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.disposables.Disposable;
-import razerdp.basepopup.BasePopupWindow;
 
 public class BaseGomeWorkActivity extends BaseActivity {
 
@@ -111,8 +109,8 @@ public class BaseGomeWorkActivity extends BaseActivity {
     }
 
 
-    public CustomToolbarBinding getCustomToolbarBinding(ViewDataBinding binding) {
-        return (CustomToolbarBinding) binding;
+    public MyToolbarView getCustomToolbar(View view) {
+        return findViewById(R.id.my_tool_bar);
     }
 
 

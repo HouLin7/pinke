@@ -64,6 +64,45 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
+    public void getRecommendList(String pos, String type, IResponseListener<String> listener) {
+        Call<BaseRspInfo<String>> result = service.getRecommendList(pos, type);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getBanner(String pos, IResponseListener<List<BannerBean>> listener) {
+        Call<BaseRspInfo<List<BannerBean>>> result = service.getBanner(pos);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getAd(IResponseListener<List<AdBean>> listener) {
+        Call<BaseRspInfo<AdBean>> result = service.getAd();
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getLauncherPic(IResponseListener<List<AdBean>> listener) {
+        Call<BaseRspInfo<List<AdBean>>> result = service.getLauncherPic();
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void forgetPassword(String username, String newPwd, String captcha, IResponseListener<String> listener) {
+        Map<String, String> params = new HashMap<>();
+        Call<BaseRspInfo<String>> result = service.forgetPassword(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void modifyPassword(String originalPwd, String newPwd, IResponseListener<String> listener) {
+        Map<String, String> params = new HashMap<>();
+        Call<BaseRspInfo<String>> result = service.modifyPassword(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+
+    @Override
     public void addFriends(UserInfo user, IResponseListener<String> listener) {
         Map<String, String> params = new HashMap<>();
         params.put("userId", user.getId() + "");
@@ -145,12 +184,6 @@ class WebApiImpl extends WebApi {
         result.enqueue(new MyCallback(listener));
     }
 
-    @Override
-    public void getAdData(IResponseListener<AdBean> listener) {
-        Call<BaseRspInfo<AdBean>> result = service.getAdData();
-        result.enqueue(new MyCallback(listener));
-    }
-
 
     @Override
     public void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener) {
@@ -171,7 +204,7 @@ class WebApiImpl extends WebApi {
 
 
     @Override
-    public void getIMChatGroupMenberList(String groupId, long lastPullTimestamp, int status, int page, int pageSize, IResponseListener<GroupMemberInfo> listener) {
+    public void getIMChatGroupMemberList(String groupId, long lastPullTimestamp, int status, int page, int pageSize, IResponseListener<GroupMemberInfo> listener) {
         Map<String, String> params = new HashMap<>();
         params.put("groupId", groupId);
         params.put("lastPullTimestamp", lastPullTimestamp + "");

@@ -1,105 +1,97 @@
 package com.bochuan.pinke.fragment
 
-import android.Manifest
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.animation.ValueAnimator
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.location.LocationManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.baidu.location.BDLocation
-import com.baidu.location.Poi
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
 import com.bochuan.pinke.activity.ConversationActivity
-import com.bochuan.pinke.util.BCLocationManager
 import com.getbase.floatingactionbutton.FloatingActionsMenu
+import com.gome.utils.GsonUtil
 import com.gome.utils.ToastUtil
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.common.utils.BlurUtils
+import com.gome.work.core.Constants
+import com.gome.work.core.event.model.EventInfo
+import com.gome.work.core.model.AdBean
 import com.gome.work.core.model.BannerBean
 import com.gome.work.core.model.OrganizationItem
 import com.gome.work.core.model.UserInfo
+import com.gome.work.core.net.IResponseListener
+import com.gome.work.core.net.WebApi
+import com.gome.work.core.utils.SharedPreferencesHelper
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.adapter_recommend_organization_list_item.*
 import kotlinx.android.synthetic.main.adapter_recommend_user_list_item.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
-    override fun getLayoutID(): Int = R.layout.fragment_home
+    private val mBannerList = ArrayList<BannerBean>();
 
-    private var mBannerList: MutableList<BannerBean> = mutableListOf();
+    private var mBestTeacherList = ArrayList<UserInfo>()
 
-    private var mBestTeacherList: MutableList<UserInfo> = mutableListOf();
-
-    private var mBestOrganizationList: MutableList<OrganizationItem> = mutableListOf();
+    private var mBestOrganizationList = ArrayList<OrganizationItem>()
 
     private var mAdapterOrganization: AdapterOrganization? = null
 
     private var mAdapterTeacher: AdapterTeacher? = null;
 
+    private var mBDLocaiton: BDLocation? = null
+
+    private var bitmap: Bitmap? = null
+
 
     init {
         createTestData();
+        initBannerData()
     }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        observeEvents(EventInfo.FLAG_LOCATION_RECEIVE)
+    }
+
+    override fun handleEvent(event: EventInfo?) {
+        super.handleEvent(event)
+        var location = event!!.data as BDLocation
+        if (isAdded) {
+            tv_address.text = location.address.district + location.address.street
+            tv_city.text = location.city
+        } else {
+            mBDLocaiton = location
+        }
+
+    }
+
+
+    override fun getLayoutID(): Int = R.layout.fragment_home
 
     override fun refreshData() {
-    }
 
-
-    private fun getLocation() {
-        val locManager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            mActivity!!.showAlertDlg("请先打开手机定位开关")
-
-        }
-        var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION);
-        mActivity!!.requestPermission(
-            permissions
-        ) { permission, isSuccess ->
-            if (isSuccess) {
-                val locationManager = BCLocationManager(activity!!);
-                locationManager.getLocation(object : BCLocationManager.ILocationCallback {
-                    override fun call(loc: BDLocation) {
-                        tv_address.text = loc.address.district + loc.address.street
-                        tv_city.text = loc.city
-                    }
-
-                })
-            } else {
-
-            }
-
-        }
     }
 
 
     private fun createTestData() {
-        val value = BannerBean();
-        value.title = "111";
-        value.small_image =
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1561640489738&di=7d758b4a7e710f7878b7acea1178b7b2&imgtype=0&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2F162e189b94a5faac15a4fba25ea242e1.jpeg"
-        mBannerList.add(value)
-        mBannerList.add(value)
-        mBannerList.add(value)
-        mBannerList.add(value)
-
         var teacher = UserInfo();
         teacher.avatar = "http://b-ssl.duitang.com/uploads/item/201711/09/20171109200813_2vtKE.jpeg";
         teacher.nickname = "推荐老师"
@@ -118,9 +110,7 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    private fun initView() {
         layout_bg.visibility = View.VISIBLE
         tv_city.text = ""
         tv_address.text = ""
@@ -199,18 +189,38 @@ class HomeFragment : BaseFragment() {
         }
         layout_bg.isClickable = false;
 
-        iv_message.setOnClickListener { startActivity(Intent(mActivity,ConversationActivity::class.java)) }
+        mBDLocaiton?.let {
+            tv_address.text = mBDLocaiton!!.address.district + mBDLocaiton!!.address.street
+            tv_city.text = mBDLocaiton!!.city
+        }
 
+
+        iv_message.setOnClickListener { startActivity(Intent(mActivity, ConversationActivity::class.java)) }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        getLocation()
+        getBanner()
+        getAdList()
     }
 
 
-    private var bitmap: Bitmap? = null
 
+    private fun initBannerData() {
+        var cacheData = SharedPreferencesHelper.getString(Constants.PreferKeys.BANNER_LIST)
+        if (!TextUtils.isEmpty(cacheData)) {
+            val token = object : TypeToken<List<BannerBean>>() {
+
+            }
+            mBannerList.addAll(GsonUtil.jsonToList(token.type, cacheData))
+        }
+    }
 
     override fun onBackPressed(): Boolean {
         if (floating_action_menu != null && floating_action_menu.isExpanded) {
@@ -233,6 +243,46 @@ class HomeFragment : BaseFragment() {
         }
         valueAnimator.start()
     }
+
+
+    private fun getAdList() {
+        WebApi.getInstance().getAd(object : IResponseListener<List<AdBean>> {
+            override fun onSuccess(result: List<AdBean>?) {
+                for (index in 1 until result!!.size) {
+                    when (index) {
+                        0 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_1)
+                        1 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_2)
+                        2 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_3)
+                        3 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_4)
+                    }
+                }
+
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+    }
+
+    private fun getBanner() {
+        WebApi.getInstance().getBanner("1", object : IResponseListener<List<BannerBean>> {
+            override fun onError(code: String?, message: String?) {
+            }
+
+            override fun onSuccess(result: List<BannerBean>?) {
+                mBannerList.clear()
+                mBannerList.addAll(result!!)
+                convenientBanner.notifyDataSetChanged()
+                convenientBanner.invalidate()
+                SharedPreferencesHelper.commitString(Constants.PreferKeys.BANNER_LIST, GsonUtil.objectToJson(result))
+
+            }
+
+        })
+    }
+
 
     inner class AdapterTeacher(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
 
@@ -284,7 +334,7 @@ class HomeFragment : BaseFragment() {
     /**
      * 初始化Fragment
      */
-    internal inner class MyFragmentTabAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+    class MyFragmentTabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
         private var titleList: ArrayList<String> = arrayListOf<String>("课程", "机构", "老师", "伴读");
         private var mFragmentList = SparseArray<BaseFragment>()
@@ -328,11 +378,11 @@ class HomeFragment : BaseFragment() {
 
         override fun updateUI(data: BannerBean) {
             if (activity != null) {
-                ImageLoader.loadImage<Any>(activity, data.small_image, imgView)
+                ImageLoader.loadImage<Any>(activity, data.image, imgView)
                 tvTitile.setText(data.title)
             }
         }
     }
 
-}
 
+}

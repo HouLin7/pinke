@@ -67,7 +67,8 @@ class LoginActivity : BaseGomeWorkActivity() {
             startActivity(intent)
         }
         tv_forget_pwd.setOnClickListener {
-
+            var intent = Intent(baseContext, PwdForgotActivity::class.java)
+            startActivity(intent)
         }
 
     }

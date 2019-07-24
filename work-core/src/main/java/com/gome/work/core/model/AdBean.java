@@ -1,6 +1,7 @@
 package com.gome.work.core.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Create by liupeiquan on 2018/9/19
@@ -8,16 +9,23 @@ import com.google.gson.annotations.Expose;
  */
 public class AdBean {
     @Expose
-    public String downloadUrl;
-    @Expose
     public long endDate;
-    @Expose
-    public String linkUrl;
-    @Expose
-    public int stayDuration;
 
     @Expose
-    public String type;
+    @SerializedName("url")
+    public String linkUrl;
+
+    @Expose
+    public String image;
+
+    @Expose
+    public int stayDuration = 3;
+
+    @Expose
+    public String mediaType;
+
+    @Expose
+    public String name;
 
 
     /**
@@ -34,11 +42,10 @@ public class AdBean {
     @Override
     public String toString() {
         return "AdBean{" +
-                "downloadUrl='" + downloadUrl + '\'' +
                 ", endDate=" + endDate +
                 ", linkUrl='" + linkUrl + '\'' +
                 ", stayDuration=" + stayDuration +
-                ", type='" + type + '\'' +
+                ", mediaType='" + mediaType + '\'' +
                 '}';
     }
 }

@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
-import android.view.View
 import com.bochuan.pinke.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
@@ -16,9 +15,9 @@ import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.webview.CommonWebActivity
 import com.gome.work.core.Constants
 import com.gome.work.core.model.AdBean
+import com.gome.work.core.utils.GsonUtil
 import com.gome.work.core.utils.SharedPreferencesHelper
-import com.google.gson.Gson
-
+import kotlinx.android.synthetic.main.activity_ad.*
 import java.io.File
 import java.io.IOException
 
@@ -43,9 +42,9 @@ class AdActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_ad)
 
 
-        ad_time.setOnClickListener(View.OnClickListener { finishSelf() })
+        ad_time.setOnClickListener { finishSelf() }
 
-        mBinding.adContent.setOnClickListener(View.OnClickListener {
+        ad_content.setOnClickListener {
             if (mAdData != null && !TextUtils.isEmpty(mAdData!!.linkUrl)) {
                 val intent = Intent(baseContext, CommonWebActivity::class.java)
                 intent.putExtra(CommonWebActivity.EXTRA_IS_ASSEMBLE_SIGN, false)
@@ -53,11 +52,11 @@ class AdActivity : BaseGomeWorkActivity() {
                 startActivity(intent)
                 finishSelf()
             }
-        })
+        }
 
         if (!isShowed) {
             initData()
-            if (!TextUtils.isEmpty(mAdData!!.type)) {
+            if (!TextUtils.isEmpty(mAdData!!.mediaType)) {
                 showAdImage()
                 startTimer(mAdData!!.stayDuration)
             } else {
@@ -91,7 +90,7 @@ class AdActivity : BaseGomeWorkActivity() {
     }
 
     private fun createFileIfNeed(): File? {
-        val uri = Uri.parse(mAdData!!.downloadUrl)
+        val uri = Uri.parse(mAdData!!.linkUrl)
         val fileName = uri.lastPathSegment
         val fileFolder = File(externalCacheDir, "welcome")
         val file = File(fileFolder, fileName)
@@ -110,9 +109,9 @@ class AdActivity : BaseGomeWorkActivity() {
 
 
     private fun downloadBitmap() {
-        Glide.with(this).load<Any>(mAdData!!.downloadUrl).asBitmap().toBytes().into(object : SimpleTarget<ByteArray>() {
+        Glide.with(this).load<Any>(mAdData!!.linkUrl).asBitmap().toBytes().into(object : SimpleTarget<ByteArray>() {
             override fun onResourceReady(resource: ByteArray, glideAnimation: GlideAnimation<in ByteArray>) {
-                val uri = Uri.parse(mAdData!!.downloadUrl)
+                val uri = Uri.parse(mAdData!!.linkUrl)
                 FileCacheUtils.cache(baseContext, resource, uri.lastPathSegment)
             }
         })
@@ -122,7 +121,7 @@ class AdActivity : BaseGomeWorkActivity() {
     private fun getTypeFromUrl(url: String): String {
         if (!TextUtils.isEmpty(url)) {
             try {
-                val uri = Uri.parse(mAdData!!.downloadUrl)
+                val uri = Uri.parse(url)
                 val fileName = uri.lastPathSegment
                 val suffixName = fileName!!.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase()
                 if ("png" == suffixName || "jpg" == suffixName) {
@@ -142,13 +141,16 @@ class AdActivity : BaseGomeWorkActivity() {
     private fun initData() {
         val jsonData = SharedPreferencesHelper.getString(Constants.PreferKeys.AD_DATA)
         if (!TextUtils.isEmpty(jsonData)) {
-            mAdData = Gson().fromJson(jsonData, AdBean::class.java)
+            val beanList = GsonUtil.jsonToList(jsonData, AdBean::class.java)
+            if (beanList != null && beanList.isNotEmpty()) {
+                mAdData = beanList.first()
+            }
             if (mAdData!!.stayDuration == 0) {
                 mAdData!!.stayDuration = 3
             }
-            if (TextUtils.isEmpty(mAdData!!.type)) {
-                mAdData!!.type = getTypeFromUrl(mAdData!!.downloadUrl)
-                if (TextUtils.isEmpty(mAdData!!.type)) {
+            if (TextUtils.isEmpty(mAdData!!.mediaType)) {
+                mAdData!!.mediaType = getTypeFromUrl(mAdData!!.image)
+                if (TextUtils.isEmpty(mAdData!!.mediaType)) {
                     finish()
                     return
                 }
@@ -157,8 +159,9 @@ class AdActivity : BaseGomeWorkActivity() {
     }
 
     private fun showAdImage() {
-        when (mAdData!!.type) {
-            "gif", "image" -> Glide.with(this).load<Any>(mAdData!!.downloadUrl).placeholder(R.drawable.bg_splash).into(mBinding.adContent)
+        when (mAdData!!.mediaType) {
+            "gif", "image" -> Glide.with(this).load<Any>(mAdData!!.mediaType)
+                .placeholder(R.mipmap.ic_launcher_round).into(ad_content)
             "video" -> {
             }
         }
@@ -169,7 +172,7 @@ class AdActivity : BaseGomeWorkActivity() {
         if (mCountDownTimer == null) {
             mCountDownTimer = object : CountDownTimer((duration * 1000).toLong(), 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    mBinding.adTime.setText("跳过(" + millisUntilFinished / 1000 + ")")
+                    ad_time.setText("跳过(" + millisUntilFinished / 1000 + ")")
                 }
 
                 override fun onFinish() {

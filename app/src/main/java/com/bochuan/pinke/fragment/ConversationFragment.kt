@@ -14,7 +14,6 @@ import com.gome.core.greendao.ConversationInfoDao
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.divider.CustomNewsDivider
-import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.im.ConversationInfo
 import com.gome.work.core.model.im.ConversationInfo.MSG_TYPE_CHAT
 import com.gome.work.core.persistence.DaoUtil
@@ -25,7 +24,6 @@ import com.hyphenate.chat.EMConversation
 import com.hyphenate.util.DateUtils
 import kotlinx.android.synthetic.main.adapter_conversation_list_item.*
 import kotlinx.android.synthetic.main.fragment_conversation.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import kotlin.collections.ArrayList
 

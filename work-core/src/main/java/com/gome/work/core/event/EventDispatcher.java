@@ -22,7 +22,7 @@ public class EventDispatcher {
         eventBus.post(EventInfo.obtain(flag));
     }
 
-    public static void postEvent(int flag, Serializable data) {
+    public static void postEvent(int flag, Object data) {
         EventInfo item = new EventInfo(flag, data);
         eventBus.post(item);
     }

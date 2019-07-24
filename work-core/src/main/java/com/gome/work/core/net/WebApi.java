@@ -35,13 +35,23 @@ public abstract class WebApi {
      */
     public abstract void login(String account, String password, String loginType, IResponseListener<AccessTokenInfo> listener);
 
-
     public abstract void register(String account, String password, String captcha, IResponseListener<String> listener);
-
 
     public abstract void getCityData(IResponseListener<List<RegionItem>> listener);
 
     public abstract void getCaptcha(String phoneNum, IResponseListener<CaptchaItem> listener);
+
+    public abstract void getRecommendList(String pos, String type, IResponseListener<String> listener);
+
+    public abstract void getBanner(String pos, IResponseListener<List<BannerBean>> listener);
+
+    public abstract void getAd(IResponseListener<List<AdBean>> listener);
+
+    public abstract void getLauncherPic(IResponseListener<List<AdBean>> listener);
+
+    public abstract void forgetPassword(String username, String newPwd, String captcha, IResponseListener<String> listener);
+
+    public abstract void modifyPassword(String originalPwd, String newPwd, IResponseListener<String> listener);
 
 
     /**
@@ -148,14 +158,6 @@ public abstract class WebApi {
 
 
     /**
-     * 获取开屏广告
-     *
-     * @param listener
-     */
-    public abstract void getAdData(IResponseListener<AdBean> listener);
-
-
-    /**
      * 上传图片
      */
     public abstract void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener);
@@ -177,7 +179,7 @@ public abstract class WebApi {
      * @param page              分页页码
      * @param pageSize          分页大小 ，默认50 （最大为100）
      */
-    public abstract void getIMChatGroupMenberList(String groupId, long lastPullTimestamp, int status, int page, int pageSize, IResponseListener<GroupMemberInfo> listener);
+    public abstract void getIMChatGroupMemberList(String groupId, long lastPullTimestamp, int status, int page, int pageSize, IResponseListener<GroupMemberInfo> listener);
 
     /**
      * 获取群信息

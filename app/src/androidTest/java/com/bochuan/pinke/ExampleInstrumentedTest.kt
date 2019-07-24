@@ -2,6 +2,8 @@ package com.bochuan.pinke
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.gome.work.core.model.AdBean
+import com.gome.work.core.model.BannerBean
 import com.gome.work.core.model.CaptchaItem
 import com.gome.work.core.model.RegionItem
 import com.gome.work.core.net.IResponseListener
@@ -48,6 +50,40 @@ class ExampleInstrumentedTest {
 
             override fun onSuccess(result: CaptchaItem?) {
 
+            }
+
+        })
+    }
+
+    @Test
+    fun testAPi() {
+        WebApi.getInstance().getAd(null)
+
+        WebApi.getInstance().getBanner("1", object : IResponseListener<List<BannerBean>> {
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+            override fun onSuccess(result: List<BannerBean>?) {
+
+            }
+
+        })
+
+        WebApi.getInstance().getRecommendList("1", "TEACHER", object : IResponseListener<String> {
+            override fun onError(code: String?, message: String?) {
+            }
+
+            override fun onSuccess(result: String?) {
+            }
+
+        })
+
+        WebApi.getInstance().getLauncherPic(object : IResponseListener<AdBean> {
+            override fun onError(code: String?, message: String?) {
+            }
+
+            override fun onSuccess(result: AdBean?) {
             }
 
         })

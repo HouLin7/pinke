@@ -13,6 +13,30 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="手机号"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,10 +94,10 @@
         app:passwordToggleEnabled="true">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_password_original"
+            android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="输入旧密码"
+            android:hint="输入密码"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLength="@integer/password_max_length"
@@ -96,10 +120,10 @@
         app:passwordToggleEnabled="true">
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_password_new"
+            android:id="@+id/edit_password_repeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="确认密码"
+            android:hint="再次输入密码"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLength="@integer/password_max_length"
@@ -112,7 +136,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/button_register"
+        android:id="@+id/button_confirm"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
@@ -123,7 +147,7 @@
         android:background="@drawable/bg_login_btn_selector"
         android:gravity="center"
         android:imeOptions="actionDone"
-        android:text="修改"
+        android:text="确认"
         android:textColor="@color/white"
         android:textColorHint="@color/app_gray_light"
         android:textSize="@dimen/text_size_normal" />
