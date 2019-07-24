@@ -36,6 +36,9 @@ captures/
 # IntelliJ
 *.iml
 .idea/
+debug/
+release/
+
 # mac system file
 .DS_Store
 
