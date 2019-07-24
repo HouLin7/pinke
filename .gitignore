@@ -36,3 +36,6 @@ captures/
 # IntelliJ
 *.iml
 .idea/
+# mac system file
+.DS_Store
+
