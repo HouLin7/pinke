@@ -23,6 +23,8 @@ import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
 import com.bochuan.pinke.activity.AddressEditActivity
 import com.bochuan.pinke.activity.ConversationActivity
+import com.bochuan.pinke.activity.PostSearchPartnerActivity
+import com.bochuan.pinke.activity.SearchActivity
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.GsonUtil
 import com.gome.utils.ToastUtil
@@ -112,6 +114,11 @@ class HomeFragment : BaseFragment() {
 
 
     private fun initView() {
+        edit_search.setOnClickListener {
+            var intent = Intent(mActivity, SearchActivity::class.java);
+            startActivity(intent)
+
+        }
         layout_bg.visibility = View.VISIBLE
         tv_city.text = ""
         tv_address.text = ""
@@ -181,8 +188,9 @@ class HomeFragment : BaseFragment() {
         tab_layout.setupWithViewPager(view_pager);
 
         fab_search_classmate.setOnClickListener {
-            ToastUtil.showToast(activity, "找同学")
             floating_action_menu.collapse()
+            var intent = Intent(mActivity, PostSearchPartnerActivity::class.java)
+            startActivity(intent)
         }
         fab_search_teacher.setOnClickListener {
             floating_action_menu.collapse()
@@ -297,13 +305,13 @@ class HomeFragment : BaseFragment() {
 
         override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: UserInfo?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            myViewholder.bind(dataItem!!, position)
 
         }
 
         inner class MyViewHolder(view: View) : KotlinViewHolder<UserInfo>(view) {
 
-            override fun bind(t: UserInfo) {
+            override fun bind(t: UserInfo, position: Int) {
                 tv_user_nickname.text = t.nickname;
                 ImageLoader.loadImage(activity, t.avatar, iv_user_avatar);
             }
@@ -321,13 +329,13 @@ class HomeFragment : BaseFragment() {
 
         override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: OrganizationItem?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            myViewholder.bind(dataItem!!, position)
 
         }
 
         inner class MyViewHolder(view: View) : KotlinViewHolder<OrganizationItem>(view) {
 
-            override fun bind(t: OrganizationItem) {
+            override fun bind(t: OrganizationItem, position: Int) {
                 tv_organize_name.text = t.name;
                 ImageLoader.loadImage(activity, t.avatar, iv_organize_avatar);
             }

@@ -24,10 +24,10 @@ import com.gome.utils.FileCacheUtils;
 import com.gome.utils.PictureUtils;
 import com.gome.work.common.R;
 import com.gome.work.common.utils.ActivityStack;
-import com.gome.work.common.widget.MenuPopup;
-import com.gome.work.common.widget.MyBasePopupWindow;
+import com.gome.work.common.widget.MenuMenuPopup;
+import com.gome.work.common.widget.BaseMenuPopupWindow;
 import com.gome.work.common.widget.MyToolbarView;
-import com.gome.work.common.widget.SlideFromBottomPopup;
+import com.gome.work.common.widget.SlideFromBottomPopWindowMenu;
 import com.gome.work.core.SystemFramework;
 import com.gome.work.core.event.BaseEventConsumer;
 import com.gome.work.core.event.IEventConsumer;
@@ -82,7 +82,7 @@ public class BaseGomeWorkActivity extends BaseActivity {
 
     private IEventConsumer mEventConsumerHolder;
 
-    private SlideFromBottomPopup mSlideFromBottomPopup;
+    private SlideFromBottomPopWindowMenu mSlideFromBottomPopup;
 
     protected DaoUtil mDaoUtil;
 
@@ -351,8 +351,8 @@ public class BaseGomeWorkActivity extends BaseActivity {
             if (!isOnlyCamera) {
                 menus.add("相册");
             }
-            mSlideFromBottomPopup = new SlideFromBottomPopup(BaseGomeWorkActivity.this, menus);
-            mSlideFromBottomPopup.setOnMenuItemClickListener(new MyBasePopupWindow.OnMenuItemClickListener() {
+            mSlideFromBottomPopup = new SlideFromBottomPopWindowMenu(BaseGomeWorkActivity.this, menus);
+            mSlideFromBottomPopup.setOnMenuItemClickListener(new BaseMenuPopupWindow.OnMenuItemClickListener() {
                 @Override
                 public void onMenuItemClick(int position) {
                     switch (position) {
@@ -442,10 +442,10 @@ public class BaseGomeWorkActivity extends BaseActivity {
         return "";
     }
 
-    public void showPopWindowMenu(View anchorView, List<String> menuList, final MenuPopup.OnMenuItemClickListener listener) {
-        final MenuPopup menu = new MenuPopup(this, menuList);
+    public void showPopWindowMenu(View anchorView, List<String> menuList, final MenuMenuPopup.OnMenuItemClickListener listener) {
+        final MenuMenuPopup menu = new MenuMenuPopup(this, menuList);
         menu.showPopupWindow(anchorView);
-        menu.setOnMenuItemClickListener(new MyBasePopupWindow.OnMenuItemClickListener() {
+        menu.setOnMenuItemClickListener(new BaseMenuPopupWindow.OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(int position) {
                 if (listener != null) {

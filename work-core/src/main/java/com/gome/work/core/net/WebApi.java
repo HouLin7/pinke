@@ -26,7 +26,6 @@ public abstract class WebApi {
         return instance;
     }
 
-
     /**
      * @param account
      * @param password
@@ -52,6 +51,13 @@ public abstract class WebApi {
     public abstract void forgetPassword(String username, String newPwd, String captcha, IResponseListener<String> listener);
 
     public abstract void modifyPassword(String originalPwd, String newPwd, IResponseListener<String> listener);
+
+    /**
+     * 基础数据字典
+     * @param type
+     * @param listener
+     */
+    public abstract void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener);
 
 
     /**
@@ -161,14 +167,6 @@ public abstract class WebApi {
      * 上传图片
      */
     public abstract void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener);
-
-    /**
-     * 获取账号的归属数据源
-     *
-     * @param userName 用户账号
-     */
-    public abstract void getDataSource(String userName, IResponseListener<List<DataSourceItem>> listener);
-
 
     /**
      * 获取所有群成员

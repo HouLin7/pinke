@@ -81,6 +81,9 @@
         <activity android:name=".activity.PwdModifyActivity" />
         <activity android:name=".activity.PwdForgotActivity" />
         <activity android:name=".activity.AddressEditActivity" />
+        <activity android:name=".activity.CitySelectActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.PostSearchPartnerActivity" />
 
         <service
             android:name="com.baidu.location.f"

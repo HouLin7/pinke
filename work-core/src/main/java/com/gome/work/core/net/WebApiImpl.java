@@ -90,6 +90,9 @@ class WebApiImpl extends WebApi {
     @Override
     public void forgetPassword(String username, String newPwd, String captcha, IResponseListener<String> listener) {
         Map<String, String> params = new HashMap<>();
+        params.put("identity", username);
+        params.put("password", newPwd);
+        params.put("code", captcha);
         Call<BaseRspInfo<String>> result = service.forgetPassword(params);
         result.enqueue(new MyCallback(listener));
     }
@@ -97,7 +100,15 @@ class WebApiImpl extends WebApi {
     @Override
     public void modifyPassword(String originalPwd, String newPwd, IResponseListener<String> listener) {
         Map<String, String> params = new HashMap<>();
+        params.put("oldPassword", originalPwd);
+        params.put("newPassword", newPwd);
         Call<BaseRspInfo<String>> result = service.modifyPassword(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener) {
+        Call<BaseRspInfo<List<CfgDicItem>>> result = service.getConfigDataDic(type);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -194,14 +205,6 @@ class WebApiImpl extends WebApi {
         result.enqueue(new MyCallback(listener));
 
     }
-
-
-    @Override
-    public void getDataSource(String userName, IResponseListener<List<DataSourceItem>> listener) {
-        Call<BaseRspInfo<List<DataSourceItem>>> result = service.getDataSource(userName);
-        result.enqueue(new MyCallback(listener));
-    }
-
 
     @Override
     public void getIMChatGroupMemberList(String groupId, long lastPullTimestamp, int status, int page, int pageSize, IResponseListener<GroupMemberInfo> listener) {

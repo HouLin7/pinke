@@ -91,6 +91,7 @@
                         android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:background="@null"
+                        android:focusable="false"
                         android:gravity="center_vertical"
                         android:textSize="@dimen/text_size_normal" />
                 </LinearLayout>
@@ -103,7 +104,8 @@
                     android:background="@drawable/bg_login_btn_selector"
                     android:text="搜索"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_normal" />
+                    android:textSize="@dimen/text_size_normal"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

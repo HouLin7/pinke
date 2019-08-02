@@ -9,19 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
-
 import com.gome.work.common.R;
 import com.gome.work.common.adapter.PopMenuRecyclerAdapter;
 
 import java.util.List;
 
-public class SlideFromBottomPopup extends MyBasePopupWindow {
+public class SlideFromBottomPopWindowMenu extends BaseMenuPopupWindow {
 
     private PopMenuRecyclerAdapter mAdapter;
 
     private View animationView;
 
-    public SlideFromBottomPopup(Context context, List<String> menuList) {
+    public SlideFromBottomPopWindowMenu(Context context, List<String> menuList) {
         super(context);
         if (mAdapter != null) {
             mAdapter.setItemList(menuList);

@@ -49,10 +49,6 @@ public interface APIConstants {
      */
     String SEARCH_DEPT = "app/department/search.do";
 
-    /**
-     * 获取某一账号的所属数据源
-     */
-    String GET_DATA_SOURCE = "app/user/getDataResource.do";
 
     /**
      * 获取某一账号的所属数据源

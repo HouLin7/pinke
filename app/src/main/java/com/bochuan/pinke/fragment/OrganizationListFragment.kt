@@ -49,13 +49,13 @@ class OrganizationListFragment : BaseFragment() {
 
         override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: OrganizationItem?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            myViewholder.bind(dataItem!!, position)
 
         }
 
         inner class MyViewHolder(view: View) : KotlinViewHolder<OrganizationItem>(view) {
 
-            override fun bind(t: OrganizationItem) {
+            override fun bind(t: OrganizationItem, position: Int) {
                 tv_nickname.text = t.name;
                 tv_address.text = t.address
             }

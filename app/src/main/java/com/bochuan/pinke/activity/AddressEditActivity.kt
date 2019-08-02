@@ -1,6 +1,7 @@
 package com.bochuan.pinke.activity
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
@@ -22,6 +23,10 @@ class AddressEditActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_adress_edit)
         getCustomToolbar(title_bar).bindActivity(this, "选择可上课地址")
         getLocation()
+        layout_edit_city.setOnClickListener {
+            var intent = Intent(mActivity,CitySelectActivity::class.java);
+            startActivity(intent)
+        }
     }
 
     private fun getLocation() {

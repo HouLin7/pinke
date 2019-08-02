@@ -9,6 +9,6 @@ abstract class KotlinViewHolder<T>(view: View) : BaseViewHolder<T>(view), Layout
     override val containerView: View?
         get() = itemView;
 
-    abstract fun bind(t: T)
+    abstract fun bind(t: T, position: Int)
 
 }

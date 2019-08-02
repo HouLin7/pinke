@@ -28,8 +28,8 @@ import com.gome.utils.CommonUtils;
 import com.gome.utils.PictureUtils;
 import com.gome.utils.ToastUtil;
 import com.gome.work.common.R;
-import com.gome.work.common.widget.MenuPopup;
-import com.gome.work.common.widget.MyBasePopupWindow;
+import com.gome.work.common.widget.MenuMenuPopup;
+import com.gome.work.common.widget.BaseMenuPopupWindow;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -133,8 +133,8 @@ public class PhotoViewFragment extends BaseWorkFragment {
                 List<String> menus = new ArrayList<>();
                 menus.add("保存");
                 menus.add("分享");
-                final MenuPopup menuPopup = new MenuPopup(getActivity(), menus);
-                menuPopup.setOnMenuItemClickListener(new MyBasePopupWindow.OnMenuItemClickListener() {
+                final MenuMenuPopup menuPopup = new MenuMenuPopup(getActivity(), menus);
+                menuPopup.setOnMenuItemClickListener(new BaseMenuPopupWindow.OnMenuItemClickListener() {
                     @Override
                     public void onMenuItemClick(int position) {
                         switch (position) {

@@ -2,10 +2,7 @@ package com.bochuan.pinke
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.gome.work.core.model.AdBean
-import com.gome.work.core.model.BannerBean
-import com.gome.work.core.model.CaptchaItem
-import com.gome.work.core.model.RegionItem
+import com.gome.work.core.model.*
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import org.junit.Assert.assertEquals
@@ -55,6 +52,21 @@ class ExampleInstrumentedTest {
         })
     }
 
+
+    @Test
+    fun getDataDic() {
+        WebApi.getInstance().getConfigDataDic("grade", object : IResponseListener<List<CfgDicItem>> {
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+            override fun onSuccess(result: List<CfgDicItem>?) {
+
+            }
+
+        })
+    }
+
     @Test
     fun testAPi() {
         WebApi.getInstance().getAd(null)
@@ -79,11 +91,11 @@ class ExampleInstrumentedTest {
 
         })
 
-        WebApi.getInstance().getLauncherPic(object : IResponseListener<AdBean> {
+        WebApi.getInstance().getLauncherPic(object : IResponseListener<List<AdBean>> {
             override fun onError(code: String?, message: String?) {
             }
 
-            override fun onSuccess(result: AdBean?) {
+            override fun onSuccess(result: List<AdBean>?) {
             }
 
         })

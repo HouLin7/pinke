@@ -254,14 +254,14 @@ class CourseScheduleFragment : BaseFragment() {
             position: Int
         ) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            myViewholder.bind(dataItem!!, position)
 
         }
 
         inner class MyViewHolder(view: View) : KotlinViewHolder<CourseScheduleItem>(view) {
 
             var dateFormat = SimpleDateFormat("HH:mm")
-            override fun bind(t: CourseScheduleItem) {
+            override fun bind(t: CourseScheduleItem, position: Int) {
 
                 var strStart = dateFormat.format(Date(t.startTime))
                 var strEnd = dateFormat.format(Date(t.endTime))

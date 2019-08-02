@@ -129,7 +129,7 @@ class SplashActivity : BaseGomeWorkActivity() {
 
     companion object {
 
-        private val SPLASH_TIME_INTERVAL = DateUtils.SECOND_IN_MILLIS / 2
+        private const val SPLASH_TIME_INTERVAL = DateUtils.SECOND_IN_MILLIS / 2
     }
 
 }

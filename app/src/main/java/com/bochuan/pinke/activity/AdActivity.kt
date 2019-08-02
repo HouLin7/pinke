@@ -146,7 +146,7 @@ class AdActivity : BaseGomeWorkActivity() {
                 mAdData = beanList.first()
             }
             if (mAdData!!.stayDuration == 0) {
-                mAdData!!.stayDuration = 3
+                mAdData!!.stayDuration = 2
             }
             if (TextUtils.isEmpty(mAdData!!.mediaType)) {
                 mAdData!!.mediaType = getTypeFromUrl(mAdData!!.image)

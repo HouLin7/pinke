@@ -70,14 +70,20 @@ public interface ApiService {
     /**
      * 修改密码
      */
-    @POST("reset/password")
+    @POST("auth/passwd/modify")
     Call<BaseRspInfo<String>> modifyPassword(@Body Map<String, String> params);
 
     /**
      * 忘记密码
      */
-    @POST("reset/password")
+    @POST("auth/passwd/reset")
     Call<BaseRspInfo<String>> forgetPassword(@Body Map<String, String> params);
+
+    /**
+     * 系统基础数据字典
+     */
+    @GET("communal/config/listSysConfig/{type}")
+    Call<BaseRspInfo<List<CfgDicItem>>> getConfigDataDic(@Path("type") String type);
 
     /**
      * 添加好友
@@ -218,12 +224,6 @@ public interface ApiService {
 
 
     //******************************日程相关接口↑↑↑↑↑↑↑*****************************************
-
-    /**
-     * 获取数据源名称
-     */
-    @GET(APIConstants.GET_DATA_SOURCE)
-    Call<BaseRspInfo<List<DataSourceItem>>> getDataSource(@Query("userName") String userName);
 
     /**
      * 问题反馈

@@ -1,25 +1,39 @@
 package com.bochuan.pinke.activity
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
+import android.Manifest
 import android.os.Bundle
-import android.os.CountDownTimer
+import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.RecyclerView
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.View
+import android.view.ViewGroup
+import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
-import com.gome.utils.FileCacheUtils
+import com.bochuan.pinke.model.CityItem
+import com.bochuan.pinke.util.BCLocationManager
+import com.gome.utils.CommonUtils
+import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.activity.BaseGomeWorkActivity
-import com.gome.work.common.webview.CommonWebActivity
+import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.divider.CustomNewsDivider
+import com.gome.work.common.widget.LinearLayoutManagerWithSmoothScroller
+import com.gome.work.common.widget.indexview.indexbar.widget.IndexBar
 import com.gome.work.core.Constants
-import com.gome.work.core.model.AdBean
+import com.gome.work.core.model.RegionItem
 import com.gome.work.core.utils.GsonUtil
 import com.gome.work.core.utils.SharedPreferencesHelper
-import kotlinx.android.synthetic.main.activity_ad.*
-import java.io.File
-import java.io.IOException
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_city_select.*
+import kotlinx.android.synthetic.main.adapter_city_list_item.*
+import java.util.*
+import java.util.concurrent.Callable
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 
 /**
@@ -27,169 +41,168 @@ import java.io.IOException
  */
 class CitySelectActivity : BaseGomeWorkActivity() {
 
-    private var mAdData: AdBean? = null
-
-    private var mCountDownTimer: CountDownTimer? = null
+    var mAdapter: MyAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        //            Transition fade = TransitionInflater.from(this).inflateTransition(R.transition.fade_in);
-        //            getWindow().setEnterTransition(fade);
-        //            getWindow().setExitTransition(fade);
-        //        }
-        setContentView(R.layout.activity_ad)
+        setContentView(R.layout.activity_city_select)
+        getCityData()
+        getLocation()
 
+        recyclerView.layoutManager = LinearLayoutManagerWithSmoothScroller(this);
+        recyclerView.addItemDecoration(
+            CustomNewsDivider(
+                mActivity,
+                DividerItemDecoration.HORIZONTAL,
+                2,
+                R.color.divider_color
+            )
+        )
+        mAdapter = MyAdapter(this)
+        recyclerView.adapter = mAdapter
 
-        ad_time.setOnClickListener { finishSelf() }
-
-        ad_content.setOnClickListener {
-            if (mAdData != null && !TextUtils.isEmpty(mAdData!!.linkUrl)) {
-                val intent = Intent(baseContext, CommonWebActivity::class.java)
-                intent.putExtra(CommonWebActivity.EXTRA_IS_ASSEMBLE_SIGN, false)
-                intent.putExtra(CommonWebActivity.EXTRA_URL, mAdData!!.linkUrl)
-                startActivity(intent)
-                finishSelf()
-            }
-        }
-
-        if (!isShowed) {
-            initData()
-            if (!TextUtils.isEmpty(mAdData!!.mediaType)) {
-                showAdImage()
-                startTimer(mAdData!!.stayDuration)
-            } else {
-                finishSelf()
-            }
-            isShowed = true
-        } else {
-            finishSelf()
-        }
-    }
-
-
-    private fun finishSelf() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition()
-        } else {
-            super.finish()
-        }
-    }
-
-
-    override fun onBackPressed() {
-        //屏蔽back键
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (mCountDownTimer != null) {
-            mCountDownTimer!!.cancel()
-        }
-    }
-
-    private fun createFileIfNeed(): File? {
-        val uri = Uri.parse(mAdData!!.linkUrl)
-        val fileName = uri.lastPathSegment
-        val fileFolder = File(externalCacheDir, "welcome")
-        val file = File(fileFolder, fileName)
-        if (!file.exists()) {
-            try {
-                file.mkdirs()
-                file.createNewFile()
-                return null
-            } catch (e: IOException) {
-                e.printStackTrace()
+        ed_search.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                var keyword = s.toString()
+                mAdapter!!.filter.filter(keyword)
             }
 
-        }
-        return file
-    }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-
-    private fun downloadBitmap() {
-        Glide.with(this).load<Any>(mAdData!!.linkUrl).asBitmap().toBytes().into(object : SimpleTarget<ByteArray>() {
-            override fun onResourceReady(resource: ByteArray, glideAnimation: GlideAnimation<in ByteArray>) {
-                val uri = Uri.parse(mAdData!!.linkUrl)
-                FileCacheUtils.cache(baseContext, resource, uri.lastPathSegment)
             }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+
         })
-    }
+        sidebar.setmSourceDatas(mAdapter!!.allItems)
 
-
-    private fun getTypeFromUrl(url: String): String {
-        if (!TextUtils.isEmpty(url)) {
-            try {
-                val uri = Uri.parse(url)
-                val fileName = uri.lastPathSegment
-                val suffixName = fileName!!.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase()
-                if ("png" == suffixName || "jpg" == suffixName) {
-                    return "image"
-                }
-                return if ("mp4" == suffixName) {
-                    "video"
-                } else suffixName
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-        }
-        return ""
-    }
-
-    private fun initData() {
-        val jsonData = SharedPreferencesHelper.getString(Constants.PreferKeys.AD_DATA)
-        if (!TextUtils.isEmpty(jsonData)) {
-            val beanList = GsonUtil.jsonToList(jsonData, AdBean::class.java)
-            if (beanList != null && beanList.isNotEmpty()) {
-                mAdData = beanList.first()
-            }
-            if (mAdData!!.stayDuration == 0) {
-                mAdData!!.stayDuration = 3
-            }
-            if (TextUtils.isEmpty(mAdData!!.mediaType)) {
-                mAdData!!.mediaType = getTypeFromUrl(mAdData!!.image)
-                if (TextUtils.isEmpty(mAdData!!.mediaType)) {
-                    finish()
-                    return
-                }
-            }
-        }
-    }
-
-    private fun showAdImage() {
-        when (mAdData!!.mediaType) {
-            "gif", "image" -> Glide.with(this).load<Any>(mAdData!!.mediaType)
-                .placeholder(R.mipmap.ic_launcher_round).into(ad_content)
-            "video" -> {
-            }
-        }
-
-    }
-
-    private fun startTimer(duration: Int) {
-        if (mCountDownTimer == null) {
-            mCountDownTimer = object : CountDownTimer((duration * 1000).toLong(), 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    ad_time.setText("跳过(" + millisUntilFinished / 1000 + ")")
+        sidebar.setmOnIndexPressedListener(object : IndexBar.onIndexPressedListener {
+            override fun onIndexPressed(index: Int, text: String?) {
+                var pos = findPositionByLetter(text!!)
+                if (pos > -1) {
+//                    recyclerView.scrollToPosition(index)
+                    var  llm = recyclerView.layoutManager
+                    llm!!.scrollToPosition(pos)
                 }
 
-                override fun onFinish() {
-                    if (!isFinishing) {
-                        finishSelf()
+            }
+
+            override fun onMotionEventEnd() {
+            }
+
+        })
+
+    }
+
+    private fun findPositionByLetter(letter: String): Int {
+        var dataList = mAdapter!!.allItems
+        for (item in dataList) {
+            if (item.regionItem.firstChar.equals(letter)) {
+                return dataList.indexOf(item)
+            }
+        }
+        return -1
+    }
+
+    private fun getLocation() {
+        if (!CommonUtils.isGPSOpen(this)) {
+            showAlertDlg("请先打开手机定位开关")
+            return;
+        }
+        requestPermission(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) { permission, isSuccess ->
+            if (isSuccess) {
+                val locationManager = BCLocationManager(mActivity);
+                locationManager.getLocation(object : BCLocationManager.ILocationCallback {
+                    override fun call(loc: BDLocation) {
+                        tv_location_city.text = loc.city
                     }
-                }
+                })
+            } else {
+
             }
-            mCountDownTimer!!.start()
+
         }
     }
 
-    companion object {
-        /**
-         * 标记在程序一次生命周期内，是否已经展示过了
-         */
-        private var isShowed: Boolean = false
+    private fun getCityData() {
+        tagRxTask(Observable.fromCallable(Callable<List<CityItem>> {
+            return@Callable getALlCityData()
+
+        }).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { result ->
+                mAdapter!!.setItemList(result)
+
+            })
     }
 
+    private fun getALlCityData(): List<CityItem> {
+        var dataStr = SharedPreferencesHelper.getString(Constants.PreferKeys.CITY_DATA)
+        var regionList = ArrayList<RegionItem>()
+        if (!TextUtils.isEmpty(dataStr)) {
+//                var tokenInfo = object : TypeToken<List<RegionItem>>() {}
+            regionList = GsonUtil.jsonToList(dataStr, RegionItem::class.java) as ArrayList<RegionItem>
+        }
+        var cityList = ArrayList<CityItem>()
+
+        var topLevelCity = listOf("北京", "上海", "广州", "重庆")
+        for (item1 in regionList) {
+            if (item1.name in topLevelCity) {
+                cityList.add(CityItem(item1))
+                continue
+            }
+            for (item2 in item1.children) {
+                cityList.add(CityItem(item2))
+                for (item3 in item2.children) {
+//                    cityList.add(item3)
+                }
+            }
+
+        }
+
+        Collections.sort(cityList, Comparator<CityItem> { o1, o2 ->
+            return@Comparator o1.regionItem.firstChar.compareTo(o2.regionItem.firstChar)
+        })
+
+        return cityList
+    }
+
+    inner class MyAdapter(activity: FragmentActivity) : BaseRecyclerAdapter<CityItem>(activity) {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+            var view: View = layoutInflater.inflate(R.layout.adapter_city_list_item, null);
+            return MyViewHolder(view)
+        }
+
+        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: CityItem?, position: Int) {
+            var viewHolder = holder as KotlinViewHolder<RegionItem>
+            viewHolder.bind(dataItem!!.regionItem, position)
+        }
+
+        override fun matchFilter(t: CityItem?, keyword: String?): Boolean {
+            return t!!.regionItem.name.contains(keyword!!);
+        }
+
+        inner class MyViewHolder(view: View) : KotlinViewHolder<RegionItem>(view) {
+
+            override fun bind(t: RegionItem, position: Int) {
+                var dataList = mAdapter!!.allItems
+                tv_city_name.text = t.name
+                tv_first_letter.text = t.firstChar
+                if (position == 0) {
+                    tv_first_letter.visibility = View.VISIBLE
+                } else if (!dataList[position].regionItem.firstChar.equals(dataList[position - 1].regionItem.firstChar)) {
+                    tv_first_letter.visibility = View.VISIBLE
+                } else {
+                    tv_first_letter.visibility = View.GONE
+                }
+            }
+        }
+
+    }
 
 }

@@ -103,7 +103,6 @@ public class SharedPreferencesHelper {
         commitString(Constants.PreferKeys.ACCESS_TOKEN_INFO, "");
         commitString(Constants.PreferKeys.ACCESS_TOKEN, "");
         commitString(Constants.PreferKeys.JSON_WORK_BANNER, "");
-        commitString(Constants.PreferKeys.JSON_CONTACTS_MY_FRIENDS, "");
     }
 
 

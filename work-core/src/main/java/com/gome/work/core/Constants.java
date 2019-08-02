@@ -92,9 +92,31 @@ public interface Constants {
         public static final String CITY_DATA = "city.data";
 
         /**
-         * 通讯录我的好友
+         * 配置数据-学习阶段
          */
-        public static final String JSON_CONTACTS_MY_FRIENDS = "json.contacts.my.friends";
+        public static final String SYS_CFG_GRADE = "sys.config.grade";
+
+        /**
+         * 配置数据--课程
+         */
+        public static final String SYS_CFG_COURSE = "sys.config.course";
+
+        /**
+         * 配置数据-教学类型
+         */
+        public static final String SYS_TEACH_TYPE = "sys.config.teach.type";
+
+        /**
+         * 配置数据-教学年龄
+         */
+        public static final String SYS_TEACH_AGE = "sys.config.teach.age";
+
+        /**
+         * 配置数据-教学年龄
+         */
+        public static final String SYS_STUDENT_SCORE = "sys.config.student.score";
+
+
 
         /**
          * 应用最近的升级信息

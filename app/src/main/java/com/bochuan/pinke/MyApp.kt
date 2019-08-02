@@ -3,9 +3,11 @@ package com.bochuan.pinke
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
+import com.bochuan.pinke.jni.JNIBridge
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.Constants
 import com.gome.work.core.SystemFramework
+import com.gome.work.core.model.CfgDicItem
 import com.gome.work.core.model.RegionItem
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
@@ -107,8 +109,9 @@ class MyApp : Application() {
     /**
      * 同步基础数据
      */
-    private fun synBaseData(){
+    private fun synBaseData() {
         getCityData()
+        getSysConfigData()
     }
 
     private fun getCityData() {
@@ -116,6 +119,67 @@ class MyApp : Application() {
             override fun onSuccess(result: List<RegionItem>?) {
                 var data = GsonUtil.GsonString(result)
                 SharedPreferencesHelper.commitString(Constants.PreferKeys.CITY_DATA, data)
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+    }
+
+
+    private fun getSysConfigData() {
+        WebApi.getInstance().getConfigDataDic("subject", object : IResponseListener<List<CfgDicItem>> {
+            override fun onSuccess(result: List<CfgDicItem>?) {
+                result?.let {
+                    var data = GsonUtil.GsonString(result)
+                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_CFG_COURSE, data)
+                }
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+
+        WebApi.getInstance().getConfigDataDic("grade", object : IResponseListener<List<CfgDicItem>> {
+            override fun onSuccess(result: List<CfgDicItem>?) {
+                result?.let {
+                    var data = GsonUtil.GsonString(result)
+                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_CFG_GRADE, data)
+                }
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+
+
+        WebApi.getInstance().getConfigDataDic("teach_type", object : IResponseListener<List<CfgDicItem>> {
+            override fun onSuccess(result: List<CfgDicItem>?) {
+                result?.let {
+                    var data = GsonUtil.GsonString(result)
+                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_TEACH_TYPE, data)
+                }
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+
+        WebApi.getInstance().getConfigDataDic("student_score", object : IResponseListener<List<CfgDicItem>> {
+            override fun onSuccess(result: List<CfgDicItem>?) {
+                result?.let {
+
+                    var data = GsonUtil.GsonString(result)
+                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_STUDENT_SCORE, data)
+                }
             }
 
             override fun onError(code: String?, message: String?) {

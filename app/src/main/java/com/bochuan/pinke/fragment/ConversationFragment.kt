@@ -115,12 +115,12 @@ class ConversationFragment : BaseFragment(), IConversationChangedListener {
 
         override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: ConversationInfo?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            myViewholder.bind(dataItem!!, position)
         }
     }
 
     inner class MyViewHolder(view: View) : KotlinViewHolder<ConversationInfo>(view) {
-        override fun bind(t: ConversationInfo) {
+        override fun bind(t: ConversationInfo, position: Int) {
             tv_title.setText(t.title)
             tv_title.setText(t.content)
             tv_time.setText(DateUtils.getTimestampString(Date(t.updateTime)))

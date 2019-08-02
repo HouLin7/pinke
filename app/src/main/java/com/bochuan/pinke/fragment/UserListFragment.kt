@@ -67,14 +67,14 @@ class UserListFragment : BaseFragment() {
         }
 
         override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: UserInfo?, position: Int) {
-            var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!)
+            var viewHolder: MyViewHolder = holder as MyViewHolder
+            viewHolder.bind(dataItem!!,position)
 
         }
 
         inner class MyViewHolder(view: View) : KotlinViewHolder<UserInfo>(view) {
 
-            override fun bind(t: UserInfo) {
+            override fun bind(t: UserInfo, position: Int) {
                 tv_user_nickname.text = t.nickname;
                 tv_user_address.text = t.address
                 ImageLoader.loadImage(activity, t.avatar, iv_avatar);
