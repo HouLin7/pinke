@@ -1,7 +1,6 @@
 package com.gome.work.common.adapter;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,7 +167,7 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
 
 
     @Override
-    public void onBindMyViewHolder(RecyclerView.ViewHolder holder, T dataItem, int position) {
+    public void onBindMyViewHolder(BaseViewHolder<T> holder, T dataItem, int position) {
         MyViewHolder<T> myHolder = (MyViewHolder<T>) holder;
         myHolder.dataItem = dataItem;
         myHolder.checkBox.setVisibility(isSelectState && isSelectable(dataItem) ? View.VISIBLE : View.GONE);
@@ -209,7 +208,7 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder<T> onCreateMyViewHolder(ViewGroup parent, int viewType) {
 
         int layoutId;
         switch (checkGravity) {

@@ -34,7 +34,10 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="${BAIDU_AK_VALUE}"></meta-data>
+            android:value="${BAIDU_AK_VALUE}" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="${AMAP_AK_VALUE}" />
 
         <!--&lt;!&ndash; Required  . Enable it you can get statistics data with channel &ndash;&gt;-->
         <!--<meta-data android:name="JPUSH_CHANNEL" android:value="${JPUSH_CHANNEL}"/>-->
@@ -78,17 +81,34 @@
         <activity
             android:name=".activity.AdActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.PwdModifyActivity" />
-        <activity android:name=".activity.PwdForgotActivity" />
-        <activity android:name=".activity.AddressEditActivity" />
-        <activity android:name=".activity.CitySelectActivity" />
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.PostSearchPartnerActivity" />
+        <activity
+            android:name=".activity.PwdModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PwdForgotActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddressEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CitySelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PostSearchPartnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ScheduleForSearchPartnerActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <service android:name="com.amap.api.location.APSService" />
 
     </application>
 

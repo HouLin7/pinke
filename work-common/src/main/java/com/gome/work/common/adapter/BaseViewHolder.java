@@ -5,13 +5,15 @@ import android.view.View;
 
 public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
-    public BaseViewHolder(View itemView) {
-        super(itemView);
-    }
+    public int position;
 
     public T dataItem;
 
     private Object target;
+
+    public BaseViewHolder(View itemView) {
+        super(itemView);
+    }
 
     public Object getTarget() {
         return target;

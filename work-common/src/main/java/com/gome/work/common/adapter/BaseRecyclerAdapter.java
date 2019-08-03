@@ -18,7 +18,7 @@ import java.util.Locale;
  * Created by chaergongzi on 2017/8/1.
  */
 
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
+public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHolder<T>> implements Filterable {
 
     protected FragmentActivity mActivity;
 
@@ -116,12 +116,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder rv = onCreateMyViewHolder(parent, viewType);
+    public BaseViewHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
+        final BaseViewHolder<T> rv = onCreateMyViewHolder(parent, viewType);
         rv.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = (int) view.getTag();
+                int position = rv.position;
                 if (mOnItemClickListener != null && isEnable(position)) {
                     mOnItemClickListener.onItemClick(null, view, position, getItemId(position));
                 }
@@ -131,7 +131,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         rv.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                int position = (int) view.getTag();
+                int position = rv.position;
                 if (mOnItemLongClickListener != null && isEnable(position)) {
                     mOnItemLongClickListener.onItemLongClick(null, view, position, getItemId(position));
                 }
@@ -142,9 +142,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        holder.itemView.setTag(position);
-        onBindMyViewHolder(holder, mDataList.get(position), position);
+    public void onBindViewHolder(BaseViewHolder<T> holder, int position) {
+        holder.position = position;
+        holder.dataItem = getItem(position);
+        onBindMyViewHolder((BaseViewHolder) holder, getItem(position), position);
     }
 
     @Override
@@ -159,9 +160,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         return null;
     }
 
-    public abstract RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType);
+    public abstract BaseViewHolder<T> onCreateMyViewHolder(ViewGroup parent, int viewType);
 
-    public abstract void onBindMyViewHolder(RecyclerView.ViewHolder holder, T dataItem, int position);
+    public abstract void onBindMyViewHolder(BaseViewHolder<T> holder, T dataItem, int position);
 
 
     public boolean matchFilter(T t, String keyword) {

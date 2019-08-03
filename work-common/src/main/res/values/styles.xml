@@ -181,7 +181,7 @@
         <item name="contentInsetEnd">14dp</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
         <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
-        <item name="actionMenuTextColor">@color/app_red</item>
+        <item name="actionMenuTextColor">@color/theme_green</item>
     </style>
 
     <style name="MyToolbar.PopupTheme" parent="Widget.AppCompat.PopupMenu">
@@ -197,7 +197,7 @@
     </style>
 
     <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/app_red</item>
+        <item name="color">@color/theme_green</item>
         <item name="barLength">28dp</item>
         <item name="gapBetweenBars">3dp</item>
         <item name="drawableSize">50dp</item>
@@ -236,7 +236,7 @@
     </style>
 
     <style name="checkbox_style" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/app_red</item>
+        <item name="colorControlActivated">@color/theme_green</item>
     </style>
 
 

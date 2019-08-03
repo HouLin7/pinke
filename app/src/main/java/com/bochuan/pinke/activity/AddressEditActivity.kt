@@ -53,12 +53,7 @@ class AddressEditActivity : BaseGomeWorkActivity() {
         }
     }
 
-    companion object {
-        /**
-         * 标记在程序一次生命周期内，是否已经展示过了
-         */
-        private var isShowed: Boolean = false
-    }
+    
 
 
 }

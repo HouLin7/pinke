@@ -246,7 +246,7 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
                 when (position) {
                     0 -> fragment = HomeFragment()
                     1 -> fragment = MyCourseFragment()
-                    2 -> fragment = CourseScheduleFragment()
+                    2 -> fragment = ScheduleFragment()
                     3 -> fragment = MineFragment()
                 }
                 mFragmentList.put(position, fragment)

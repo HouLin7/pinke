@@ -4,7 +4,6 @@ import android.Manifest
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -18,6 +17,7 @@ import com.gome.utils.CommonUtils
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.divider.CustomNewsDivider
 import com.gome.work.common.widget.LinearLayoutManagerWithSmoothScroller
 import com.gome.work.common.widget.indexview.indexbar.widget.IndexBar
@@ -173,12 +173,12 @@ class CitySelectActivity : BaseGomeWorkActivity() {
     }
 
     inner class MyAdapter(activity: FragmentActivity) : BaseRecyclerAdapter<CityItem>(activity) {
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CityItem> {
             var view: View = layoutInflater.inflate(R.layout.adapter_city_list_item, null);
             return MyViewHolder(view)
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: CityItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CityItem> ?, dataItem: CityItem?, position: Int) {
             var viewHolder = holder as KotlinViewHolder<RegionItem>
             viewHolder.bind(dataItem!!.regionItem, position)
         }
@@ -187,12 +187,13 @@ class CitySelectActivity : BaseGomeWorkActivity() {
             return t!!.regionItem.name.contains(keyword!!);
         }
 
-        inner class MyViewHolder(view: View) : KotlinViewHolder<RegionItem>(view) {
+        inner class MyViewHolder(view: View) : KotlinViewHolder<CityItem>(view) {
 
-            override fun bind(t: RegionItem, position: Int) {
+            override fun bind(t: CityItem, position: Int) {
                 var dataList = mAdapter!!.allItems
-                tv_city_name.text = t.name
-                tv_first_letter.text = t.firstChar
+
+                tv_city_name.text = t.regionItem.name
+                tv_first_letter.text = t.regionItem.firstChar
                 if (position == 0) {
                     tv_first_letter.visibility = View.VISIBLE
                 } else if (!dataList[position].regionItem.firstChar.equals(dataList[position - 1].regionItem.firstChar)) {

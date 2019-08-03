@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.R
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.core.model.CfgDicItem
 import kotlinx.android.synthetic.main.adapter_simple_textview_item.*
 import razerdp.basepopup.BasePopupWindow
@@ -24,6 +25,8 @@ class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList
     var recyclerView1: RecyclerView? = null
     var recyclerView2: RecyclerView? = null
 
+    var listener: BaseMultiSelectPopWindow.OnCfgItemSelectListener? = null
+
     private lateinit var animationView: View
 
     init {
@@ -31,6 +34,10 @@ class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList
         recyclerView1!!.adapter = adapter1
         if (!dataList.first().isHasChild) {
             recyclerView2!!.visibility = View.GONE
+            adapter1!!.setOnItemClickListener { parent, view, position, id ->
+                listener!!.onSelect(arrayListOf(adapter1!!.getItem(position)))
+                dismiss()
+            }
         } else {
             adapter1!!.setOnItemClickListener { parent, view, position, id ->
                 var dataList = adapter1!!.getItem(position)
@@ -40,8 +47,17 @@ class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList
             recyclerView2!!.visibility = View.VISIBLE
             adapter2 = Adapter(fragmentActivity, dataList.first().children)
             recyclerView2!!.adapter = adapter2
+
+            adapter2!!.setOnItemClickListener { parent, view, position, id ->
+
+                listener?.let {
+                    listener!!.onSelect(arrayListOf(adapter2!!.getItem(position)))
+                    dismiss()
+                }
+            }
         }
     }
+
 
 //    private fun convertStringList(dataList: List<CfgDicItem>): Array<String?> {
 //        var result = arrayOfNulls<String>(dataList.size)
@@ -80,12 +96,12 @@ class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList
 
     inner class Adapter(fragmentActivity: FragmentActivity, dataList: List<CfgDicItem>) :
         BaseRecyclerAdapter<CfgDicItem>(fragmentActivity, dataList) {
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-            var view = LayoutInflater.from(context).inflate(R.layout.adapter_simple_textview_item, null)
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CfgDicItem>? {
+            var view = LayoutInflater.from(context).inflate(R.layout.adapter_simple_textview_item, parent, false)
             return ViewHolder(view)
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: CfgDicItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CfgDicItem>?, dataItem: CfgDicItem?, position: Int) {
             var myHolder = holder as ViewHolder
             myHolder.bind(dataItem!!, position)
 
@@ -98,5 +114,6 @@ class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList
 
         }
     }
+
 
 }

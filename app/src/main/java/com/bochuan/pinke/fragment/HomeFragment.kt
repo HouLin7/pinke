@@ -30,6 +30,7 @@ import com.gome.utils.GsonUtil
 import com.gome.utils.ToastUtil
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.common.utils.BlurUtils
 import com.gome.work.core.Constants
@@ -298,12 +299,12 @@ class HomeFragment : BaseFragment() {
 
     inner class AdapterTeacher(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<UserInfo>? {
             var view: View = layoutInflater.inflate(R.layout.adapter_recommend_user_list_item, null);
             return MyViewHolder(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: UserInfo?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<UserInfo>?, dataItem: UserInfo?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
             myViewholder.bind(dataItem!!, position)
 
@@ -322,12 +323,12 @@ class HomeFragment : BaseFragment() {
     internal inner class AdapterOrganization(activity: FragmentActivity?) :
         BaseRecyclerAdapter<OrganizationItem>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<OrganizationItem>? {
             var view: View = layoutInflater.inflate(R.layout.adapter_recommend_organization_list_item, null);
             return MyViewHolder(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: OrganizationItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<OrganizationItem>?, dataItem: OrganizationItem?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
             myViewholder.bind(dataItem!!, position)
 

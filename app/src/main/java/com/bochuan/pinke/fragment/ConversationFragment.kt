@@ -13,6 +13,7 @@ import com.bochuan.pinke.util.IConversationChangedListener
 import com.gome.core.greendao.ConversationInfoDao
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.divider.CustomNewsDivider
 import com.gome.work.core.model.im.ConversationInfo
 import com.gome.work.core.model.im.ConversationInfo.MSG_TYPE_CHAT
@@ -108,12 +109,12 @@ class ConversationFragment : BaseFragment(), IConversationChangedListener {
 
     inner class MyAdapter(activity: FragmentActivity) : BaseRecyclerAdapter<ConversationInfo>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<ConversationInfo>? {
             var view: View = layoutInflater.inflate(R.layout.adapter_conversation_list_item, null);
             return MyViewHolder(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: ConversationInfo?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<ConversationInfo>?, dataItem: ConversationInfo?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
             myViewholder.bind(dataItem!!, position)
         }

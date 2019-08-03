@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.bochuan.pinke.R
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.divider.CustomNewsDivider
 import com.gome.work.core.model.OrganizationItem
 import kotlinx.android.synthetic.main.adapter_organization_list_item.*
@@ -42,12 +43,12 @@ class OrganizationListFragment : BaseFragment() {
 
     internal inner class Adapter(activity: FragmentActivity?) : BaseRecyclerAdapter<OrganizationItem>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<OrganizationItem>? {
             var view: View = layoutInflater.inflate(R.layout.adapter_organization_list_item, null);
             return MyViewHolder(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: OrganizationItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<OrganizationItem>?, dataItem: OrganizationItem?, position: Int) {
             var myViewholder: MyViewHolder = holder as MyViewHolder
             myViewholder.bind(dataItem!!, position)
 

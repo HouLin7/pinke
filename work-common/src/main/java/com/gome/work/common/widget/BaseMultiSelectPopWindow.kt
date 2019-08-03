@@ -12,6 +12,7 @@ import android.view.animation.Animation
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.R
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.core.model.CfgDicItem
 import kotlinx.android.synthetic.main.adapter_pop_select_child_item.*
 import kotlinx.android.synthetic.main.adapter_pop_select_item.*
@@ -30,7 +31,7 @@ class BaseMultiSelectPopWindow(private var fragmentActivity: FragmentActivity, v
         recyclerView.layoutManager = LinearLayoutManager(fragmentActivity)
         recyclerView.itemAnimator = DefaultItemAnimator()
 
-        var adapter: BaseRecyclerAdapter<CfgDicItem>? = null
+        var adapter: BaseRecyclerAdapter<CfgDicItem>?
         if (dataList.first().isHasChild) {
             adapter = AdapterPopWindowSelect(fragmentActivity)
         } else {
@@ -56,7 +57,7 @@ class BaseMultiSelectPopWindow(private var fragmentActivity: FragmentActivity, v
 
 
     inner class AdapterPopWindowSelect(activity: FragmentActivity) : BaseRecyclerAdapter<CfgDicItem>(activity) {
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CfgDicItem>? {
             var view = LayoutInflater.from(mActivity).inflate(R.layout.adapter_pop_select_item, null);
             var holder = ViewHolderItem(view);
             holder.recyclerView.layoutManager = GridLayoutManager(context, 4)
@@ -64,7 +65,7 @@ class BaseMultiSelectPopWindow(private var fragmentActivity: FragmentActivity, v
             return holder
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: CfgDicItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CfgDicItem>?, dataItem: CfgDicItem?, position: Int) {
             var myHolder = holder as ViewHolderItem
             myHolder.bind(dataItem!!, position)
         }
@@ -81,12 +82,12 @@ class BaseMultiSelectPopWindow(private var fragmentActivity: FragmentActivity, v
 
 
     inner class AdapterPopWindowSelectChild(activity: FragmentActivity) : BaseRecyclerAdapter<CfgDicItem>(activity) {
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CfgDicItem>? {
             var view = LayoutInflater.from(mActivity).inflate(R.layout.adapter_pop_select_child_item, null);
             return ViewHolderItemChild(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: CfgDicItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CfgDicItem>?, dataItem: CfgDicItem?, position: Int) {
             var myHolder = holder as ViewHolderItemChild
             myHolder.bind(dataItem!!, position)
         }
@@ -101,7 +102,7 @@ class BaseMultiSelectPopWindow(private var fragmentActivity: FragmentActivity, v
 
     }
 
-    interface OnItemSelectListener {
+    interface OnCfgItemSelectListener {
         fun onSelect(dataList: List<CfgDicItem>)
     }
 

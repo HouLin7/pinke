@@ -38,6 +38,3 @@ dependencies {
 //    api 'me.imid.swipebacklayout.lib:library:1.1.0'
 
 }
-repositories {
-    mavenCentral()
-}

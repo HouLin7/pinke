@@ -22,14 +22,14 @@ public abstract class DataBindRecyclerAdapter<T, K extends ViewDataBinding> exte
     }
 
     @Override
-    public void onBindMyViewHolder(RecyclerView.ViewHolder holder, T dataItem, int position) {
+    public void onBindMyViewHolder(BaseViewHolder<T> holder, T dataItem, int position) {
         DataBindViewHolder<T, K> myHolder = (DataBindViewHolder<T, K>) holder;
         myHolder.dataItem = dataItem;
         onBindBindingHolder(myHolder, dataItem, position);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateMyViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder<T> onCreateMyViewHolder(ViewGroup parent, int viewType) {
         return onCreateBindingHolder(parent, viewType);
     }
 

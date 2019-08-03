@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.bochuan.pinke.R
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
+import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.divider.CustomNewsDivider
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.UserInfo
@@ -61,12 +62,12 @@ class UserListFragment : BaseFragment() {
 
     internal inner class Adapter(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<UserInfo>? {
             var view: View = layoutInflater.inflate(R.layout.adapter_user_list_item, null);
             return MyViewHolder(view);
         }
 
-        override fun onBindMyViewHolder(holder: RecyclerView.ViewHolder?, dataItem: UserInfo?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<UserInfo>?, dataItem: UserInfo?, position: Int) {
             var viewHolder: MyViewHolder = holder as MyViewHolder
             viewHolder.bind(dataItem!!,position)
 

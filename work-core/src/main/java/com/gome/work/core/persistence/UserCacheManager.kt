@@ -52,9 +52,7 @@ class UserCacheManager private constructor(context: Context) {
 
     fun notifyListener(user: UserInfo) {
         for (item in listeners) {
-            item?.let {
-                item.onResult(user)
-            }
+            item.onResult(user)
         }
     }
 
