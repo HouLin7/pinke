@@ -63,7 +63,7 @@
     <style name="Activity.Dialog" parent="Base.Activity.Dialog"/>
 
     <style name="MyCustomTabTextAppearance">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="textAllCaps">true</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -232,7 +232,7 @@
 
 
     <style name="menu_labels_style">
-        <item name="android:textColor">@color/app_gray_light</item>
+        <item name="android:textColor">@color/text_black</item>
     </style>
 
     <style name="checkbox_style" parent="Theme.AppCompat.Light">

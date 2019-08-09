@@ -1,6 +1,7 @@
 package com.bochuan.pinke.fragment
 
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -12,19 +13,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.SparseArray
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.baidu.location.BDLocation
+import com.amap.api.location.AMapLocation
 import com.bigkoo.convenientbanner.ConvenientBanner
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
-import com.bochuan.pinke.activity.AddressEditActivity
-import com.bochuan.pinke.activity.ConversationActivity
-import com.bochuan.pinke.activity.PostSearchPartnerActivity
-import com.bochuan.pinke.activity.SearchActivity
+import com.bochuan.pinke.activity.*
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.GsonUtil
 import com.gome.utils.ToastUtil
@@ -49,6 +48,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
+    companion object {
+        const val REQUEST_CODE_CITY_SELECT = 1
+    }
+
     private val mBannerList = ArrayList<BannerBean>();
 
     private var mBestTeacherList = ArrayList<UserInfo>()
@@ -59,7 +62,7 @@ class HomeFragment : BaseFragment() {
 
     private var mAdapterTeacher: AdapterTeacher? = null;
 
-    private var mBDLocaiton: BDLocation? = null
+    private var mBDLocaiton: AMapLocation? = null
 
     private var bitmap: Bitmap? = null
 
@@ -77,9 +80,9 @@ class HomeFragment : BaseFragment() {
 
     override fun handleEvent(event: EventInfo?) {
         super.handleEvent(event)
-        var location = event!!.data as BDLocation
+        var location = event!!.data as AMapLocation
         if (isAdded) {
-            tv_address.text = location.address.district + location.address.street
+            tv_address.text = location.aoiName
             tv_city.text = location.city
         } else {
             mBDLocaiton = location
@@ -182,7 +185,6 @@ class HomeFragment : BaseFragment() {
 
             }
 
-
         })
 
         view_pager.adapter = MyFragmentTabAdapter(childFragmentManager)
@@ -204,12 +206,27 @@ class HomeFragment : BaseFragment() {
         layout_bg.isClickable = false;
 
         mBDLocaiton?.let {
-            tv_address.text = mBDLocaiton!!.address.district + mBDLocaiton!!.address.street
+            tv_address.text = mBDLocaiton!!.aoiName
             tv_city.text = mBDLocaiton!!.city
         }
 
 
         iv_message.setOnClickListener { startActivity(Intent(mActivity, ConversationActivity::class.java)) }
+
+
+        tv_city.setOnClickListener {
+            var intent = Intent(mActivity, CitySelectActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_CITY_SELECT)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CITY_SELECT) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -287,15 +304,22 @@ class HomeFragment : BaseFragment() {
             override fun onSuccess(result: List<BannerBean>?) {
                 mBannerList.clear()
                 mBannerList.addAll(result!!)
+
                 convenientBanner.notifyDataSetChanged()
                 convenientBanner.invalidate()
                 SharedPreferencesHelper.commitString(Constants.PreferKeys.BANNER_LIST, GsonUtil.objectToJson(result))
-
             }
 
         })
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
 
     inner class AdapterTeacher(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
 

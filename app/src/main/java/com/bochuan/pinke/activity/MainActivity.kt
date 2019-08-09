@@ -11,13 +11,13 @@ import android.text.TextUtils
 import android.util.SparseArray
 import android.view.ViewGroup
 import android.widget.Toast
+import com.amap.api.location.AMapLocation
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
-import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
 import com.bochuan.pinke.fragment.*
-import com.bochuan.pinke.util.BCLocationManager
+import com.bochuan.pinke.util.AMapLocationManager
 import com.gome.utils.CommonUtils
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.core.Constants
@@ -30,11 +30,17 @@ import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareListener
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view_pager
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
 
 open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener {
 
+    companion object {
+        const val APP_BACK_WAIT_DEFAULT_TIME: Long = 3 * 1000
+
+    }
 
     override fun onPageScrollStateChanged(p0: Int) {
 
@@ -48,7 +54,6 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
         bottom_navigation_bar_container.selectTab(position)
     }
 
-    private val APP_BACK_WAIT_DEFAULT_TIME: Long = 3 * 1000
 
     private var mOldBackPressTime: Long = 0
 
@@ -79,18 +84,22 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
             ACCESS_FINE_LOCATION
         ) { permission, isSuccess ->
             if (isSuccess) {
-                val locationManager = BCLocationManager(mActivity);
-                locationManager.getLocation(object : BCLocationManager.ILocationCallback {
-                    override fun call(loc: BDLocation) {
+                val locationManager = AMapLocationManager(mActivity);
+
+                locationManager.getLocation(object : AMapLocationManager.ILocationCallback {
+                    override fun call(loc: AMapLocation) {
                         EventDispatcher.postEvent(EventInfo.FLAG_LOCATION_RECEIVE, loc)
                     }
+
                 })
+
             } else {
 
             }
 
         }
     }
+
 
     /**
      * 启动广告页
@@ -156,7 +165,6 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
     private fun initNavigationBar(naviBar: BottomNavigationBar) {
         naviBar.setMode(BottomNavigationBar.MODE_FIXED)
             .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
-
         naviBar.addItem(
             BottomNavigationItem(R.mipmap.ic_launcher, "首页")
                 .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(0))

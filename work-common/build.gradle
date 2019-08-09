@@ -69,6 +69,7 @@ dependencies {
 
     api 'com.r0adkll:slidableactivity:2.0.6'
 
+    api rootProject.ext.dependencies["kotlin-stdlib"]
 
 }
 

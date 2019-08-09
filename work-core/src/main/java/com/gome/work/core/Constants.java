@@ -117,6 +117,10 @@ public interface Constants {
         public static final String SYS_STUDENT_SCORE = "sys.config.student.score";
 
 
+        /**
+         * 配置数据-教学年龄
+         */
+        public static final String SYS_LAST_LOCATION = "last.location";
 
         /**
          * 应用最近的升级信息

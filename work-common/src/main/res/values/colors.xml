@@ -5,7 +5,7 @@
     <color name="theme_blue_gray">#ff199bf1</color>
 
     <color name="theme_green">#00B36A</color>
-    <color name="theme_green_gray">#00d38A</color>
+    <color name="theme_green_dark">#00a38A</color>
 
     <!--原来engine color-->
     <color name="dialog_btn_text">#666666</color>

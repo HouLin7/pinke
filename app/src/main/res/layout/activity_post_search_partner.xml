@@ -208,13 +208,13 @@
                 android:textSize="@dimen/text_size_normal" />
 
             <EditText
-
                 android:id="@+id/tv_cost"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/tv_label_cost" />
+                android:layout_toRightOf="@+id/tv_label_cost"
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/tv_label_cost_unit"
@@ -225,6 +225,45 @@
                 android:layout_toRightOf="@+id/tv_cost"
                 android:text="元/节*人"
                 android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_bar"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_label_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="上课地点"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toLeftOf="@+id/tv_address_modify"
+                android:layout_toRightOf="@+id/tv_label_address"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_address_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:text="修改"
+                android:textColor="@color/theme_green"
                 android:textSize="@dimen/text_size_normal" />
 
         </RelativeLayout>
@@ -251,20 +290,33 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/tv_label_course_score" />
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tv_course_score_alert"
+                android:layout_toRightOf="@+id/tv_label_course_score"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/tv_course_score_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="文化课必填"
+                android:textColor="@color/red" />
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tv_label_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="备注"
+                android:text="近况"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/text_size_normal" />
 
@@ -274,10 +326,20 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/tv_label_course_score"
-                android:inputType="textMultiLine" />
+                android:layout_toLeftOf="@+id/tv_note_alert"
+                android:layout_toRightOf="@+id/tv_label_note"
+                android:inputType="text" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_note_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="非文化课必填"
+                android:textColor="@color/red" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

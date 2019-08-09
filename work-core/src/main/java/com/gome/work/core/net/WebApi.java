@@ -61,6 +61,12 @@ public abstract class WebApi {
 
 
     /**
+     * @param dataItem
+     * @param listener
+     */
+    public abstract void postSearchPartnerItem(PostSearchPartnerItem dataItem, IResponseListener<String> listener);
+
+    /**
      * @param user
      * @param listener
      */

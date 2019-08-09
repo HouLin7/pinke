@@ -294,16 +294,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
                     android:text="为您推荐"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_size_big" />
+                    android:textSize="@dimen/text_size_normal" />
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout"
@@ -311,11 +314,11 @@
                     android:layout_height="40dp"
                     android:background="@color/white"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="@color/app_red"
+                    app:tabIndicatorColor="@color/theme_green"
                     app:tabIndicatorFullWidth="false"
                     app:tabIndicatorHeight="2dp"
                     app:tabMode="scrollable"
-                    app:tabSelectedTextColor="@color/app_black"
+                    app:tabSelectedTextColor="@color/theme_green"
                     app:tabTextAppearance="@style/MyCustomTabTextAppearance"
                     app:tabTextColor="@color/app_gray_light" />
 
@@ -346,8 +349,8 @@
         android:layout_height="66dp"
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
-        app:fab_addButtonColorNormal="@color/app_red"
-        app:fab_addButtonColorPressed="@color/app_red"
+        app:fab_addButtonColorNormal="@color/theme_green"
+        app:fab_addButtonColorPressed="@color/theme_green_dark"
         app:fab_addButtonSize="normal"
         app:fab_expandDirection="up"
         app:fab_labelStyle="@style/menu_labels_style">

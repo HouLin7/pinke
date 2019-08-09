@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import android.widget.AdapterView
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.R
 import com.gome.work.common.adapter.BaseRecyclerAdapter

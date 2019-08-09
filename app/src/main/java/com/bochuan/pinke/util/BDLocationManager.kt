@@ -7,7 +7,7 @@ import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 
 
-class BCLocationManager(context: Context) {
+class BDLocationManager(context: Context) {
 
     var locationClient: LocationClient? = null
 
@@ -79,11 +79,11 @@ class BCLocationManager(context: Context) {
     }
 
 
-    public class MyLocationListener(locationManager: BCLocationManager, callback: ILocationCallback) :
+    public class MyLocationListener(locationManager: BDLocationManager, callback: ILocationCallback) :
         BDAbstractLocationListener() {
 
         var callback: ILocationCallback? = null
-        var locationManager: BCLocationManager? = null;
+        var locationManager: BDLocationManager? = null;
 
         init {
             this.callback = callback

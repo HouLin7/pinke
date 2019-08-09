@@ -2,7 +2,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <include
         android:id="@+id/title_bar"
@@ -23,7 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title_bar"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/tv_city"
@@ -32,6 +36,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:drawableLeft="@mipmap/ic_location"
+                android:minWidth="30dp"
                 android:text=""
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_normal" />
@@ -42,9 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_gravity="right"
                 android:layout_toRightOf="@+id/tv_city"
-                android:hint="请输入收货地址"
+                android:hint="请输入地址"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_normal" />
         </RelativeLayout>
@@ -60,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_edit_city"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/tv_location_address"
@@ -77,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
+                android:layout_marginRight="5dp"
                 android:text="重新定位"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_size_normal" />
@@ -88,13 +93,32 @@
             android:background="@color/divider_color" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_header"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <ImageView
+            android:id="@+id/cover_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#a1000000" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+    </FrameLayout>
 
 </RelativeLayout>
 

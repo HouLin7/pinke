@@ -12,7 +12,6 @@
         android:layout_above="@+id/bottom_navigation_bar_container"
         android:layout_marginBottom="56dp"
         android:fitsSystemWindows="true">
-
     </android.support.v4.view.ViewPager>
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -21,6 +20,7 @@
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
+
         app:bnbActiveColor="@color/theme_green"
         app:bnbAutoHideEnabled="false"
         app:bnbBackgroundColor="@color/white"

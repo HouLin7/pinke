@@ -11,7 +11,7 @@ class SearchActivity : BaseGomeWorkActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        getCustomToolbar(title_bar).bindActivity(this, "搜索")
+//        getCustomToolbar(title_bar).bindActivity(this, "搜索")
         initView()
     }
 

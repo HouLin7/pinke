@@ -86,6 +86,12 @@ public interface ApiService {
     Call<BaseRspInfo<List<CfgDicItem>>> getConfigDataDic(@Path("type") String type);
 
     /**
+     * 发布伴读信息
+     */
+    @POST("student/seek-partner/release")
+    Call<BaseRspInfo<String>> postSearchPartnerInfo(@Body PostSearchPartnerItem params);
+
+    /**
      * 添加好友
      */
     @POST(APIConstants.ADD_FRIEND)

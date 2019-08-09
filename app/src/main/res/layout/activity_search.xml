@@ -4,11 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/title_bar"
-        layout="@layout/custom_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar_height" />
+        android:layout_height="@dimen/title_bar_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_title_back" />
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:imeActionLabel="搜索"
+                android:imeOptions="actionSearch" />
+
+        </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:id="@+id/layout_search_input"
@@ -16,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_bar"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +62,7 @@
                 android:src="@mipmap/ic_search" />
 
             <EditText
-                android:id="@+id/edit_search"
+                android:id="@+id/edit_search1"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -52,7 +79,8 @@
             android:background="@drawable/bg_login_btn_selector"
             android:text="搜索"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_normal" />
+            android:textSize="@dimen/text_size_normal"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

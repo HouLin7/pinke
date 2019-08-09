@@ -1,6 +1,8 @@
 package com.bochuan.pinke.activity
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -12,7 +14,7 @@ import android.view.ViewGroup
 import com.baidu.location.BDLocation
 import com.bochuan.pinke.R
 import com.bochuan.pinke.model.CityItem
-import com.bochuan.pinke.util.BCLocationManager
+import com.bochuan.pinke.util.BDLocationManager
 import com.gome.utils.CommonUtils
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.activity.BaseGomeWorkActivity
@@ -48,7 +50,7 @@ class CitySelectActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_city_select)
         getCityData()
         getLocation()
-
+        iv_back.setOnClickListener { onBackPressed() }
         recyclerView.layoutManager = LinearLayoutManagerWithSmoothScroller(this);
         recyclerView.addItemDecoration(
             CustomNewsDivider(
@@ -60,6 +62,14 @@ class CitySelectActivity : BaseGomeWorkActivity() {
         )
         mAdapter = MyAdapter(this)
         recyclerView.adapter = mAdapter
+
+        mAdapter!!.setOnItemClickListener { parent, view, position, id ->
+            var cityItem = mAdapter!!.getItem(position)
+            var data = Intent()
+            data.putExtra(EXTRA_DATA, cityItem.regionItem)
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        }
 
         ed_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -84,17 +94,20 @@ class CitySelectActivity : BaseGomeWorkActivity() {
                 var pos = findPositionByLetter(text!!)
                 if (pos > -1) {
 //                    recyclerView.scrollToPosition(index)
-                    var  llm = recyclerView.layoutManager
+                    var llm = recyclerView.layoutManager
                     llm!!.scrollToPosition(pos)
                 }
-
             }
 
             override fun onMotionEventEnd() {
             }
 
         })
+    }
 
+    override fun onBackPressed() {
+        dismissInputMethod()
+        super.onBackPressed()
     }
 
     private fun findPositionByLetter(letter: String): Int {
@@ -116,8 +129,8 @@ class CitySelectActivity : BaseGomeWorkActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION
         ) { permission, isSuccess ->
             if (isSuccess) {
-                val locationManager = BCLocationManager(mActivity);
-                locationManager.getLocation(object : BCLocationManager.ILocationCallback {
+                val locationManager = BDLocationManager(mActivity);
+                locationManager.getLocation(object : BDLocationManager.ILocationCallback {
                     override fun call(loc: BDLocation) {
                         tv_location_city.text = loc.city
                     }
@@ -162,7 +175,6 @@ class CitySelectActivity : BaseGomeWorkActivity() {
 //                    cityList.add(item3)
                 }
             }
-
         }
 
         Collections.sort(cityList, Comparator<CityItem> { o1, o2 ->
@@ -174,13 +186,13 @@ class CitySelectActivity : BaseGomeWorkActivity() {
 
     inner class MyAdapter(activity: FragmentActivity) : BaseRecyclerAdapter<CityItem>(activity) {
         override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CityItem> {
-            var view: View = layoutInflater.inflate(R.layout.adapter_city_list_item, null);
+            var view: View = layoutInflater.inflate(R.layout.adapter_city_list_item, parent, false);
             return MyViewHolder(view)
         }
 
-        override fun onBindMyViewHolder(holder: BaseViewHolder<CityItem> ?, dataItem: CityItem?, position: Int) {
-            var viewHolder = holder as KotlinViewHolder<RegionItem>
-            viewHolder.bind(dataItem!!.regionItem, position)
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CityItem>?, dataItem: CityItem?, position: Int) {
+            var viewHolder = holder as KotlinViewHolder<CityItem>
+            viewHolder.bind(dataItem!!, position)
         }
 
         override fun matchFilter(t: CityItem?, keyword: String?): Boolean {
