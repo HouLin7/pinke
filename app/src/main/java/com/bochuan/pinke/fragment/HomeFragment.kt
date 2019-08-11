@@ -118,6 +118,11 @@ class HomeFragment : BaseFragment() {
 
 
     private fun initView() {
+        tv_search_partner.setOnClickListener {
+            var intent = Intent(mActivity, SearchByTypeActivity::class.java);
+            startActivity(intent)
+        }
+
         edit_search.setOnClickListener {
             var intent = Intent(mActivity, SearchActivity::class.java);
             startActivity(intent)

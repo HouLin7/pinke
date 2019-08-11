@@ -114,7 +114,7 @@ class WebApiImpl extends WebApi {
 
     @Override
     public void postSearchPartnerItem(PostSearchPartnerItem dataItem, IResponseListener<String> listener) {
-        Call<BaseRspInfo<String> result = service.postSearchPartnerInfo(dataItem);
+        Call<BaseRspInfo<String>> result = service.postSearchPartnerInfo(dataItem);
         result.enqueue(new MyCallback(listener));
     }
 

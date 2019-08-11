@@ -3,12 +3,13 @@ package com.gome.work.core.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * 发布找伴读信息
+ * 搜寻伴读信息
  */
-public class PostSearchPartnerItem {
+public class SearchPartnerItem implements Serializable {
     /*
      * 科目
      */
@@ -17,6 +18,9 @@ public class PostSearchPartnerItem {
 
     @Expose
     public String grade;
+
+    @Expose
+    public String gender;
 
     @Expose
     @SerializedName("school")
@@ -38,14 +42,12 @@ public class PostSearchPartnerItem {
     @Expose
     public String note;
 
-    /**
-     * 意图
-     */
-    @Expose
-    public int purpose;
-
     @Expose
     public Position position;
+
+    @Expose
+    @SerializedName("userObj")
+    public UserInfo userInfo;
 
     @Expose
     public List<scheduleCard> scheduleCards;
@@ -69,16 +71,6 @@ public class PostSearchPartnerItem {
 
         @Expose
         public double latitude;
-
-        public void assign(AddressItem item) {
-            address = item.address;
-            district = item.county.name;
-            city = item.city.name;
-            province = item.province.name;
-
-            longitude = item.longitude;
-            latitude = item.latitude;
-        }
 
     }
 

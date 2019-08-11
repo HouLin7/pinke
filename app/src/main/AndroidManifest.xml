@@ -93,7 +93,7 @@
         <activity
             android:name=".activity.CitySelectActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateVisible" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
@@ -104,6 +104,10 @@
         <activity
             android:name=".activity.ScheduleForSearchPartnerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchByTypeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
 
         <service
             android:name="com.baidu.location.f"

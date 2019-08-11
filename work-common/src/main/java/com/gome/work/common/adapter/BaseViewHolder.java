@@ -23,5 +23,8 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
         this.target = target;
     }
 
+    public void bind(T t, int position) {
+
+    }
 
 }

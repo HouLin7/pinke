@@ -48,9 +48,9 @@ class ScheduleFragment : BaseFragment() {
 
     var currWeekHeaderData: WeekHeaderItem = getWeekHeaderData(getFirstDayOfWeek())
 
-    val currSelectCourseScheduleList = HashMap<String, HashSet<CourseScheduleItem>>()
+    private val currSelectCourseScheduleList = HashMap<String, HashSet<CourseScheduleItem>>()
 
-    var currSelectScheduleItems: ArrayList<ScheduleTimeItem>? = null
+    var selectScheduleItems: ArrayList<ScheduleTimeItem>? = null
         get() {
             var result = ArrayList<ScheduleTimeItem>()
             val sDateFormat = SimpleDateFormat("yyyy-MM-dd")

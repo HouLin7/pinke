@@ -1,17 +1,21 @@
 package com.bochuan.pinke.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.bochuan.pinke.R
 import com.bochuan.pinke.fragment.ScheduleFragment
+import com.gome.applibrary.activity.BaseActivity
+import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 
 
 class ScheduleForSearchPartnerActivity : BaseGomeWorkActivity() {
 
-    var mFragment: ScheduleFragment? = null
+    private var mFragment: ScheduleFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,15 @@ class ScheduleForSearchPartnerActivity : BaseGomeWorkActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var result = mFragment!!.selectScheduleItems
+        if (result == null || result.isEmpty()) {
+            ToastUtil.showToast(this, "请选择日程")
+            return true
+        }
+
+        var data = Intent()
+        data.putExtra(BaseActivity.EXTRA_DATA, result)
+        setResult(Activity.RESULT_OK, data)
         finish()
         return true
     }

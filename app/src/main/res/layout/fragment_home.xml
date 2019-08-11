@@ -34,8 +34,8 @@
 
                 <ImageView
                     android:id="@+id/iv_arrow_down"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/tv_city"
                     android:scaleType="fitCenter"
@@ -168,7 +168,7 @@
                             android:textSize="@dimen/text_size_normal" />
 
                         <TextView
-                            android:id="@+id/text_search_classmate"
+                            android:id="@+id/tv_search_partner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"

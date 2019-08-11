@@ -14,12 +14,19 @@ import com.amap.api.services.poisearch.PoiSearch
 import com.bochuan.pinke.R
 import com.bochuan.pinke.util.AMapLocationManager
 import com.bochuan.pinke.util.AMapLocationManager.ILocationCallback
+import com.gome.applibrary.activity.BaseActivity
 import com.gome.utils.CommonUtils
+import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.widget.BaseMultiSelectPopWindow
 import com.gome.work.common.widget.BaseSingleSelectPopWindow
 import com.gome.work.core.Constants
+import com.gome.work.core.model.AddressItem
 import com.gome.work.core.model.CfgDicItem
+import com.gome.work.core.model.PostSearchPartnerItem
+import com.gome.work.core.model.ScheduleTimeItem
+import com.gome.work.core.net.IResponseListener
+import com.gome.work.core.net.WebApi
 import com.gome.work.core.utils.DateUtils
 import com.gome.work.core.utils.GsonUtil
 import com.gome.work.core.utils.SharedPreferencesHelper
@@ -35,21 +42,47 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
     companion object {
         const val REQUEST_CODE_ADDRESS_SELECT = 1
+
+        const val REQUEST_CODE_SCHEDULE_SELECT = 2
     }
 
     var courseList = ArrayList<CfgDicItem>()
+
     var gradeList = ArrayList<CfgDicItem>()
+
     var classTypeList = ArrayList<CfgDicItem>()
 
+    var sexList = ArrayList<CfgDicItem>()
+
+    /**
+     * 上课时间
+     */
     var attendDate: Calendar? = null
 
     var selectGrade: CfgDicItem? = null
 
     var selectCourse: CfgDicItem? = null
 
+    var selectSex: CfgDicItem? = null
+
     var selectClassType: CfgDicItem? = null
 
-    var poiList: ArrayList<PoiItem>? = null
+    var location: AMapLocation? = null
+
+    var scheduleData: ArrayList<ScheduleTimeItem>? = null
+
+    var selectAddress: AddressItem? = null
+
+    init {
+        var item = CfgDicItem()
+        item.name = "男"
+        item.id = "1"
+        sexList.add(item)
+        item = CfgDicItem()
+        item.name = "女"
+        item.id = "2"
+        sexList.add(item)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,27 +91,6 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         initData()
         initView()
         getLocation()
-    }
-
-
-    fun searchPoi(lat: Double, long: Double) {
-        var query = PoiSearch.Query("", "120300", "北京")
-
-        var poiSearch = PoiSearch(this, query)
-        var ad = LatLonPoint(lat, long)
-        var bound = PoiSearch.SearchBound(ad, 1000)
-        poiSearch.bound = bound
-
-        poiSearch.setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
-            override fun onPoiItemSearched(p0: PoiItem?, p1: Int) {
-            }
-
-            override fun onPoiSearched(p0: PoiResult?, p1: Int) {
-                poiList = p0!!.pois
-            }
-
-        })
-        poiSearch.searchPOIAsyn()
     }
 
 
@@ -91,18 +103,17 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION
         ) { permission, isSuccess ->
             if (isSuccess) {
-                var locMamanger = AMapLocationManager(this)
-                locMamanger.getLocation(object : ILocationCallback {
+                var locManager = AMapLocationManager(this)
+                locManager.getLocation(object : ILocationCallback {
                     override fun call(loc: AMapLocation) {
-                        var name = loc.aoiName
                         tv_address.text = loc.aoiName
-                        searchPoi(loc.latitude, loc.longitude)
+                        var address = loc.address
+                        location = loc
                     }
                 })
             } else {
 
             }
-
         }
 
     }
@@ -125,6 +136,17 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
+        tv_sex.setOnClickListener {
+            var popWindow = BaseSingleSelectPopWindow(mActivity, sexList)
+            popWindow.showPopupWindow(it)
+            popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+                override fun onSelect(dataList: List<CfgDicItem>) {
+                    selectSex = dataList[0]
+                    tv_sex.text = selectSex!!.name
+                }
+            }
+        }
+
         tv_course.setOnClickListener { view ->
             var popWindow = BaseSingleSelectPopWindow(mActivity, courseList)
             popWindow.showPopupWindow(view)
@@ -172,15 +194,122 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
             }
         }
 
-        tv_label_schedule_attend.setOnClickListener {
+        layout_schedule_attend.setOnClickListener {
             var intent = Intent(mActivity, ScheduleForSearchPartnerActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_SCHEDULE_SELECT)
         }
 
         tv_address_modify.setOnClickListener {
             var intent = Intent(mActivity, AddressEditActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_ADDRESS_SELECT)
         }
+
+        button_post.setOnClickListener {
+            if (!isValidInput()) {
+                return@setOnClickListener
+            }
+
+            var postItem = getPostData()
+            showProgressDlg()
+            WebApi.getInstance().postSearchPartnerItem(postItem, object : IResponseListener<String> {
+                override fun onError(code: String?, message: String?) {
+                    dismissProgressDlg()
+                    ToastUtil.showToast(mActivity, message)
+                }
+
+                override fun onSuccess(result: String?) {
+                    dismissProgressDlg()
+                    ToastUtil.showToast(mActivity, "发布成功")
+                    finish()
+                }
+
+            })
+        }
+    }
+
+    private fun getPostData(): PostSearchPartnerItem {
+        var result = PostSearchPartnerItem()
+        result.classType = selectClassType!!.id
+        result.position = PostSearchPartnerItem.Position()
+        if (selectAddress != null) {
+            result.position.assign(selectAddress)
+        } else {
+            location?.let {
+                result.position.province = location!!.province
+                result.position.city = location!!.city
+                result.position.district = location!!.district
+                result.position.address = location!!.poiName
+            }
+        }
+        result.discipline = selectCourse!!.id
+
+        selectSex?.let { result.sex = selectSex!!.id }
+
+        result.note = edit_note.text.toString()
+        result.grade = selectGrade!!.id
+
+        result.score = edit_course_score.text.toString()
+
+        result.school = edit_school.text.toString()
+        result.note = edit_note.text.toString()
+        attendDate?.let {
+            result.openDate = attendDate!!.timeInMillis
+        }
+
+        scheduleData?.let {
+            result.scheduleCards = ArrayList<PostSearchPartnerItem.scheduleCard>()
+            for (item in scheduleData!!) {
+                var scheduleCard = PostSearchPartnerItem.scheduleCard()
+                scheduleCard.type = 1
+                scheduleCard.startTime = item.startTime
+                scheduleCard.endTime = item.endTime
+            }
+        }
+        return result
+    }
+
+    private fun isValidInput(): Boolean {
+        if (selectClassType == null) {
+            ToastUtil.showToast(mActivity, "请选择班型")
+            return false
+        }
+        if (selectCourse == null) {
+            ToastUtil.showToast(mActivity, "请选择科目")
+            return false
+        }
+
+        if (selectGrade == null) {
+            ToastUtil.showToast(mActivity, "请选择年级")
+            return false
+        }
+
+        if (edit_cost.text.toString() == null) {
+            ToastUtil.showToast(mActivity, "请输入价格")
+            edit_cost.requestFocus()
+            return false
+        }
+
+        if (edit_school.text.toString() == null) {
+            ToastUtil.showToast(mActivity, "请输入学校")
+            edit_school.requestFocus()
+            return false
+        }
+
+        if (attendDate == null) {
+            ToastUtil.showToast(mActivity, "请输入上课日期")
+            return false
+        }
+
+        if (location == null && selectAddress == null) {
+            ToastUtil.showToast(mActivity, "位置信息不能为空")
+            return false
+        }
+
+        if (scheduleData == null) {
+            ToastUtil.showToast(mActivity, "请选择上课时间")
+            return false
+        }
+        return true;
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -190,13 +319,20 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         }
         when (requestCode) {
             REQUEST_CODE_ADDRESS_SELECT -> {
+                var addressData = data!!.getSerializableExtra(BaseActivity.EXTRA_DATA) as AddressItem
+                selectAddress = addressData
 
             }
+            REQUEST_CODE_SCHEDULE_SELECT -> {
+                scheduleData = data!!.getSerializableExtra(BaseActivity.EXTRA_DATA) as ArrayList<ScheduleTimeItem>
+                tv_schedule_attend.text = "已选择"
+            }
+
         }
 
     }
 
-    fun showDatePickerDlg(cal: Calendar, listener: DatePickerDialog.OnDateSetListener) {
+    private fun showDatePickerDlg(cal: Calendar, listener: DatePickerDialog.OnDateSetListener) {
         var year = cal.get(Calendar.YEAR);
         var month = cal.get(Calendar.MONTH)
         var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)

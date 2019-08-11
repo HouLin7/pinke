@@ -21,5 +21,4 @@ public class ScheduleTimeItem implements Serializable {
     @Expose
     public String note;
 
-
 }

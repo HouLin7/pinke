@@ -15,7 +15,7 @@ import com.gome.work.core.model.CfgDicItem
 import kotlinx.android.synthetic.main.adapter_simple_textview_item.*
 import razerdp.basepopup.BasePopupWindow
 
-class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, var dataList: List<CfgDicItem>) :
+class BaseSingleSelectPopWindow(fragmentActivity: FragmentActivity, private var dataList: List<CfgDicItem>) :
     BasePopupWindow(fragmentActivity, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) {
 
     private var adapter1: Adapter? = null;

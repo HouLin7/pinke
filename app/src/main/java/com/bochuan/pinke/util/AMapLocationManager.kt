@@ -13,14 +13,17 @@ import com.gome.work.core.model.RegionItem
 import com.gome.work.core.utils.SharedPreferencesHelper
 
 
-class AMapLocationManager(context: Context) {
+class AMapLocationManager {
 
-    private var locationClient: AMapLocationClient? = null
+    private lateinit var context: Context
 
-    init {
+    constructor(context: Context) {
         locationClient = AMapLocationClient(context.applicationContext)
         locationClient!!.setLocationOption(createLocationOp())
     }
+
+    private var locationClient: AMapLocationClient? = null
+
 
     public fun getLastLocation(): AMapLocation {
         return locationClient!!.lastKnownLocation
@@ -66,8 +69,8 @@ class AMapLocationManager(context: Context) {
             saveLocation(location)
         }
 
-        var callback: ILocationCallback? = null
-        var locationManager: AMapLocationManager? = null;
+        private var callback: ILocationCallback? = null
+        private var locationManager: AMapLocationManager? = null;
 
         init {
             this.callback = callback
@@ -77,6 +80,7 @@ class AMapLocationManager(context: Context) {
     }
 
     companion object {
+
 
         fun toAddressItem(location: AMapLocation): AddressItem {
             var addressItem = AddressItem()
