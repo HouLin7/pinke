@@ -106,8 +106,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SearchByTypeActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MineInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserAvatarActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SchoolChooseActivity" />
 
         <service
             android:name="com.baidu.location.f"

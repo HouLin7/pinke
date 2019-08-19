@@ -61,11 +61,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title_bar"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_label_grade"
@@ -98,11 +98,12 @@
             </RelativeLayout>
 
             <RelativeLayout
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title_bar"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_label_school"
@@ -399,7 +400,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="上课时间选择" />
+                    android:text="上课时间" />
 
                 <TextView
                     android:id="@+id/tv_schedule_attend"
@@ -421,6 +422,11 @@
                     android:src="@drawable/ic_arrow_down" />
             </RelativeLayout>
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="是否同时找老师" />
         </LinearLayout>
 
     </ScrollView>

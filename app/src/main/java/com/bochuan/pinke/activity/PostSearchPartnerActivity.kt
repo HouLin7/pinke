@@ -246,7 +246,9 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         selectSex?.let { result.sex = selectSex!!.id }
 
         result.note = edit_note.text.toString()
-        result.grade = selectGrade!!.id
+        selectGrade?.let {
+            result.grade = selectGrade!!.id
+        }
 
         result.score = edit_course_score.text.toString()
 
@@ -278,10 +280,10 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
             return false
         }
 
-        if (selectGrade == null) {
-            ToastUtil.showToast(mActivity, "请选择年级")
-            return false
-        }
+//        if (selectGrade == null) {
+//            ToastUtil.showToast(mActivity, "请选择年级")
+//            return false
+//        }
 
         if (edit_cost.text.toString() == null) {
             ToastUtil.showToast(mActivity, "请输入价格")
@@ -289,11 +291,11 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
             return false
         }
 
-        if (edit_school.text.toString() == null) {
-            ToastUtil.showToast(mActivity, "请输入学校")
-            edit_school.requestFocus()
-            return false
-        }
+//        if (edit_school.text.toString() == null) {
+//            ToastUtil.showToast(mActivity, "请输入学校")
+//            edit_school.requestFocus()
+//            return false
+//        }
 
         if (attendDate == null) {
             ToastUtil.showToast(mActivity, "请输入上课日期")

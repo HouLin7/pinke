@@ -3,7 +3,6 @@ package com.bochuan.pinke
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import com.bochuan.pinke.jni.JNIBridge
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.Constants
 import com.gome.work.core.SystemFramework

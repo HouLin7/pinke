@@ -34,6 +34,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         public final static Property Address = new Property(7, String.class, "address", false, "ADDRESS");
         public final static Property Phone = new Property(8, String.class, "phone", false, "PHONE");
         public final static Property FirstLetter = new Property(9, String.class, "firstLetter", false, "FIRST_LETTER");
+        public final static Property Grade = new Property(10, String.class, "grade", false, "GRADE");
+        public final static Property School = new Property(11, String.class, "school", false, "SCHOOL");
     }
 
 
@@ -58,7 +60,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
                 "\"SEX\" TEXT," + // 6: sex
                 "\"ADDRESS\" TEXT," + // 7: address
                 "\"PHONE\" TEXT," + // 8: phone
-                "\"FIRST_LETTER\" TEXT);"); // 9: firstLetter
+                "\"FIRST_LETTER\" TEXT," + // 9: firstLetter
+                "\"GRADE\" TEXT," + // 10: grade
+                "\"SCHOOL\" TEXT);"); // 11: school
     }
 
     /** Drops the underlying database table. */
@@ -120,6 +124,16 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         if (firstLetter != null) {
             stmt.bindString(10, firstLetter);
         }
+ 
+        String grade = entity.getGrade();
+        if (grade != null) {
+            stmt.bindString(11, grade);
+        }
+ 
+        String school = entity.getSchool();
+        if (school != null) {
+            stmt.bindString(12, school);
+        }
     }
 
     @Override
@@ -175,6 +189,16 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         if (firstLetter != null) {
             stmt.bindString(10, firstLetter);
         }
+ 
+        String grade = entity.getGrade();
+        if (grade != null) {
+            stmt.bindString(11, grade);
+        }
+ 
+        String school = entity.getSchool();
+        if (school != null) {
+            stmt.bindString(12, school);
+        }
     }
 
     @Override
@@ -194,7 +218,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // sex
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // address
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // phone
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // firstLetter
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // firstLetter
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // grade
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // school
         );
         return entity;
     }
@@ -211,6 +237,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         entity.setAddress(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setPhone(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setFirstLetter(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setGrade(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setSchool(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     @Override

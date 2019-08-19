@@ -1,6 +1,7 @@
 package com.bochuan.pinke.activity
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -87,6 +88,11 @@ class SearchByTypeActivity : BaseGomeWorkActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = mPartnerAdapter
+        edit_search.setOnClickListener {
+            var intent = Intent(mActivity, SearchActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
 

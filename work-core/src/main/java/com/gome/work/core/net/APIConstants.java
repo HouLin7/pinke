@@ -9,11 +9,6 @@ public interface APIConstants {
     String GET_CAPTCHA = "communal/verify/sms";
 
     /**
-     * 获取用户详情
-     */
-    String GET_USER_DETAIL = "app/user/{userId}.do";
-
-    /**
      * 更新头像
      */
 
@@ -195,11 +190,6 @@ public interface APIConstants {
      * 取消点赞
      */
     String CANCEL_APP_PRAIS_DATA = "app_shop/apps/praise_cancel.do";
-
-    /**
-     * 获取“工作”tab中广告
-     */
-    String GET_BANNER_LIST = "app_shop/banner/show.do";
 
     /**
      * 上传文件接口

@@ -5,56 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/custom_toolbar" />
+
     <RelativeLayout
-        android:id="@+id/layout_user_info"
+        android:id="@+id/layout_avatar"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/theme_blue"
+        android:layout_height="wrap_content"
         android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="头像"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_normal" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentLeft="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/iv_avatar_arrow"
             android:src="@mipmap/ic_search_teacher"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp" />
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_avatar_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/iv_avatar"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv_avatar"
-                android:text="zhangsan"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_nickname"
-                android:layout_alignLeft="@+id/tv_nickname"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@+id/iv_avatar"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
@@ -66,68 +48,7 @@
         android:layout_height="1dp"
         android:background="@color/divider_color" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/layout_my_teacher"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的老师"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_my_post"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的发布"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_my_book"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的预约"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_color" />
-
     <RelativeLayout
-        android:id="@+id/layout_my_friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -135,15 +56,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的关注"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="昵称"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_nickname_arrow"
+            android:textColor="@color/app_black" />
+
         <ImageView
+            android:id="@+id/iv_nickname_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
+
     </RelativeLayout>
 
     <View
@@ -152,7 +85,6 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
-        android:id="@+id/layout_my_favorite_course"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -160,15 +92,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的收藏课程"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="账号"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_username_arrow"
+            android:textColor="@color/app_black" />
+
         <ImageView
+            android:id="@+id/iv_username_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
+
     </RelativeLayout>
 
     <View
@@ -177,7 +121,6 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
-        android:id="@+id/layout_my_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -185,15 +128,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的订单"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="年级"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_grade_arrow"
+            android:textColor="@color/app_black" />
+
         <ImageView
+            android:id="@+id/iv_grade_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
+
     </RelativeLayout>
 
     <View
@@ -202,7 +157,7 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
-        android:id="@+id/layout_my_partner"
+        android:id="@+id/layout_school"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -210,15 +165,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的伴读"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="学校"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_school_arrow"
+            android:textColor="@color/app_black" />
+
         <ImageView
+            android:id="@+id/iv_school_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
+
     </RelativeLayout>
 
     <View
@@ -227,7 +194,6 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
-        android:id="@+id/layout_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -235,15 +201,63 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设置"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="性别"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_size_normal" />
 
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_sex_arrow"
+            android:textColor="@color/app_black" />
+
         <ImageView
+            android:id="@+id/iv_sex_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="常用地址"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/tv_favorite_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_favorite_address_arrow"
+            android:textColor="@color/app_black" />
+
+        <ImageView
+            android:id="@+id/iv_favorite_address_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_arrow_right" />
+
     </RelativeLayout>
 
     <View

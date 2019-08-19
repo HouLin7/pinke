@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.bochuan.pinke.R
+import com.bochuan.pinke.activity.MineInfoActivity
 import com.bochuan.pinke.activity.SettingActivity
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.utils.SharedPreferencesHelper
@@ -25,6 +26,11 @@ class MineFragment : BaseFragment() {
 
         layout_setting.setOnClickListener {
             startActivity(Intent(mActivity!!, SettingActivity::class.java))
+        }
+
+        layout_user_info.setOnClickListener {
+            var intent = Intent(mActivity, MineInfoActivity::class.java)
+            startActivity(intent)
         }
     }
 

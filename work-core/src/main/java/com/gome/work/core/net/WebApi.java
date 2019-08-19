@@ -7,6 +7,7 @@ import com.gome.work.core.model.im.*;
 import com.gome.work.core.model.schedule.ScheduleInfo;
 import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.upload.IUploadListener;
+import retrofit2.Response;
 
 import java.io.File;
 import java.util.List;
@@ -54,6 +55,7 @@ public abstract class WebApi {
 
     /**
      * 基础数据字典
+     *
      * @param type
      * @param listener
      */
@@ -83,7 +85,13 @@ public abstract class WebApi {
      * @param userId
      * @param listener
      */
-    public abstract void getUserDetail(String userId, IResponseListener<UserInfo> listener);
+    public abstract void getUserInfo(String userId, IResponseListener<UserInfo> listener);
+
+    /**
+     * @param userId
+     *
+     */
+    public abstract Response<BaseRspInfo<UserInfo>> getUserInfoSyn(String userId);
 
 
     /**
@@ -158,15 +166,8 @@ public abstract class WebApi {
      *
      * @param listener
      */
-    public abstract void cancelAppPraisData(String appId, IResponseListener<String> listener);
+    public abstract void cancelAppPraiseData(String appId, IResponseListener<String> listener);
 
-
-    /**
-     * 获取“工作”tab中广告
-     *
-     * @param listener
-     */
-    public abstract void getBannerList(IResponseListener<List<BannerBean>> listener);
 
 
     /**

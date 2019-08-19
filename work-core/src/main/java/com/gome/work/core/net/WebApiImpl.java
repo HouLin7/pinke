@@ -14,8 +14,10 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -137,9 +139,20 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void getUserDetail(String userId, IResponseListener<UserInfo> listener) {
-        Call<BaseRspInfo<UserInfo>> result = service.getUserDetail(userId);
+    public void getUserInfo(String userId, IResponseListener<UserInfo> listener) {
+        Call<BaseRspInfo<UserInfo>> result = service.getUserInfo(userId);
         result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public Response<BaseRspInfo<UserInfo>> getUserInfoSyn(String userId) {
+        Call<BaseRspInfo<UserInfo>> result = service.getUserInfo(userId);
+        try {
+            return result.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -187,20 +200,13 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void cancelAppPraisData(String appId, IResponseListener<String> listener) {
+    public void cancelAppPraiseData(String appId, IResponseListener<String> listener) {
         Map<String, String> params = new HashMap<>();
         params.put("appId", appId);
         Call<BaseRspInfo<String>> result = service.cancelAppPraisData(params);
         result.enqueue(new MyCallback(listener));
     }
-
-
-    @Override
-    public void getBannerList(IResponseListener<List<BannerBean>> listener) {
-        Call<BaseRspInfo<List<BannerBean>>> result = service.getBannerList();
-        result.enqueue(new MyCallback(listener));
-    }
-
+    
 
     @Override
     public void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener) {

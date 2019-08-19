@@ -91,6 +91,16 @@ public interface ApiService {
     @POST("student/seek-partner/release")
     Call<BaseRspInfo<String>> postSearchPartnerInfo(@Body PostSearchPartnerItem params);
 
+
+    /**
+     * 获取学生信息
+     *
+     * @param userId 用户id
+     */
+    @GET("communal/uinfo/{id}")
+    Call<BaseRspInfo<UserInfo>> getUserInfo(@Path("id") String userId);
+
+
     /**
      * 添加好友
      */
@@ -102,13 +112,6 @@ public interface ApiService {
      */
     @POST(APIConstants.REMOVE_FRIEND)
     Call<BaseRspInfo<String>> removeFriend(@Body Map<String, String> params);
-
-
-    /**
-     * 获取用户详情
-     */
-    @GET(APIConstants.GET_USER_DETAIL)
-    Call<BaseRspInfo<UserInfo>> getUserDetail(@Path("userId") String userId);
 
 
     /**
@@ -174,12 +177,6 @@ public interface ApiService {
     @POST(APIConstants.CANCEL_APP_PRAIS_DATA)
     Call<BaseRspInfo<String>> cancelAppPraisData(@Body Map<String, String> params);
 
-
-    /**
-     * 获取“工作”tab中广告
-     */
-    @GET(APIConstants.GET_BANNER_LIST)
-    Call<BaseRspInfo<List<BannerBean>>> getBannerList();
 
 //    /**
 //     * 上传文件

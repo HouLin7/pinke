@@ -54,12 +54,17 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Transient
     private boolean isSelect;
 
+    @Expose
+    private String grade;
+
+    @Expose
+    private String school;
 
 
-    @Generated(hash = 1529530149)
+    @Generated(hash = 412235695)
     public UserInfo(String id, String imId, String avatar, String email,
             String username, String nickname, String sex, String address,
-            String phone, String firstLetter) {
+            String phone, String firstLetter, String grade, String school) {
         this.id = id;
         this.imId = imId;
         this.avatar = avatar;
@@ -70,27 +75,14 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.address = address;
         this.phone = phone;
         this.firstLetter = firstLetter;
+        this.grade = grade;
+        this.school = school;
     }
 
     @Generated(hash = 1279772520)
     public UserInfo() {
     }
-    
-    
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id='" + id + '\'' +
-                ", imId='" + imId + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + nickname + '\'' +
-                ", sex='" + sex + '\'' +
-                ", phone='" + phone + '\'' +
-                ", firstLetter='" + firstLetter + '\'' +
-                '}';
-    }
 
     public String getId() {
         return this.id;
@@ -188,6 +180,22 @@ public class UserInfo implements Serializable, ISelectableItem {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getGrade() {
+        return this.grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getSchool() {
+        return this.school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
 
