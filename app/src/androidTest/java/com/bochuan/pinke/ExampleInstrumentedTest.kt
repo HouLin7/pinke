@@ -55,7 +55,7 @@ class ExampleInstrumentedTest {
 
     @Test
     fun getDataDic() {
-        WebApi.getInstance().getConfigDataDic("grade", object : IResponseListener<List<CfgDicItem>> {
+        WebApi.getInstance().getConfigDataDic("all", object : IResponseListener<List<CfgDicItem>> {
             override fun onError(code: String?, message: String?) {
 
             }

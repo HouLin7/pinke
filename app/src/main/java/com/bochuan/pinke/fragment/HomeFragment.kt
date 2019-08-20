@@ -119,7 +119,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
         tv_search_partner.setOnClickListener {
-            var intent = Intent(mActivity, SearchByTypeActivity::class.java);
+            var intent = Intent(mActivity, ChannelPartnerActivity::class.java);
             startActivity(intent)
         }
 
@@ -307,6 +307,9 @@ class HomeFragment : BaseFragment() {
             }
 
             override fun onSuccess(result: List<BannerBean>?) {
+                if (isDetached) {
+                    return;
+                }
                 mBannerList.clear()
                 mBannerList.addAll(result!!)
 

@@ -3,23 +3,6 @@ package com.gome.work.core;
 
 public interface Constants {
 
-    public static final String SING_VALUE = "nGtEcEHTNUAir5UctyjjYbSOoSQ=";
-
-    /**
-     *
-     */
-    public static final String SMART_OFFICE_APPID = "app0001";
-
-
-    /**
-     * 会议文件
-     */
-    public static final String SCOPE_TYPE_MEETING = "meeting";
-
-    /**
-     * 最近文件
-     */
-    public static final String SCOPE_TYPE_RECENT = "recent";
 
     public static final String EXTRA_MODEL = "extra.model";
 
@@ -34,14 +17,6 @@ public interface Constants {
      * 多选
      */
     public static final String MODEL_PICK_MULTI = "model.pick.multi";
-
-    public static final String EXTRA_MAX_LIMIT = "extra.max.limit";
-
-    public static final String EXTRA_USER_FILTER_LIST = "extra.user.filter.list";
-
-    public static final String EXTRA_USER_SELECT_RESULT_LIST = "extra.user.select.result.list";
-
-    public static final String FLAG_MAIN_TAB_INDEX = "flag.main.tab.index";
 
 
     /**

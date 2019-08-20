@@ -40,9 +40,9 @@ class SchoolChooseActivity : BaseGomeWorkActivity() {
         const val REQUEST_CODE_CITY_SELECT = 1
     }
 
-    var mLocation: AMapLocation? = null
+    private var mLocation: AMapLocation? = null
 
-    lateinit var mLocationManager: AMapLocationManager
+    private lateinit var mLocationManager: AMapLocationManager
 
     private var searchAdapter: SearchPoiAdapter? = null
     private var nearbyAdapter: PoiAdapter? = null
@@ -187,6 +187,7 @@ class SchoolChooseActivity : BaseGomeWorkActivity() {
             }
         })
         poiSearch.searchPOIAsyn()
+        progressbar.visibility = View.GONE
     }
 
 
@@ -208,13 +209,13 @@ class SchoolChooseActivity : BaseGomeWorkActivity() {
             if (isSuccess) {
                 mLocationManager.getLocation(object : AMapLocationManager.ILocationCallback {
                     override fun call(loc: AMapLocation) {
-                        var province = loc.province
-                        var city = loc.city
-                        var district = loc.district
-                        var cityCode = loc.cityCode
-                        var street = loc.street
-                        var adCode = loc.adCode
-                        var address = loc.address
+//                        var province = loc.province
+//                        var city = loc.city
+//                        var district = loc.district
+//                        var cityCode = loc.cityCode
+//                        var street = loc.street
+//                        var adCode = loc.adCode
+//                        var address = loc.address
                         mLocation = loc
                         refreshLocationView(loc)
                         searchNearPoi(loc.latitude, loc.longitude, loc.cityCode)

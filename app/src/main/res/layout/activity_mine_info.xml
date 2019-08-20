@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/custom_toolbar" />
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/custom_toolbar" />
 
     <RelativeLayout
         android:id="@+id/layout_avatar"
@@ -49,6 +51,7 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
+        android:id="@+id/layout_nickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -121,6 +124,7 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
+        android:id="@+id/layout_grade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -194,6 +198,7 @@
         android:background="@color/divider_color" />
 
     <RelativeLayout
+        android:id="@+id/layout_sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">

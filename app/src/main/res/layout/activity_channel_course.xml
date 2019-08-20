@@ -105,6 +105,11 @@
                 android:visibility="gone" />
 
         </RelativeLayout>
+
+        <fragment
+            android:name="com.bochuan.pinke.fragment.SearchConditionFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </android.support.design.widget.AppBarLayout>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

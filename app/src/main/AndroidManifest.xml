@@ -105,7 +105,7 @@
             android:name=".activity.ScheduleForSearchPartnerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.SearchByTypeActivity"
+            android:name=".activity.ChannelPartnerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MineInfoActivity"
@@ -114,6 +114,10 @@
             android:name=".activity.UserAvatarActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SchoolChooseActivity" />
+        <activity
+            android:name=".activity.EditTextActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
 
         <service
             android:name="com.baidu.location.f"

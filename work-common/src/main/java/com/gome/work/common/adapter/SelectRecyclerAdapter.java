@@ -15,14 +15,22 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 可选择的RecylerView适配器，只支持选择器的布局自定义，以及选择事件的触发范围设定
+ * 可选择的RecyclerView适配器，只支持选择器的布局自定义，以及选择事件的触发范围设定
  */
 
-public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> extends BaseRecyclerAdapter<T> {
+public abstract class SelectRecyclerAdapter<T> extends BaseRecyclerAdapter<T> {
 
     public static final int CHECK_GRAVITY_LEFT = 100;
     public static final int CHECK_GRAVITY_RIGHT = 200;
     public static final int CHECK_GRAVITY_RIGHT_TOP = 300;
+
+
+    public enum SelectModel {
+        single, multi
+    }
+
+
+    private SelectModel selectModel = SelectModel.multi;
 
     /**
      * 全局相应选择事件
@@ -46,7 +54,7 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
     /**
      * 是否是选择状态
      */
-    protected boolean isSelectState = false;
+    protected boolean isSelectState = true;
 
     private int checkGravity = CHECK_GRAVITY_LEFT;
 
@@ -60,11 +68,16 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
      * @param activity
      * @param gravity  选择图标的位置
      */
-    public SelectRecyclerAdapter(FragmentActivity activity, int gravity, int selectRegionFlag) {
+    public SelectRecyclerAdapter(FragmentActivity activity, int gravity, int selectRegionFlag, SelectModel model) {
         super(activity);
         this.checkGravity = gravity;
         this.selectRegionFlag = selectRegionFlag;
+        this.selectModel = model;
         init();
+    }
+
+    public SelectRecyclerAdapter(FragmentActivity activity, int gravity, int selectRegionFlag) {
+        this(activity, gravity, selectRegionFlag, SelectModel.multi);
     }
 
     public SelectRecyclerAdapter(FragmentActivity activity, int gravity) {
@@ -88,6 +101,13 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
                                 onItemSelectedChangeListener.onSelectedChanged(t, false);
                             }
                         } else {
+                            if (selectModel == SelectModel.single) {
+                                List<T> copyList = new ArrayList<>(mSelectItem);
+                                mSelectItem.clear();
+                                for (T selectItem : copyList) {
+                                    notifyItemChanged(selectItem);
+                                }
+                            }
                             mSelectItem.add(t);
                             if (onItemSelectedChangeListener != null) {
                                 onItemSelectedChangeListener.onSelectedChanged(t, true);
@@ -132,12 +152,13 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
     }
 
     /**
-     * 设置特定的条目为选中状态
+     * 设置特定的条目为选中状态(多选模式有效)
+     *
      * @param items
      * @param isSelect
      */
     public void setItemsSelectState(List<T> items, boolean isSelect) {
-        if (items == null) {
+        if (items == null || selectModel == SelectModel.multi) {
             return;
         }
         for (T t : items) {
@@ -180,7 +201,7 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
             }
         }
 
-        onBindSelectBindingHolder((KotlinViewHolder<T>) myHolder.getTarget(), dataItem);
+        onBindSelectHolder((KotlinViewHolder<T>) myHolder.getTarget(), dataItem);
     }
 
 
@@ -229,10 +250,10 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
         View view = LayoutInflater.from(mActivity).inflate(layoutId, parent, false);
         final MyViewHolder<T> parentHolder = new MyViewHolder<>(view);
 
-        final KotlinViewHolder<T> childHolder = onCreateSelectBindingHolder(parent, viewType);
+        final BaseViewHolder<T> childHolder = onCreateSelectHolder(parent, viewType);
         parentHolder.setTarget(childHolder);
 
-        parentHolder.frameView.addView(childHolder.getContainerView());
+        parentHolder.frameView.addView(childHolder.itemView);
 
         parentHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +262,13 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
                 boolean isEnable = isEnable(getItemIndex(parentHolder.dataItem));
                 if (isSelectState && isEnable) {
                     if (isChecked) {
+                        if (selectModel == SelectModel.single) {
+                            List<T> copyList = new ArrayList<>(mSelectItem);
+                            mSelectItem.clear();
+                            for (T t : copyList) {
+                                notifyItemChanged(t);
+                            }
+                        }
                         mSelectItem.add(parentHolder.dataItem);
                     } else {
                         mSelectItem.remove(parentHolder.dataItem);
@@ -256,9 +284,9 @@ public abstract class SelectRecyclerAdapter<T, SB extends BaseViewHolder<T>> ext
     }
 
 
-    public abstract KotlinViewHolder<T> onCreateSelectBindingHolder(ViewGroup parent, int viewType);
+    public abstract BaseViewHolder<T> onCreateSelectHolder(ViewGroup parent, int viewType);
 
-    public abstract void onBindSelectBindingHolder(KotlinViewHolder<T> holder, T dataItem);
+    public abstract void onBindSelectHolder(BaseViewHolder<T> holder, T dataItem);
 
 
     public List<T> getSelectItems() {

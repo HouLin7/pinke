@@ -93,13 +93,20 @@ public interface ApiService {
 
 
     /**
-     * 获取学生信息
+     * 获取用户信息
      *
      * @param userId 用户id
      */
     @GET("communal/uinfo/{id}")
     Call<BaseRspInfo<UserInfo>> getUserInfo(@Path("id") String userId);
 
+    /**
+     * 修改用户信息
+     *
+     * @param userInfo 用户id
+     */
+    @POST("communal/uinfo/reset")
+    Call<BaseRspInfo<String>> postUserInfo(@Body PostUserInfo userInfo);
 
     /**
      * 添加好友

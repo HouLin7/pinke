@@ -62,6 +62,8 @@ public abstract class WebApi {
     public abstract void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener);
 
 
+    public abstract void postUserInfo(PostUserInfo userInfo, IResponseListener<String> listener);
+
     /**
      * @param dataItem
      * @param listener
@@ -89,7 +91,6 @@ public abstract class WebApi {
 
     /**
      * @param userId
-     *
      */
     public abstract Response<BaseRspInfo<UserInfo>> getUserInfoSyn(String userId);
 
@@ -167,7 +168,6 @@ public abstract class WebApi {
      * @param listener
      */
     public abstract void cancelAppPraiseData(String appId, IResponseListener<String> listener);
-
 
 
     /**

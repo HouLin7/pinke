@@ -20,10 +20,10 @@ import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.SearchPartnerItem
 import kotlinx.android.synthetic.main.adapter_search_partner_item.*
-import kotlinx.android.synthetic.main.activity_search_by_type.*
+import kotlinx.android.synthetic.main.activity_channel_course.*
 
 
-class SearchByTypeActivity : BaseGomeWorkActivity() {
+class ChannelOrganizationActivity : BaseGomeWorkActivity() {
 
     companion object {
         const val TYPE_TEACHER = "teacher"
@@ -46,7 +46,7 @@ class SearchByTypeActivity : BaseGomeWorkActivity() {
         if (intent.hasExtra(BaseActivity.EXTRA_DATA)) {
             currType = intent.getStringExtra(BaseActivity.EXTRA_DATA)
         }
-        setContentView(R.layout.activity_search_by_type)
+        setContentView(R.layout.activity_channel_course)
         mPartnerAdapter = SearchPartnerAdapter(this)
         mPartnerAdapter.addItem(null)
         initView()
@@ -102,7 +102,7 @@ class SearchByTypeActivity : BaseGomeWorkActivity() {
             var view: View? = null
             when (viewType) {
                 VIEW_TYPE_HEADER -> {
-                    view = LayoutInflater.from(mActivity).inflate(R.layout.adapter_search_condition_header, null, false)
+                    view = LayoutInflater.from(mActivity).inflate(R.layout.search_condition_panel, null, false)
                     return ViewHolderHeader(view!!)
                 }
                 else -> {

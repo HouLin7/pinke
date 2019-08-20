@@ -7,10 +7,8 @@ import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-
 import com.gome.utils.PictureUtils;
 import com.gome.work.common.utils.PropertyUtils;
-import com.gome.work.core.Constants;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -111,7 +109,7 @@ public class CheckUtils {
         return "";
     }
 
-    public static boolean checkAppSignature(Context context) {
+    public static boolean checkAppSignature(Context context, String targetSign) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
             Signature[] signatures = packageInfo.signatures;
@@ -120,7 +118,7 @@ public class CheckUtils {
             md.update(sign.toByteArray());
             String currentSignature = Base64.encodeToString(md.digest(), Base64.DEFAULT);
             currentSignature = currentSignature.replaceAll("\\n", "");
-            if (Constants.SING_VALUE.equals(currentSignature)) {
+            if (targetSign.equals(currentSignature)) {
                 return true;
             }
         } catch (Exception e) {

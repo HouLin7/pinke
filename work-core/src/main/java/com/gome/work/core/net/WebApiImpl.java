@@ -27,7 +27,6 @@ class WebApiImpl extends WebApi {
 
     private ApiService service;
 
-
     public WebApiImpl() {
         service = GomeOARetrofitManager.getInstance().getService(ApiService.class);
     }
@@ -111,6 +110,12 @@ class WebApiImpl extends WebApi {
     @Override
     public void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener) {
         Call<BaseRspInfo<List<CfgDicItem>>> result = service.getConfigDataDic(type);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void postUserInfo(PostUserInfo userInfo, IResponseListener<String> listener) {
+        Call<BaseRspInfo<String>> result = service.postUserInfo(userInfo);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -206,7 +211,7 @@ class WebApiImpl extends WebApi {
         Call<BaseRspInfo<String>> result = service.cancelAppPraisData(params);
         result.enqueue(new MyCallback(listener));
     }
-    
+
 
     @Override
     public void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener) {

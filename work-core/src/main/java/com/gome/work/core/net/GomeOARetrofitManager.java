@@ -3,33 +3,28 @@ package com.gome.work.core.net;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.gome.work.core.BuildConfig;
 import com.gome.work.core.SystemFramework;
 import com.gome.work.core.net.gsonadapter.IntegerDefaultAdapter;
 import com.gome.work.core.net.interceptor.HeaderParamsInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.internal.platform.Platform;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class GomeOARetrofitManager {
 
@@ -108,8 +103,8 @@ public class GomeOARetrofitManager {
         builder.connectTimeout(30, TimeUnit.SECONDS);
         builder.readTimeout(1, TimeUnit.MINUTES);
         builder.writeTimeout(1, TimeUnit.MINUTES);
-        builder.networkInterceptors().add(getPublicParamIntercepter());
-        builder.networkInterceptors().add(new HeaderParamsInterceptor());
+        builder.networkInterceptors().add(getPublicParamInterceptor());
+        builder.networkInterceptors().add(new HeaderParamsInterceptor(mContext));
         builder.hostnameVerifier(new HostnameVerifier() {
             @Override
             public boolean verify(String hostname, SSLSession session) {
@@ -146,7 +141,7 @@ public class GomeOARetrofitManager {
     }
 
 
-    private Interceptor getPublicParamIntercepter() {
+    private Interceptor getPublicParamInterceptor() {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {

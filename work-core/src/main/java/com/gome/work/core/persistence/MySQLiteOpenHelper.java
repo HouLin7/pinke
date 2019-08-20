@@ -31,6 +31,7 @@ class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
                 MyFavoriteAppInfoDao.class,
                 TagDataInfoDao.class,
                 FileTransferTaskInfoDao.class,
+                UserInfoDao.class,
                 FileUploadRecordInfoDao.class
 
         );
