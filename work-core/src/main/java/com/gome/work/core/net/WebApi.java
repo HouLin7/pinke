@@ -59,7 +59,7 @@ public abstract class WebApi {
      * @param type
      * @param listener
      */
-    public abstract void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener);
+    public abstract void getConfigDataDic(String type, IResponseListener<SysCfgData> listener);
 
 
     public abstract void postUserInfo(PostUserInfo userInfo, IResponseListener<String> listener);
@@ -69,6 +69,8 @@ public abstract class WebApi {
      * @param listener
      */
     public abstract void postSearchPartnerItem(PostSearchPartnerItem dataItem, IResponseListener<String> listener);
+
+    public abstract void getSearchPartnerInfo(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener);
 
     /**
      * @param user

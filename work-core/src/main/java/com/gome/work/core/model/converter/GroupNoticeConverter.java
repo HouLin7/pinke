@@ -14,7 +14,7 @@ public class GroupNoticeConverter implements PropertyConverter<GroupNoticeBean, 
         if (databaseValue == null) {
             return null;
         } else {
-            return GsonUtil.GsonToBean(databaseValue, GroupNoticeBean.class);
+            return GsonUtil.jsonToBean(databaseValue, GroupNoticeBean.class);
         }
     }
 

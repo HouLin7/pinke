@@ -135,7 +135,7 @@
                     <TableRow>
 
                         <TextView
-                            android:id="@+id/text_search_course"
+                            android:id="@+id/tv_search_course"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -146,7 +146,7 @@
                             android:textSize="@dimen/text_size_normal" />
 
                         <TextView
-                            android:id="@+id/text_search_organize"
+                            android:id="@+id/tv_search_organize"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -157,7 +157,7 @@
                             android:textSize="@dimen/text_size_normal" />
 
                         <TextView
-                            android:id="@+id/text_search_teacher"
+                            android:id="@+id/tv_search_teacher"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"

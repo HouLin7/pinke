@@ -123,6 +123,7 @@ class HomeFragment : BaseFragment() {
             startActivity(intent)
         }
 
+
         edit_search.setOnClickListener {
             var intent = Intent(mActivity, SearchActivity::class.java);
             startActivity(intent)
@@ -202,7 +203,9 @@ class HomeFragment : BaseFragment() {
         }
         fab_search_teacher.setOnClickListener {
             floating_action_menu.collapse()
-            ToastUtil.showToast(activity, "找老师")
+            var intent = Intent(mActivity, PostSearchPartnerActivity::class.java)
+            intent.putExtra(PostSearchPartnerActivity.EXTRA_MODEL, PostSearchPartnerActivity.TO_SEARCH_TEACHER)
+            startActivity(intent)
         }
 
         layout_bg.setOnClickListener {

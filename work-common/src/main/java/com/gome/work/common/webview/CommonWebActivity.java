@@ -166,7 +166,7 @@ public class CommonWebActivity extends BaseGomeWorkActivity {
         mAppItemBean = (AppItemBean) getIntent().getSerializableExtra(EXTRA_APP_ITEM_DATA);
 
         if (mAppItemBean == null && mAppKey != null) {
-            mAppItemBean = mDaoUtil.getAppItemBeanDao().queryBuilder()
+            mAppItemBean = getMDaoUtil().getAppItemBeanDao().queryBuilder()
                     .where(AppItemBeanDao.Properties.AppId.eq(mAppKey)).unique();
         }
     }

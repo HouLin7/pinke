@@ -54,7 +54,6 @@ class SchoolChooseActivity : BaseGomeWorkActivity() {
         getCustomToolbar(title_bar).bindActivity(this, "学校选择")
 
         mLocationManager = AMapLocationManager(mActivity)
-        mLocation = mLocationManager.getLastLocation()
 
         layout_edit_city.setOnClickListener {
             var intent = Intent(mActivity, CitySelectActivity::class.java);

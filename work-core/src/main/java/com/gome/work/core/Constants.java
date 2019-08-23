@@ -66,34 +66,36 @@ public interface Constants {
 
         public static final String CITY_DATA = "city.data";
 
-        /**
-         * 配置数据-学习阶段
-         */
-        public static final String SYS_CFG_GRADE = "sys.config.grade";
+//        /**
+//         * 配置数据-学习阶段
+//         */
+//        public static final String SYS_CFG_GRADE = "sys.config.grade";
+//
+//        /**
+//         * 配置数据--课程
+//         */
+//        public static final String SYS_CFG_COURSE = "sys.config.course";
+//
+//        /**
+//         * 配置数据-教学类型
+//         */
+//        public static final String SYS_TEACH_TYPE = "sys.config.teach.type";
+//
+//        /**
+//         * 配置数据-教学年龄
+//         */
+//        public static final String SYS_TEACH_AGE = "sys.config.teach.age";
+//
+//        /**
+//         * 配置数据-教学年龄
+//         */
+//        public static final String SYS_STUDENT_SCORE = "sys.config.student.score";
+
+
+        public static final String SYS_CONFIG_DATA = "sys.config.data";
 
         /**
-         * 配置数据--课程
-         */
-        public static final String SYS_CFG_COURSE = "sys.config.course";
-
-        /**
-         * 配置数据-教学类型
-         */
-        public static final String SYS_TEACH_TYPE = "sys.config.teach.type";
-
-        /**
-         * 配置数据-教学年龄
-         */
-        public static final String SYS_TEACH_AGE = "sys.config.teach.age";
-
-        /**
-         * 配置数据-教学年龄
-         */
-        public static final String SYS_STUDENT_SCORE = "sys.config.student.score";
-
-
-        /**
-         * 配置数据-教学年龄
+         * 位置信息
          */
         public static final String SYS_LAST_LOCATION = "last.location";
 

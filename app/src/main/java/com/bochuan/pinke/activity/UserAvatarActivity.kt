@@ -7,16 +7,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.bochuan.pinke.R
-
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.imageloader.ImageLoader
-
 import com.gome.work.core.model.UserInfo
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.upload.IUploadListener
 import com.liulishuo.okdownload.SpeedCalculator
-import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.activity_user_avatar.*
 import java.io.File
 
@@ -67,7 +64,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
     }
 
 
-    override fun onImageGetResult(isSuccess: Boolean, uri: Uri, file: File) {
+    override fun onImageGetResult(isSuccess: Boolean, uri: Uri?, file: File?) {
         if (isSuccess) {
             ImageLoader.loadImage(this, uri, photo_view)
             WebApi.getInstance().updateUserAvatar(file, object : IUploadListener<String>() {
@@ -101,6 +98,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
             })
         }
     }
+
 
     /**
      * 与服务器同步个人信息

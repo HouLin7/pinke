@@ -19,8 +19,12 @@ import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.SearchPartnerItem
-import kotlinx.android.synthetic.main.adapter_search_partner_item.*
+import com.gome.work.core.net.IResponseListener
+import com.gome.work.core.net.WebApi
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.activity_channel_course.*
+import kotlinx.android.synthetic.main.adapter_search_partner_item.*
 
 
 class ChannelPartnerActivity : BaseGomeWorkActivity() {
@@ -30,13 +34,16 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
         const val TYPE_COURSE = "course"
         const val TYPE_ORGANIZATION = "organization"
         const val TYPE_PARTNER = "partner"
+        const val PAGE_SIZE = 20
     }
 
     lateinit var location: AMapLocation
 
     var currType = TYPE_PARTNER
+    var index = 0
 
-    lateinit var mPartnerAdapter: SearchPartnerAdapter
+    private lateinit var mPartnerAdapter: SearchPartnerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (intent.hasExtra(BaseActivity.EXTRA_DATA)) {
@@ -79,6 +86,9 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
+        iv_back.setOnClickListener {
+            onBackPressed()
+        }
         smart_refresh_layout.setEnableLoadMore(false)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -88,8 +98,35 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
             startActivity(intent)
 
         }
+
+        smart_refresh_layout.setOnRefreshListener {
+            getData(index, "")
+        }
+
+        smart_refresh_layout.setOnLoadMoreListener {
+            getData(index + 1, "")
+
+        }
+
+        smart_refresh_layout.autoRefresh(300)
     }
 
+    private fun getData(pageIndex: Int, courseCode: String) {
+        WebApi.getInstance()
+            .getSearchPartnerInfo(pageIndex, PAGE_SIZE, courseCode, object : IResponseListener<SearchPartnerItem.ResponseWrapper> {
+                override fun onError(code: String?, message: String?) {
+                    smart_refresh_layout.finishRefresh()
+                    smart_refresh_layout.finishLoadMore()
+                }
+
+                override fun onSuccess(result: SearchPartnerItem.ResponseWrapper?) {
+                    mPartnerAdapter.setItemList(result?.dataItems)
+                    smart_refresh_layout.finishRefresh()
+                    smart_refresh_layout.finishLoadMore()
+                }
+
+            })
+    }
 
     inner class SearchPartnerAdapter(activity: FragmentActivity?) : BaseRecyclerAdapter<SearchPartnerItem>(activity) {
 
@@ -109,7 +146,8 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
                 tv_school.text = t.school
                 tv_sex.text = t.sex
                 tv_class_type.text = t.classType
-                ImageLoader.loadImage(mActivity, t.userInfo.avatar, iv_avatar)
+
+                ImageLoader.loadImage(mActivity, t.userInfo?.avatar, iv_avatar)
 
             }
         }

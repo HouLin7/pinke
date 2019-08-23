@@ -119,7 +119,7 @@ public class JsUserRunner extends MyBaseJsRunner {
             return false;
         }
 
-        JsShareInfo jsShareInfo = GsonUtil.GsonToBean(paramData, JsShareInfo.class);
+        JsShareInfo jsShareInfo = GsonUtil.jsonToBean(paramData, JsShareInfo.class);
         if (jsShareInfo == null || !jsShareInfo.isValid()) {
             return false;
         }

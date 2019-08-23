@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <RelativeLayout
+        android:id="@+id/layout_condition1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -29,6 +30,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_condition2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -52,6 +54,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_condition3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -75,6 +78,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_condition4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

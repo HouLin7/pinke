@@ -10,6 +10,25 @@ import java.util.List;
  * 搜寻伴读信息
  */
 public class SearchPartnerItem implements Serializable {
+
+
+    public class ResponseWrapper {
+
+        @Expose
+        @SerializedName("pn")
+        public int pageIndex;
+
+        @Expose
+        @SerializedName("total")
+        public int totalPage;
+
+        @Expose
+        @SerializedName("datas")
+        public List<SearchPartnerItem> dataItems;
+
+    }
+
+
     /*
      * 科目
      */
@@ -18,9 +37,6 @@ public class SearchPartnerItem implements Serializable {
 
     @Expose
     public String grade;
-
-    @Expose
-    public String gender;
 
     @Expose
     @SerializedName("school")
@@ -40,10 +56,14 @@ public class SearchPartnerItem implements Serializable {
     public long openDate;
 
     @Expose
+    @SerializedName("intro")
     public String note;
 
     @Expose
     public Position position;
+
+    @Expose
+    public String price;
 
     @Expose
     @SerializedName("userObj")

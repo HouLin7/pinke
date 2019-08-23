@@ -189,12 +189,7 @@ public interface APIConstants {
     /**
      * 取消点赞
      */
-    String CANCEL_APP_PRAIS_DATA = "app_shop/apps/praise_cancel.do";
-
-    /**
-     * 上传文件接口
-     */
-    String UPLOAD_FILE = "app/gfs/uploadFileGfsNew.do";
+    String CANCEL_APP_PRAISE_DATA = "app_shop/apps/praise_cancel.do";
 
 
     /**

@@ -15,31 +15,34 @@ import com.gome.work.core.utils.SharedPreferencesHelper
 
 class AMapLocationManager {
 
-    private lateinit var context: Context
+    private  var context: Context
+
+    private var locationClient: AMapLocationClient
 
     constructor(context: Context) {
+        this.context = context
         locationClient = AMapLocationClient(context.applicationContext)
         locationClient!!.setLocationOption(createLocationOp())
     }
 
-    private var locationClient: AMapLocationClient? = null
-
-
-    public fun getLastLocation(): AMapLocation {
-        return locationClient!!.lastKnownLocation
-    }
+//    public fun getLastLocation(): AMapLocation {
+//        return locationClient!!.lastKnownLocation
+//    }
 
     private fun start() {
-        locationClient?.let { it.startLocation() }
+        locationClient.let { it.startLocation() }
     }
 
     private fun stop() {
-        locationClient?.let { it.stopLocation() }
+        locationClient.let { it.stopLocation() }
     }
 
 
     fun getLocation(listener: ILocationCallback) {
-        locationClient!!.setLocationListener(MyLocationListener(this, listener))
+        locationClient.lastKnownLocation?.let {
+            listener.call(locationClient.lastKnownLocation)
+        }
+        locationClient.setLocationListener(MyLocationListener(this, listener))
         start()
     }
 
@@ -62,7 +65,7 @@ class AMapLocationManager {
                 return;
             }
             callback?.let {
-                it.call(location!!)
+                it.call(location)
             }
             locationManager?.let { it.stop() }
 

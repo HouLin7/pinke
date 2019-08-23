@@ -7,16 +7,15 @@ import com.bochuan.pinke.R
 import com.gome.applibrary.activity.BaseActivity
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
-import com.gome.work.common.widget.BaseMultiSelectPopWindow
-import com.gome.work.common.widget.BaseSingleSelectPopWindow
-import com.gome.work.core.Constants
+import com.gome.work.common.widget.BaseSelectPopWindow
+import com.gome.work.common.widget.ListSelectPopWindow
 import com.gome.work.core.model.CfgDicItem
 import com.gome.work.core.model.PostUserInfo
+import com.gome.work.core.model.SysCfgData
 import com.gome.work.core.model.UserInfo
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.persistence.UserCacheManager
-import com.gome.work.core.utils.GsonUtil
 import com.gome.work.core.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_mine_info.*
 
@@ -33,24 +32,18 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
     lateinit var mUserInfo: UserInfo
 
     lateinit var selectGrade: CfgDicItem
-    var gradeList = ArrayList<CfgDicItem>()
 
-    var sexList = ArrayList<CfgDicItem>()
+
+    var sexList = SysCfgData.getSexCfgItems()
     lateinit var selectSex: CfgDicItem
 
-    private var selectGradePopWindow: BaseSingleSelectPopWindow? = null
+    private var selectGradePopWindow: ListSelectPopWindow? = null
 
-    private var selectSexPopWindow: BaseSingleSelectPopWindow? = null
+    private var selectSexPopWindow: ListSelectPopWindow? = null
 
     init {
-        var item = CfgDicItem()
-        item.name = "男"
-        item.id = "1"
-        sexList.add(item)
-        item = CfgDicItem()
-        item.name = "女"
-        item.id = "2"
-        sexList.add(item)
+
+
     }
 
     override fun onResult(result: UserInfo) {
@@ -91,9 +84,9 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
             if (selectGradePopWindow != null) {
                 selectGradePopWindow!!.showPopupWindow(it)
             } else {
-                var popWindow = BaseSingleSelectPopWindow(mActivity, gradeList)
+                var popWindow = ListSelectPopWindow(mActivity, sysCfgData!!.grade)
                 popWindow.showPopupWindow(it)
-                popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+                popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                     override fun onSelect(dataList: List<CfgDicItem>) {
                         selectGrade = dataList[0]
                         tv_grade.text = selectGrade!!.name
@@ -123,8 +116,8 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
             if (selectSexPopWindow != null) {
                 selectSexPopWindow!!.showPopupWindow(it)
             } else {
-                var popWindow = BaseSingleSelectPopWindow(mActivity, sexList)
-                popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+                var popWindow = ListSelectPopWindow(mActivity, sexList)
+                popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                     override fun onSelect(dataList: List<CfgDicItem>) {
                         selectSex = dataList[0]
                         tv_sex.text = selectSex!!.name
@@ -159,8 +152,6 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
 
         UserCacheManager.get(this).addListener(this)
 
-        var rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CFG_GRADE)
-        gradeList = GsonUtil.jsonToList(rawData, CfgDicItem::class.java) as ArrayList<CfgDicItem>
 
     }
 

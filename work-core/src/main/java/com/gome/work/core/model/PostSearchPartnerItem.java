@@ -9,6 +9,11 @@ import java.util.List;
  * 发布找伴读信息
  */
 public class PostSearchPartnerItem {
+
+    public enum PurposeType {
+        SEEK_PARTNER, SEEK_TEACHER, SEEK_ALL
+    }
+
     /*
      * 科目
      */
@@ -21,7 +26,7 @@ public class PostSearchPartnerItem {
     @Expose
     @SerializedName("school")
     public String school;
-
+    
     @Expose
     public String score;
 
@@ -42,7 +47,7 @@ public class PostSearchPartnerItem {
      * 意图
      */
     @Expose
-    public int purpose;
+    public String purpose;
 
     @Expose
     public Position position;

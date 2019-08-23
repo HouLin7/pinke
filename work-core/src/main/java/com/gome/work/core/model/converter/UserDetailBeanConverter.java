@@ -14,7 +14,7 @@ public class UserDetailBeanConverter implements PropertyConverter<UserInfo, Stri
         if (databaseValue == null) {
             return null;
         } else {
-            return GsonUtil.GsonToBean(databaseValue, UserInfo.class);
+            return GsonUtil.jsonToBean(databaseValue, UserInfo.class);
         }
     }
 

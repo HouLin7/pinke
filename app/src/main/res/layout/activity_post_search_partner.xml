@@ -200,10 +200,9 @@
             </RelativeLayout>
 
             <RelativeLayout
-
+                android:id="@+id/layout_sex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/title_bar"
                 android:padding="10dp">
 
                 <TextView
@@ -423,6 +422,7 @@
             </RelativeLayout>
 
             <CheckBox
+                android:id="@+id/checkbox_to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

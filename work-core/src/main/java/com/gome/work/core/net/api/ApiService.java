@@ -62,7 +62,7 @@ public interface ApiService {
     Call<BaseRspInfo<List<BannerBean>>> getBanner(@Query("position") String pos);
 
     /**
-     * 获取banner数据
+     * 获取启动页数据
      */
     @GET("communal/launcher")
     Call<BaseRspInfo<List<AdBean>>> getLauncherPic();
@@ -83,7 +83,7 @@ public interface ApiService {
      * 系统基础数据字典
      */
     @GET("communal/config/listSysConfig/{type}")
-    Call<BaseRspInfo<List<CfgDicItem>>> getConfigDataDic(@Path("type") String type);
+    Call<BaseRspInfo<SysCfgData>> getConfigDataDic(@Path("type") String type);
 
     /**
      * 发布伴读信息
@@ -107,6 +107,15 @@ public interface ApiService {
      */
     @POST("communal/uinfo/reset")
     Call<BaseRspInfo<String>> postUserInfo(@Body PostUserInfo userInfo);
+
+
+    /**
+     * 获取找伴读信息
+     *
+     * @param params 学科分类
+     */
+    @GET("student/seek-partner/search")
+    Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> getSearchPartnerInfo(@QueryMap Map<String, Object> params);
 
     /**
      * 添加好友
@@ -181,7 +190,7 @@ public interface ApiService {
     /**
      * 取消点赞
      */
-    @POST(APIConstants.CANCEL_APP_PRAIS_DATA)
+    @POST(APIConstants.CANCEL_APP_PRAISE_DATA)
     Call<BaseRspInfo<String>> cancelAppPraisData(@Body Map<String, String> params);
 
 
@@ -196,7 +205,7 @@ public interface ApiService {
      * 上传文件
      */
     @Multipart
-    @POST(APIConstants.UPLOAD_FILE)
+    @POST("communal/uploader")
     Call<BaseRspInfo<UploadFileResultInfo>> uploadFile(@Part MultipartBody.Part file);
 
 

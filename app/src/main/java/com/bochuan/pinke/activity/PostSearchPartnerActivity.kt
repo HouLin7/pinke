@@ -6,11 +6,6 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import com.amap.api.location.AMapLocation
-import com.amap.api.services.core.LatLonPoint
-import com.amap.api.services.core.PoiItem
-import com.amap.api.services.poisearch.PoiResult
-
-import com.amap.api.services.poisearch.PoiSearch
 import com.bochuan.pinke.R
 import com.bochuan.pinke.util.AMapLocationManager
 import com.bochuan.pinke.util.AMapLocationManager.ILocationCallback
@@ -18,18 +13,12 @@ import com.gome.applibrary.activity.BaseActivity
 import com.gome.utils.CommonUtils
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
-import com.gome.work.common.widget.BaseMultiSelectPopWindow
-import com.gome.work.common.widget.BaseSingleSelectPopWindow
-import com.gome.work.core.Constants
-import com.gome.work.core.model.AddressItem
-import com.gome.work.core.model.CfgDicItem
-import com.gome.work.core.model.PostSearchPartnerItem
-import com.gome.work.core.model.ScheduleTimeItem
+import com.gome.work.common.widget.BaseSelectPopWindow
+import com.gome.work.common.widget.ListSelectPopWindow
+import com.gome.work.core.model.*
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.utils.DateUtils
-import com.gome.work.core.utils.GsonUtil
-import com.gome.work.core.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_post_search_partner.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -41,18 +30,20 @@ import kotlin.collections.ArrayList
 class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
     companion object {
+
+        const val TO_SEARCH_TEACHER = "search.teacher"
+        const val TO_SEARCH_PARTNER = "search.partner"
+
+        const val EXTRA_MODEL = "extra.model"
+
         const val REQUEST_CODE_ADDRESS_SELECT = 1
 
         const val REQUEST_CODE_SCHEDULE_SELECT = 2
     }
 
-    var courseList = ArrayList<CfgDicItem>()
+    var currModel = TO_SEARCH_PARTNER
 
-    var gradeList = ArrayList<CfgDicItem>()
-
-    var classTypeList = ArrayList<CfgDicItem>()
-
-    var sexList = ArrayList<CfgDicItem>()
+    var sexList: ArrayList<CfgDicItem> = SysCfgData.getSexCfgItems()!!
 
     /**
      * 上课时间
@@ -73,20 +64,12 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
     var selectAddress: AddressItem? = null
 
-    init {
-        var item = CfgDicItem()
-        item.name = "男"
-        item.id = "1"
-        sexList.add(item)
-        item = CfgDicItem()
-        item.name = "女"
-        item.id = "2"
-        sexList.add(item)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_search_partner)
+        if (intent.hasExtra(EXTRA_MODEL)) {
+            currModel = intent.getStringExtra(EXTRA_MODEL)
+        }
         getCustomToolbar(title_bar).bindActivity(this, "找伴读")
         initData()
         initView()
@@ -119,14 +102,6 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
     }
 
     private fun initData() {
-        var rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CFG_COURSE)
-        courseList = GsonUtil.jsonToList(rawData, CfgDicItem::class.java) as ArrayList<CfgDicItem>
-
-        rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_TEACH_TYPE)
-        classTypeList = GsonUtil.jsonToList(rawData, CfgDicItem::class.java) as ArrayList<CfgDicItem>
-
-        rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CFG_GRADE)
-        gradeList = GsonUtil.jsonToList(rawData, CfgDicItem::class.java) as ArrayList<CfgDicItem>
 
     }
 
@@ -136,10 +111,14 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
-        tv_sex.setOnClickListener {
-            var popWindow = BaseSingleSelectPopWindow(mActivity, sexList)
+        if (TO_SEARCH_TEACHER == this.currModel) {
+            checkbox_to.text = "同时伴读"
+            getCustomToolbar(title_bar).title = "找老师"
+        }
+        layout_sex.setOnClickListener {
+            var popWindow = ListSelectPopWindow(mActivity, sexList)
             popWindow.showPopupWindow(it)
-            popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+            popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                 override fun onSelect(dataList: List<CfgDicItem>) {
                     selectSex = dataList[0]
                     tv_sex.text = selectSex!!.name
@@ -148,9 +127,9 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         }
 
         tv_course.setOnClickListener { view ->
-            var popWindow = BaseSingleSelectPopWindow(mActivity, courseList)
+            var popWindow = ListSelectPopWindow(mActivity, sysCfgData!!.course)
             popWindow.showPopupWindow(view)
-            popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+            popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                 override fun onSelect(dataList: List<CfgDicItem>) {
                     selectCourse = dataList[0]
                     tv_course.text = selectCourse!!.name
@@ -159,9 +138,9 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         }
 
         tv_grade.setOnClickListener {
-            var popWindow = BaseSingleSelectPopWindow(mActivity, gradeList)
+            var popWindow = ListSelectPopWindow(mActivity, sysCfgData!!.grade)
             popWindow.showPopupWindow(it)
-            popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+            popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                 override fun onSelect(dataList: List<CfgDicItem>) {
                     selectGrade = dataList[0]
                     tv_grade.text = selectGrade!!.name
@@ -184,9 +163,9 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         }
 
         tv_class_type.setOnClickListener {
-            var popWindow = BaseSingleSelectPopWindow(mActivity, classTypeList)
+            var popWindow = ListSelectPopWindow(mActivity, sysCfgData!!.classType)
             popWindow.showPopupWindow(it)
-            popWindow.listener = object : BaseMultiSelectPopWindow.OnCfgItemSelectListener {
+            popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                 override fun onSelect(dataList: List<CfgDicItem>) {
                     selectClassType = dataList[0]
                     tv_class_type.text = selectClassType!!.name
@@ -239,6 +218,8 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
                 result.position.city = location!!.city
                 result.position.district = location!!.district
                 result.position.address = location!!.poiName
+                result.position.latitude = location!!.latitude
+                result.position.longitude = location!!.longitude
             }
         }
         result.discipline = selectCourse!!.id
@@ -252,7 +233,7 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
         result.score = edit_course_score.text.toString()
 
-        result.school = edit_school.text.toString()
+//        result.school = edit_school.text.toString()
         result.note = edit_note.text.toString()
         attendDate?.let {
             result.openDate = attendDate!!.timeInMillis
@@ -265,8 +246,19 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
                 scheduleCard.type = 1
                 scheduleCard.startTime = item.startTime
                 scheduleCard.endTime = item.endTime
+                result.scheduleCards.add(scheduleCard)
             }
         }
+        if (checkbox_to.isChecked) {
+            result.purpose = PostSearchPartnerItem.PurposeType.SEEK_ALL.toString()
+        } else {
+            if (TO_SEARCH_TEACHER == this.currModel) {
+                result.purpose = PostSearchPartnerItem.PurposeType.SEEK_TEACHER.toString()
+            } else {
+                result.purpose = PostSearchPartnerItem.PurposeType.SEEK_PARTNER.toString()
+            }
+        }
+
         return result
     }
 

@@ -2,6 +2,7 @@
 package com.gome.work.core.net;
 
 
+import android.text.TextUtils;
 import com.gome.work.core.model.*;
 import com.gome.work.core.model.im.*;
 import com.gome.work.core.model.schedule.ScheduleInfo;
@@ -108,8 +109,8 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void getConfigDataDic(String type, IResponseListener<List<CfgDicItem>> listener) {
-        Call<BaseRspInfo<List<CfgDicItem>>> result = service.getConfigDataDic(type);
+    public void getConfigDataDic(String type, IResponseListener<SysCfgData> listener) {
+        Call<BaseRspInfo<SysCfgData>> result = service.getConfigDataDic(type);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -122,6 +123,18 @@ class WebApiImpl extends WebApi {
     @Override
     public void postSearchPartnerItem(PostSearchPartnerItem dataItem, IResponseListener<String> listener) {
         Call<BaseRspInfo<String>> result = service.postSearchPartnerInfo(dataItem);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getSearchPartnerInfo(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pn", pageIndex);
+        params.put("ps", pageSize);
+        if (!TextUtils.isEmpty(courseCode)) {
+            params.put("discipline", courseCode);
+        }
+        Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> result = service.getSearchPartnerInfo(params);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -217,7 +230,7 @@ class WebApiImpl extends WebApi {
     public void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
         RequestBody requestProgressFile = new FileUploadManager.FileRequestBody(requestFile, listener);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestProgressFile);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("ufile", file.getName(), requestProgressFile);
         Call<BaseRspInfo<UploadFileResultInfo>> result = service.uploadFile(body);
         result.enqueue(new MyCallback(listener));
 

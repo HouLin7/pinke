@@ -8,6 +8,7 @@ import com.gome.work.core.Constants
 import com.gome.work.core.SystemFramework
 import com.gome.work.core.model.CfgDicItem
 import com.gome.work.core.model.RegionItem
+import com.gome.work.core.model.SysCfgData
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.utils.GsonUtil
@@ -129,25 +130,12 @@ class MyApp : Application() {
 
 
     private fun getSysConfigData() {
-        WebApi.getInstance().getConfigDataDic("subject", object : IResponseListener<List<CfgDicItem>> {
-            override fun onSuccess(result: List<CfgDicItem>?) {
+
+        WebApi.getInstance().getConfigDataDic("all", object : IResponseListener<SysCfgData> {
+            override fun onSuccess(result: SysCfgData?) {
                 result?.let {
                     var data = GsonUtil.GsonString(result)
-                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_CFG_COURSE, data)
-                }
-            }
-
-            override fun onError(code: String?, message: String?) {
-
-            }
-
-        })
-
-        WebApi.getInstance().getConfigDataDic("grade", object : IResponseListener<List<CfgDicItem>> {
-            override fun onSuccess(result: List<CfgDicItem>?) {
-                result?.let {
-                    var data = GsonUtil.GsonString(result)
-                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_CFG_GRADE, data)
+                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_CONFIG_DATA, data)
                 }
             }
 
@@ -158,34 +146,6 @@ class MyApp : Application() {
         })
 
 
-        WebApi.getInstance().getConfigDataDic("teach_type", object : IResponseListener<List<CfgDicItem>> {
-            override fun onSuccess(result: List<CfgDicItem>?) {
-                result?.let {
-                    var data = GsonUtil.GsonString(result)
-                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_TEACH_TYPE, data)
-                }
-            }
-
-            override fun onError(code: String?, message: String?) {
-
-            }
-
-        })
-
-        WebApi.getInstance().getConfigDataDic("student_score", object : IResponseListener<List<CfgDicItem>> {
-            override fun onSuccess(result: List<CfgDicItem>?) {
-                result?.let {
-
-                    var data = GsonUtil.GsonString(result)
-                    SharedPreferencesHelper.commitString(Constants.PreferKeys.SYS_STUDENT_SCORE, data)
-                }
-            }
-
-            override fun onError(code: String?, message: String?) {
-
-            }
-
-        })
     }
 
 

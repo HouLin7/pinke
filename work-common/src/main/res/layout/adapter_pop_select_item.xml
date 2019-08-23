@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/recycler_item_selector"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <TextView
         android:id="@+id/tv_category_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="文"
+        android:text="1111"
         android:textColor="@color/app_black_light"
         android:textSize="@dimen/text_size_normal" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_category_name" />
 
-</LinearLayout>
+</RelativeLayout>

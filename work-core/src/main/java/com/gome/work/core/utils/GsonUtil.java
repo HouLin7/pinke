@@ -44,14 +44,14 @@ public class GsonUtil {
     /**
      * 将gsonString转成泛型bean
      *
-     * @param gsonString
+     * @param jsonString
      * @param cls
      * @return
      */
-    public static <T> T GsonToBean(String gsonString, Class<T> cls) {
+    public static <T> T jsonToBean(String jsonString, Class<T> cls) {
         T t = null;
         if (gson != null) {
-            t = gson.fromJson(gsonString, cls);
+            t = gson.fromJson(jsonString, cls);
         }
         return t;
     }
