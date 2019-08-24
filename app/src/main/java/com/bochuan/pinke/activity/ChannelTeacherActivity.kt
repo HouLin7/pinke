@@ -11,44 +11,29 @@ import android.view.ViewGroup
 import com.amap.api.location.AMapLocation
 import com.bochuan.pinke.R
 import com.bochuan.pinke.util.AMapLocationManager
-import com.gome.applibrary.activity.BaseActivity
 import com.gome.utils.CommonUtils
+import com.gome.utils.ToastUtil
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
-import com.gome.work.common.imageloader.ImageLoader
-import com.gome.work.core.model.SearchPartnerItem
-import kotlinx.android.synthetic.main.adapter_search_partner_item.*
+import com.gome.work.core.model.UserInfo
+import com.gome.work.core.model.UsersRspInfo
+import com.gome.work.core.net.IResponseListener
+import com.gome.work.core.net.WebApi
 import kotlinx.android.synthetic.main.activity_channel_course.*
 
 
 class ChannelTeacherActivity : BaseGomeWorkActivity() {
 
-    companion object {
-        const val TYPE_TEACHER = "teacher"
-        const val TYPE_COURSE = "course"
-        const val TYPE_ORGANIZATION = "organization"
-        const val TYPE_PARTNER = "partner"
-
-        const val VIEW_TYPE_HEADER = 0
-
-        const val VIEW_TYPE_NOMAL = 1
-    }
-
     lateinit var location: AMapLocation
+    lateinit var mAdapter: SearchTeacherAdapter
 
-    var currType = TYPE_PARTNER
-
-    lateinit var mPartnerAdapter: SearchPartnerAdapter
+    private var index = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.hasExtra(BaseActivity.EXTRA_DATA)) {
-            currType = intent.getStringExtra(BaseActivity.EXTRA_DATA)
-        }
         setContentView(R.layout.activity_channel_course)
-        mPartnerAdapter = SearchPartnerAdapter(this)
-        mPartnerAdapter.addItem(null)
+        mAdapter = SearchTeacherAdapter(this)
         initView()
         getLocation()
     }
@@ -78,6 +63,23 @@ class ChannelTeacherActivity : BaseGomeWorkActivity() {
 
     }
 
+    private fun getData(index: Int) {
+        WebApi.getInstance().getTeacherList(index, 20, "", object : IResponseListener<UsersRspInfo> {
+            override fun onError(code: String?, message: String?) {
+                ToastUtil.showToast(mActivity, message)
+                smart_refresh_layout.finishLoadMore()
+                smart_refresh_layout.finishRefresh()
+            }
+
+            override fun onSuccess(result: UsersRspInfo?) {
+                mAdapter.setItemList(result?.items)
+                smart_refresh_layout.finishLoadMore()
+                smart_refresh_layout.finishRefresh()
+            }
+
+        })
+    }
+
     override fun onBackPressed() {
         dismissInputMethod()
         super.onBackPressed()
@@ -85,65 +87,37 @@ class ChannelTeacherActivity : BaseGomeWorkActivity() {
 
     private fun initView() {
         smart_refresh_layout.setEnableLoadMore(false)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = mPartnerAdapter
+        recyclerView.adapter = mAdapter
         edit_search.setOnClickListener {
             var intent = Intent(mActivity, SearchActivity::class.java)
             startActivity(intent)
-
         }
+
+        smart_refresh_layout.setOnRefreshListener { getData(index) }
+        smart_refresh_layout.setOnLoadMoreListener { }
+        smart_refresh_layout.autoRefresh(300)
     }
 
 
-    inner class SearchPartnerAdapter(activity: FragmentActivity?) : BaseRecyclerAdapter<SearchPartnerItem>(activity) {
+    inner class SearchTeacherAdapter(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
 
-        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<SearchPartnerItem> {
-            var view: View? = null
-            when (viewType) {
-                VIEW_TYPE_HEADER -> {
-                    view = LayoutInflater.from(mActivity).inflate(R.layout.search_condition_panel, null, false)
-                    return ViewHolderHeader(view!!)
-                }
-                else -> {
-                    view = LayoutInflater.from(mActivity).inflate(R.layout.adapter_search_partner_item, null, false)
-                    return ViewHolderItem(view!!)
-                }
-
-            }
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<UserInfo> {
+            var view = LayoutInflater.from(mActivity).inflate(R.layout.adapter_teacher_list_item, null, false)
+            return ViewHolderItem(view!!)
         }
 
-        override fun onBindMyViewHolder(holder: BaseViewHolder<SearchPartnerItem>?, dataItem: SearchPartnerItem?, position: Int) {
+        override fun onBindMyViewHolder(holder: BaseViewHolder<UserInfo>?, dataItem: UserInfo?, position: Int) {
             holder!!.bind(dataItem, position)
         }
 
-        override fun getItemViewType(position: Int): Int {
-            if (position == 0) {
-                return VIEW_TYPE_HEADER
-            } else {
-                return VIEW_TYPE_NOMAL
-            }
-        }
+        inner class ViewHolderItem(view: View) : KotlinViewHolder<UserInfo>(view) {
+            override fun bind(t: UserInfo, position: Int) {
 
-
-        inner class ViewHolderItem(view: View) : KotlinViewHolder<SearchPartnerItem>(view) {
-            override fun bind(t: SearchPartnerItem, position: Int) {
-                tv_user_name.text = t.userInfo?.nickname
-                tv_school.text = t.school
-                tv_sex.text = t.sex
-                tv_class_type.text = t.classType
-                ImageLoader.loadImage(mActivity, t.userInfo.avatar, iv_avatar)
 
             }
         }
 
-    }
-
-    inner class ViewHolderHeader(view: View) : KotlinViewHolder<SearchPartnerItem>(view) {
-        override fun bind(t: SearchPartnerItem?, position: Int) {
-
-
-        }
     }
 
 

@@ -61,6 +61,7 @@ public class UserInfo implements Serializable, ISelectableItem {
     private String school;
 
 
+
     @Generated(hash = 412235695)
     public UserInfo(String id, String imId, String avatar, String email,
             String username, String nickname, String sex, String address,

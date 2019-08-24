@@ -30,12 +30,7 @@ class OrganizationListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.layoutManager = LinearLayoutManager(activity);
         recyclerView.addItemDecoration(
-            CustomNewsDivider(
-                context,
-                DividerItemDecoration.HORIZONTAL,
-                2,
-                R.color.divider_color
-            )
+            CustomNewsDivider(context,DividerItemDecoration.HORIZONTAL,2,R.color.divider_color)
         )
         recyclerView.adapter = Adapter(activity)
     }

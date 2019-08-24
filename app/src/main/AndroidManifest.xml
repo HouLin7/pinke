@@ -118,6 +118,7 @@
             android:name=".activity.EditTextActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
+        <activity android:name=".activity.ChannelTeacherActivity" />
 
         <service
             android:name="com.baidu.location.f"

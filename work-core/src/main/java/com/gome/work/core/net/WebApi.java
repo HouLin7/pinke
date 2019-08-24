@@ -70,7 +70,11 @@ public abstract class WebApi {
      */
     public abstract void postSearchPartnerItem(PostSearchPartnerItem dataItem, IResponseListener<String> listener);
 
-    public abstract void getSearchPartnerInfo(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener);
+    public abstract void getSearchPartnerList(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener);
+
+
+    public abstract void getTeacherList(int pageIndex, int pageSize, String courseCode, IResponseListener<UsersRspInfo> listener);
+
 
     /**
      * @param user
@@ -104,6 +108,9 @@ public abstract class WebApi {
      * @param listener
      */
     public abstract void updateUserAvatar(File file, IUploadListener<String> listener);
+
+
+
 
     /**
      * APP请求授权

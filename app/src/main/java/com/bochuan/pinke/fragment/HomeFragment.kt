@@ -26,7 +26,6 @@ import com.bochuan.pinke.R
 import com.bochuan.pinke.activity.*
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.GsonUtil
-import com.gome.utils.ToastUtil
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
@@ -123,6 +122,10 @@ class HomeFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        tv_search_teacher.setOnClickListener {
+            var intent = Intent(mActivity, ChannelTeacherActivity::class.java)
+            startActivity(intent)
+        }
 
         edit_search.setOnClickListener {
             var intent = Intent(mActivity, SearchActivity::class.java);
@@ -376,7 +379,6 @@ class HomeFragment : BaseFragment() {
                 ImageLoader.loadImage(activity, t.avatar, iv_organize_avatar);
             }
         }
-
     }
 
     /**
@@ -391,10 +393,10 @@ class HomeFragment : BaseFragment() {
             var fragment: BaseFragment? = mFragmentList.get(arg0)
             if (fragment == null) {
                 when (arg0) {
-                    0 -> fragment = UserListFragment()
-                    1 -> fragment = UserListFragment()
-                    2 -> fragment = OrganizationListFragment()
-                    3 -> fragment = OrganizationListFragment()
+                    0 -> fragment = CourseListFragment()
+                    1 -> fragment = OrganizationListFragment()
+                    2 -> fragment = TeacherListFragment()
+                    3 -> fragment = SearchPartnerListFragment()
                 }
                 mFragmentList.put(arg0, fragment)
             }

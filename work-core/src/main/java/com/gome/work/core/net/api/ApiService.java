@@ -115,7 +115,16 @@ public interface ApiService {
      * @param params 学科分类
      */
     @GET("student/seek-partner/search")
-    Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> getSearchPartnerInfo(@QueryMap Map<String, Object> params);
+    Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> getSearchPartnerList(@QueryMap Map<String, Object> params);
+
+
+    /**
+     * 获取老师信息列表
+     *
+     * @param params 学科分类
+     */
+    @POST("v1/teacher/list")
+    Call<BaseRspInfo<UsersRspInfo>> getTeacherList(@Body Map<String, Object> params);
 
     /**
      * 添加好友

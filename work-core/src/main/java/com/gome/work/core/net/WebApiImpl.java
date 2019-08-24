@@ -127,14 +127,26 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void getSearchPartnerInfo(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener) {
+    public void getSearchPartnerList(int pageIndex, int pageSize, String courseCode, IResponseListener<SearchPartnerItem.ResponseWrapper> listener) {
         Map<String, Object> params = new HashMap<>();
         params.put("pn", pageIndex);
         params.put("ps", pageSize);
         if (!TextUtils.isEmpty(courseCode)) {
             params.put("discipline", courseCode);
         }
-        Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> result = service.getSearchPartnerInfo(params);
+        Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> result = service.getSearchPartnerList(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getTeacherList(int pageIndex, int pageSize, String courseCode, IResponseListener<UsersRspInfo> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageNo", pageIndex);
+        params.put("pageSize", pageSize);
+        if (!TextUtils.isEmpty(courseCode)) {
+            params.put("discipline", courseCode);
+        }
+        Call<BaseRspInfo<UsersRspInfo>> result = service.getTeacherList(params);
         result.enqueue(new MyCallback(listener));
     }
 
