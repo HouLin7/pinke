@@ -42,6 +42,7 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_channel_course)
         mPartnerAdapter = SearchPartnerAdapter(this)
         initView()
+        getCustomToolbar(my_tool_bar).bindActivity(this,"")
         getLocation()
     }
 
@@ -76,9 +77,7 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
-        iv_back.setOnClickListener {
-            onBackPressed()
-        }
+
         smart_refresh_layout.setEnableLoadMore(false)
 
         recyclerView.layoutManager = LinearLayoutManager(this)

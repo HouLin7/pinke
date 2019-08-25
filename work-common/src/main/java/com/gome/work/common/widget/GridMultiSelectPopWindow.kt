@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import android.widget.Button
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.R
 import com.gome.work.common.adapter.BaseRecyclerAdapter
@@ -73,7 +74,7 @@ open class GridMultiSelectPopWindow(fragmentActivity: FragmentActivity) :
 
 
     override fun onCreateContentView(): View {
-        val contentView = LayoutInflater.from(context).inflate(R.layout.popup_recyclerview, null)
+        val contentView = LayoutInflater.from(context).inflate(R.layout.popup_multi_select_item, null)
         val recyclerView = contentView.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(
@@ -86,7 +87,11 @@ open class GridMultiSelectPopWindow(fragmentActivity: FragmentActivity) :
         )
         typeAdapter = AdapterPopWindowSelect(context as FragmentActivity)
         recyclerView.adapter = typeAdapter
-        animationView = recyclerView
+        animationView = recyclerView.parent as View
+        var btnOk = contentView.findViewById<Button>(R.id.btn_ok)
+        btnOk.setOnClickListener { dismiss() }
+        var btnCancel = contentView.findViewById<Button>(R.id.btn_cancel)
+        btnCancel.setOnClickListener { dismiss() }
         return contentView
     }
 
