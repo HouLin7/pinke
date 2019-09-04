@@ -17,6 +17,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.ashokvarma.bottomnavigation.TextBadgeItem
 import com.bochuan.pinke.R
 import com.bochuan.pinke.fragment.*
+import com.bochuan.pinke.jni.JNIBridge
 import com.bochuan.pinke.util.AMapLocationManager
 import com.gome.utils.CommonUtils
 import com.gome.work.common.activity.BaseGomeWorkActivity
@@ -72,6 +73,10 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
 //        goLoginActivity()
         toAdActivity()
         getLocation()
+
+//        var str=JNIBridge.testJni()
+//        var intent = Intent(this,TeacherHomeActivity::class.java)
+//        startActivity(intent)
 
     }
 

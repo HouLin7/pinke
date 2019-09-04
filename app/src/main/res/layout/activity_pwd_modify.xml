@@ -13,10 +13,49 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar_height" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_password_original"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="输入旧密码"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="@integer/password_max_length"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+    </android.support.design.widget.TextInputLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/button_captcha_get"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/bg_login_btn_selector"
+            android:text="获取"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -45,45 +84,7 @@
                 android:textSize="@dimen/text_size_normal" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/button_captcha_get"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/bg_login_btn_selector"
-            android:text="获取"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_normal" />
-
     </RelativeLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:theme="@style/LoginEditTextStyle"
-        app:errorEnabled="false"
-        app:passwordToggleEnabled="true">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edit_password_original"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="输入旧密码"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
-            android:maxLength="@integer/password_max_length"
-            android:maxLines="1"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:textColor="@color/text_black"
-            android:textColorHint="@color/btn_gray_normal"
-            android:textSize="@dimen/text_size_normal" />
-    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -99,7 +100,7 @@
             android:id="@+id/edit_password_new"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="确认密码"
+            android:hint="输入新密码"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLength="@integer/password_max_length"
@@ -110,6 +111,34 @@
             android:textColorHint="@color/btn_gray_normal"
             android:textSize="@dimen/text_size_normal" />
     </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:theme="@style/LoginEditTextStyle"
+        app:errorEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edit_password_new_repeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="再次输入新密码"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:maxLength="@integer/password_max_length"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/btn_gray_normal"
+            android:textSize="@dimen/text_size_normal" />
+    </android.support.design.widget.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/button_confirm"
@@ -127,6 +156,5 @@
         android:textColor="@color/white"
         android:textColorHint="@color/app_gray_light"
         android:textSize="@dimen/text_size_normal" />
-
 </LinearLayout>
 

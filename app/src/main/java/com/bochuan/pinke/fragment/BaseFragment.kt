@@ -14,7 +14,7 @@ abstract class BaseFragment : BaseWorkFragment() {
 
     private var mContentView: View? = null
 
-    abstract fun refreshData()
+    open fun refreshData() {}
 
     abstract fun getLayoutID(): Int
 
@@ -36,8 +36,6 @@ abstract class BaseFragment : BaseWorkFragment() {
         }
         return mContentView
     }
-
-
 
 
 }

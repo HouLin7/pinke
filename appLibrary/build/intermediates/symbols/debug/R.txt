@@ -496,7 +496,7 @@ int dimen compat_notification_large_icon_max_height 0x7f070051
 int dimen compat_notification_large_icon_max_width 0x7f070052
 int dimen disabled_alpha_material_dark 0x7f070053
 int dimen disabled_alpha_material_light 0x7f070054
-int dimen divier_height 0x7f070055
+int dimen divider_height 0x7f070055
 int dimen highlight_alpha_material_colored 0x7f070056
 int dimen highlight_alpha_material_dark 0x7f070057
 int dimen highlight_alpha_material_light 0x7f070058

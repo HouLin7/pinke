@@ -8,6 +8,7 @@ import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.utils.StringUtils
 import com.gome.work.core.model.CaptchaItem
+import com.gome.work.core.model.UserInfo
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import kotlinx.android.synthetic.main.activity_register.*
@@ -88,13 +89,13 @@ class RegisterActivity : BaseGomeWorkActivity() {
             var captcha = edit_captcha.text.toString().trim()
 
             showProgressDlg()
-            WebApi.getInstance().register(account, password, captcha, object : IResponseListener<String> {
+            WebApi.getInstance().register(account, password, captcha, object : IResponseListener<UserInfo> {
                 override fun onError(code: String?, message: String?) {
                     ToastUtil.showToast(mActivity, message)
                     dismissProgressDlg()
                 }
 
-                override fun onSuccess(result: String?) {
+                override fun onSuccess(result: UserInfo?) {
                     dismissProgressDlg()
                     ToastUtil.showToast(mActivity, "注册成功")
                     finish()

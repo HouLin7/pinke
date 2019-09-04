@@ -38,8 +38,6 @@ import com.gome.work.core.utils.SharedPreferencesHelper
 import io.reactivex.disposables.Disposable
 import razerdp.basepopup.BasePopupWindow
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 open class BaseGomeWorkActivity : BaseActivity() {
 
@@ -81,12 +79,22 @@ open class BaseGomeWorkActivity : BaseActivity() {
 
     private val mDisposableList = ArrayList<Disposable>()
 
-    var sysCfgData: SysCfgData
+    var sysCfgData: SysCfgData? = null
+        @Synchronized
+        get() {
+            if (field == null) {
+                var rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CONFIG_DATA)
+                if (!TextUtils.isEmpty(rawData)) {
+                    field = GsonUtil.jsonToBean(rawData, SysCfgData::class.java)
+                }
+            }
+            return field
+        }
 
-    init {
-        var rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CONFIG_DATA)
-        sysCfgData = GsonUtil.jsonToBean(rawData, SysCfgData::class.java)
-    }
+//    init {
+//        var rawData = SharedPreferencesHelper.getString(Constants.PreferKeys.SYS_CONFIG_DATA)
+//        sysCfgData = GsonUtil.jsonToBean(rawData, SysCfgData::class.java)
+//    }
 
     val isLogined: Boolean
         get() = !TextUtils.isEmpty(SharedPreferencesHelper.getAccessToken())
@@ -99,6 +107,7 @@ open class BaseGomeWorkActivity : BaseActivity() {
                 if (bean.userInfo == null) "" else bean.userInfo.id
             } else ""
         }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,7 +128,7 @@ open class BaseGomeWorkActivity : BaseActivity() {
 
 
     fun getCustomToolbar(view: View): MyToolbarView {
-        return findViewById(R.id.my_tool_bar)
+        return view.findViewById(R.id.my_tool_bar)
     }
 
 

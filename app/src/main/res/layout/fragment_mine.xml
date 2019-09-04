@@ -8,14 +8,14 @@
     <RelativeLayout
         android:id="@+id/layout_user_info"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/theme_blue"
+        android:layout_height="200dp"
+        android:background="@mipmap/bg_main_mine_info"
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_search_teacher"
@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/iv_avatar"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_nickname"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_avatar"
                 android:text="zhangsan"
-                android:textColor="@color/text_black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_normal" />
 
             <TextView
@@ -47,7 +47,8 @@
                 android:layout_alignLeft="@+id/tv_nickname"
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/iv_avatar"
-                android:textColor="@color/text_black"
+                android:text="11111"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_size_normal" />
 
         </LinearLayout>
@@ -59,67 +60,62 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_right" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/layout_my_teacher"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="我的老师"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layout_my_post"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="我的发布"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layout_my_book"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="我的预约"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </FrameLayout>
+
+        </LinearLayout>
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/divider_color" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/layout_my_teacher"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的老师"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_my_post"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的发布"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_my_book"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="我的预约"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_normal" />
-
-        </FrameLayout>
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -136,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的关注"
-            android:textColor="@color/text_black"
+            android:textColor="@color/app_black_light"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
@@ -161,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的收藏课程"
-            android:textColor="@color/text_black"
+            android:textColor="@color/app_black_light"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
@@ -186,7 +182,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的订单"
-            android:textColor="@color/text_black"
+            android:textColor="@color/app_black_light"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
@@ -211,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的伴读"
-            android:textColor="@color/text_black"
+            android:textColor="@color/app_black_light"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView
@@ -236,7 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置"
-            android:textColor="@color/text_black"
+            android:textColor="@color/app_black_light"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView

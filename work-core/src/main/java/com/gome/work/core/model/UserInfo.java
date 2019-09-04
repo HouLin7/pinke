@@ -2,12 +2,14 @@ package com.gome.work.core.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Unique;
 
 import java.io.Serializable;
+
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -20,7 +22,7 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Expose
     @Unique
     @Id
-    @SerializedName("uid")
+    @SerializedName("id")
     private String id;
 
     @Expose
@@ -60,12 +62,15 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Expose
     private String school;
 
+    @Expose
+    private String identity;
 
 
-    @Generated(hash = 412235695)
+    @Generated(hash = 1397350230)
     public UserInfo(String id, String imId, String avatar, String email,
-            String username, String nickname, String sex, String address,
-            String phone, String firstLetter, String grade, String school) {
+                    String username, String nickname, String sex, String address,
+                    String phone, String firstLetter, String grade, String school,
+                    String identity) {
         this.id = id;
         this.imId = imId;
         this.avatar = avatar;
@@ -78,6 +83,7 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.firstLetter = firstLetter;
         this.grade = grade;
         this.school = school;
+        this.identity = identity;
     }
 
     @Generated(hash = 1279772520)
@@ -116,7 +122,6 @@ public class UserInfo implements Serializable, ISelectableItem {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 
     public String getSex() {
@@ -199,5 +204,23 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.school = school;
     }
 
+    public String getIdentity() {
+        return this.identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+
+    public String getSexName() {
+        if ("1".equals(sex)) {
+            return "男";
+        } else if ("2".equals(sex)) {
+            return "女";
+        } else {
+            return "未知";
+        }
+    }
 
 }

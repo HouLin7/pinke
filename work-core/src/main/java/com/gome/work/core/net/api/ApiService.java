@@ -1,17 +1,44 @@
 package com.gome.work.core.net.api;
 
 
-import com.gome.work.core.model.*;
-import com.gome.work.core.model.im.*;
+import com.gome.work.core.model.AccessTokenInfo;
+import com.gome.work.core.model.AdBean;
+import com.gome.work.core.model.BannerBean;
+import com.gome.work.core.model.BaseRspInfo;
+import com.gome.work.core.model.CaptchaItem;
+import com.gome.work.core.model.CategoryBean;
+import com.gome.work.core.model.PostSearchPartnerItem;
+import com.gome.work.core.model.PostUserInfo;
+import com.gome.work.core.model.RegionItem;
+import com.gome.work.core.model.RequestDataInfo;
+import com.gome.work.core.model.RequestGrantBean;
+import com.gome.work.core.model.SearchPartnerItem;
+import com.gome.work.core.model.SysCfgData;
+import com.gome.work.core.model.UploadFileResultInfo;
+import com.gome.work.core.model.UserInfo;
+import com.gome.work.core.model.UsersRspInfo;
+import com.gome.work.core.model.im.GroupInfo;
+import com.gome.work.core.model.im.GroupMemberInfo;
+import com.gome.work.core.model.im.GroupNoticeBean;
+import com.gome.work.core.model.im.GroupQrcode;
+import com.gome.work.core.model.im.GroupSetRequestInfo;
 import com.gome.work.core.model.schedule.ScheduleInfo;
 import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.net.APIConstants;
-import okhttp3.MultipartBody;
-import retrofit2.Call;
-import retrofit2.http.*;
 
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  *
@@ -28,7 +55,7 @@ public interface ApiService {
     Call<BaseRspInfo<AccessTokenInfo>> login(@Body Map<String, String> params);
 
     @POST("auth/register")
-    Call<BaseRspInfo<String>> register(@Body Map<String, String> params);
+    Call<BaseRspInfo<UserInfo>> register(@Body Map<String, String> params);
 
     @POST("auth/reset/password")
     Call<BaseRspInfo<String>> resetPassword(@Body Map<String, String> params);
@@ -53,7 +80,7 @@ public interface ApiService {
      * 获取广告位
      */
     @GET("communal/adver")
-    Call<BaseRspInfo<AdBean>> getAd();
+    Call<BaseRspInfo<List<AdBean>>> getAd();
 
     /**
      * 获取banner数据
@@ -93,6 +120,13 @@ public interface ApiService {
 
 
     /**
+     * 获取我发布的找伴读伴读信息
+     */
+    @GET("student/seek-partner")
+    Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> getMyPostSearchPartnerList(@QueryMap Map<String, Object> params);
+
+
+    /**
      * 获取用户信息
      *
      * @param userId 用户id
@@ -127,16 +161,65 @@ public interface ApiService {
     Call<BaseRspInfo<UsersRspInfo>> getTeacherList(@Body Map<String, Object> params);
 
     /**
-     * 添加好友
+     * 关注
+     * @param params
+     * @return
      */
-    @POST(APIConstants.ADD_FRIEND)
-    Call<BaseRspInfo<String>> addFriend(@Body Map<String, String> params);
+    @POST("communal/relation/follow")
+    Call<BaseRspInfo<String>> follow(@Body Map<String, Object> params);
 
     /**
-     * 移除（删除）好友
+     * 取消关注
+     * @param params
+     * @return
      */
-    @POST(APIConstants.REMOVE_FRIEND)
-    Call<BaseRspInfo<String>> removeFriend(@Body Map<String, String> params);
+    @POST("communal/relation/cancel")
+    Call<BaseRspInfo<String>> followCancel(@Body Map<String, Object> params);
+
+    /**
+     * 获取粉丝列表
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @GET("communal/relation/followers")
+    Call<BaseRspInfo<UsersRspInfo>> getFollowers(@Query("pn") int pageIndex,@Query("ps") int pageSize);
+
+    /**
+     * 获取好友列表
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @GET("communal/relation/friends")
+    Call<BaseRspInfo<UsersRspInfo>> getFriends(@Query("pn") int pageIndex,@Query("ps") int pageSize);
+
+    /**
+     * 伴读某人
+     * @param params
+     * @return
+     */
+    @POST("student/partner/follow")
+    Call<BaseRspInfo<String>> partner(@Body Map<String, Object> params);
+
+
+    /**
+     * 取消伴读关系
+     * @param params
+     * @return
+     */
+    @POST("student/partner/cancel")
+    Call<BaseRspInfo<String>> partnerCancel(@Body Map<String, Object> params);
+
+
+    /**
+     * 获取伴读列表
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @GET("communal/relation/friends")
+    Call<BaseRspInfo<UsersRspInfo>> getPartners(@Query("pn") int pageIndex,@Query("ps") int pageSize);
 
 
     /**

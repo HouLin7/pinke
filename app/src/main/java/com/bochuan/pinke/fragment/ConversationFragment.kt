@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bochuan.pinke.R
@@ -86,11 +85,11 @@ class ConversationFragment : BaseFragment(), IConversationChangedListener {
         mAdapter = MyAdapter(activity!!)
         recyclerView.adapter = mAdapter
         EMClient.getInstance().chatManager().addConversationListener(EMConversationListener { })
+        smart_refresh_layout.setEnableLoadMore(false)
 
     }
 
     override fun refreshData() {
-
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -105,7 +104,6 @@ class ConversationFragment : BaseFragment(), IConversationChangedListener {
         EMClient.getInstance().addConnectionListener(connectionListener)
 
     }
-
 
     inner class MyAdapter(activity: FragmentActivity) : BaseRecyclerAdapter<ConversationInfo>(activity) {
 
@@ -135,10 +133,7 @@ class ConversationFragment : BaseFragment(), IConversationChangedListener {
             if (MSG_TYPE_CHAT == t.msgType) {
 
             }
-
-
         }
-
 
     }
 

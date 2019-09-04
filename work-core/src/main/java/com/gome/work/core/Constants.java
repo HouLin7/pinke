@@ -66,6 +66,8 @@ public interface Constants {
 
         public static final String CITY_DATA = "city.data";
 
+        public static final String RECOMMEND_AD_DATA = "recommend.ad.data";
+
 //        /**
 //         * 配置数据-学习阶段
 //         */

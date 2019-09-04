@@ -10,7 +10,6 @@ import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
 import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.SearchPartnerItem
-import com.gome.work.core.model.UserInfo
 import kotlinx.android.synthetic.main.adapter_search_partner_list_item.*
 
 class SearchPartnerAdapter(fragmentActivity: FragmentActivity) : BaseRecyclerAdapter<SearchPartnerItem>(fragmentActivity) {
@@ -29,9 +28,8 @@ class SearchPartnerAdapter(fragmentActivity: FragmentActivity) : BaseRecyclerAda
         override fun bind(t: SearchPartnerItem, position: Int) {
             tv_user_name.text = t.userInfo?.nickname
             tv_school.text = t.school
-            tv_sex.text = t.sex
+            tv_sex.text = t.userInfo?.sexName
             tv_class_type.text = t.classType
-
             ImageLoader.loadImage(mActivity, t.userInfo?.avatar, iv_avatar)
 
         }

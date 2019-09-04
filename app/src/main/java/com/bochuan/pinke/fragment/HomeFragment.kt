@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -43,6 +44,7 @@ import com.gome.work.core.utils.SharedPreferencesHelper
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.adapter_recommend_organization_list_item.*
 import kotlinx.android.synthetic.main.adapter_recommend_user_list_item.*
+import kotlinx.android.synthetic.main.adapter_recommond_ad_item.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
@@ -61,10 +63,11 @@ class HomeFragment : BaseFragment() {
 
     private var mAdapterTeacher: AdapterTeacher? = null;
 
-    private var mBDLocaiton: AMapLocation? = null
+    private var mAdapterAd: AdapterAd? = null;
+
+    private var mBDLocation: AMapLocation? = null
 
     private var bitmap: Bitmap? = null
-
 
     init {
         createTestData();
@@ -84,7 +87,7 @@ class HomeFragment : BaseFragment() {
             tv_address.text = location.aoiName
             tv_city.text = location.city
         } else {
-            mBDLocaiton = location
+            mBDLocation = location
         }
 
     }
@@ -117,12 +120,21 @@ class HomeFragment : BaseFragment() {
 
 
     private fun initView() {
+        iv_message.setOnClickListener {
+            var intent = Intent(mActivity, ConversationActivity::class.java)
+            startActivity(intent)
+        }
         tv_search_partner.setOnClickListener {
             var intent = Intent(mActivity, ChannelPartnerActivity::class.java);
             startActivity(intent)
         }
 
         tv_search_teacher.setOnClickListener {
+            var intent = Intent(mActivity, ChannelTeacherActivity::class.java)
+            startActivity(intent)
+        }
+
+        tv_near_best_teacher.setOnClickListener {
             var intent = Intent(mActivity, ChannelTeacherActivity::class.java)
             startActivity(intent)
         }
@@ -140,15 +152,30 @@ class HomeFragment : BaseFragment() {
             startActivity(intent)
         }
 
-        iv_ad_1.setImageResource(R.mipmap.ic_launcher)
-        iv_ad_2.setImageResource(R.mipmap.ic_launcher)
-        iv_ad_3.setImageResource(R.mipmap.ic_launcher)
-        iv_ad_4.setImageResource(R.mipmap.ic_launcher)
+//        iv_ad_1.setImageResource(R.mipmap.ic_launcher)
+//        iv_ad_2.setImageResource(R.mipmap.ic_launcher)
+//        iv_ad_3.setImageResource(R.mipmap.ic_launcher)
+//        iv_ad_4.setImageResource(R.mipmap.ic_launcher)
 
-        recyclerView_near_best_organize.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
-        recyclerView_near_best_teacher.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
+
+        recyclerView_ad_list.layoutManager = GridLayoutManager(activity, 2, RecyclerView.VERTICAL, false)
+
+        mAdapterAd = AdapterAd(activity)
+        recyclerView_ad_list.adapter = mAdapterAd
+
+        var cacheData = SharedPreferencesHelper.getString(Constants.PreferKeys.RECOMMEND_AD_DATA)
+        if (!TextUtils.isEmpty(cacheData)) {
+            var token = object : TypeToken<List<AdBean>>() {}
+            mAdapterAd!!.setItemList(GsonUtil.jsonToList(token.type, cacheData))
+        }
+
+
+        recyclerView_near_best_organize.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+        recyclerView_near_best_teacher.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+
         mAdapterOrganization = AdapterOrganization(activity);
         mAdapterOrganization?.setItemList(mBestOrganizationList)
+
 
         mAdapterTeacher = AdapterTeacher(activity)
         mAdapterTeacher?.setItemList(mBestTeacherList)
@@ -216,9 +243,9 @@ class HomeFragment : BaseFragment() {
         }
         layout_bg.isClickable = false;
 
-        mBDLocaiton?.let {
-            tv_address.text = mBDLocaiton!!.aoiName
-            tv_city.text = mBDLocaiton!!.city
+        mBDLocation?.let {
+            tv_address.text = it!!.aoiName
+            tv_city.text = it!!.city
         }
 
 
@@ -248,11 +275,6 @@ class HomeFragment : BaseFragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
-
     private fun initBannerData() {
         var cacheData = SharedPreferencesHelper.getString(Constants.PreferKeys.BANNER_LIST)
         if (!TextUtils.isEmpty(cacheData)) {
@@ -279,7 +301,6 @@ class HomeFragment : BaseFragment() {
         valueAnimator.duration = 300
         valueAnimator.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
-            //                mBinding.layoutBg.setBackgroundColor(UiUtils.changeAlpha(getResources().getColor(R.color.white), value));
             layout_bg.setAlpha(value)
         }
         valueAnimator.start()
@@ -289,14 +310,9 @@ class HomeFragment : BaseFragment() {
     private fun getAdList() {
         WebApi.getInstance().getAd(object : IResponseListener<List<AdBean>> {
             override fun onSuccess(result: List<AdBean>?) {
-                for (index in 1 until result!!.size) {
-                    when (index) {
-                        0 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_1)
-                        1 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_2)
-                        2 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_3)
-                        3 -> ImageLoader.loadImage(activity, result[index].image, iv_ad_4)
-                    }
-                }
+                mAdapterAd!!.setItemList(result)
+                var rawData = GsonUtil.objectToJson(result)
+                SharedPreferencesHelper.commitString(Constants.PreferKeys.RECOMMEND_AD_DATA, rawData)
 
             }
 
@@ -325,14 +341,6 @@ class HomeFragment : BaseFragment() {
             }
 
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
     }
 
     inner class AdapterTeacher(activity: FragmentActivity?) : BaseRecyclerAdapter<UserInfo>(activity) {
@@ -386,7 +394,7 @@ class HomeFragment : BaseFragment() {
      */
     class MyFragmentTabAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        private var titleList: ArrayList<String> = arrayListOf<String>("课程", "机构", "老师", "伴读");
+        private var titleList: ArrayList<String> = arrayListOf<String>("课程", "老师", "伴读");
         private var mFragmentList = SparseArray<BaseFragment>()
 
         override fun getItem(arg0: Int): Fragment? {
@@ -394,9 +402,9 @@ class HomeFragment : BaseFragment() {
             if (fragment == null) {
                 when (arg0) {
                     0 -> fragment = CourseListFragment()
-                    1 -> fragment = OrganizationListFragment()
-                    2 -> fragment = TeacherListFragment()
-                    3 -> fragment = SearchPartnerListFragment()
+//                    1 -> fragment = OrganizationListFragment()
+                    1 -> fragment = TeacherListFragment()
+                    2 -> fragment = SearchPartnerListFragment()
                 }
                 mFragmentList.put(arg0, fragment)
             }
@@ -432,6 +440,32 @@ class HomeFragment : BaseFragment() {
                 tvTitile.setText(data.title)
             }
         }
+    }
+
+    /**
+     * 推荐广告位
+     */
+    inner class AdapterAd(activity: FragmentActivity?) : BaseRecyclerAdapter<AdBean>(activity) {
+
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<AdBean>? {
+            var view: View = layoutInflater.inflate(R.layout.adapter_recommond_ad_item, null, false);
+            return MyViewHolder(view);
+        }
+
+        override fun onBindMyViewHolder(holder: BaseViewHolder<AdBean>?, dataItem: AdBean?, position: Int) {
+            var myViewholder: MyViewHolder = holder as MyViewHolder
+            myViewholder.bind(dataItem!!, position)
+
+        }
+
+        inner class MyViewHolder(view: View) : KotlinViewHolder<AdBean>(view) {
+
+            override fun bind(t: AdBean, position: Int) {
+                tv_ad.text = t.name;
+                ImageLoader.loadImage(activity, t.image, iv_ad);
+            }
+        }
+
     }
 
 

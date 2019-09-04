@@ -40,10 +40,7 @@ class AdActivity : BaseGomeWorkActivity() {
         //            getWindow().setExitTransition(fade);
         //        }
         setContentView(R.layout.activity_ad)
-
-
         ad_time.setOnClickListener { finishSelf() }
-
         ad_content.setOnClickListener {
             if (mAdData != null && !TextUtils.isEmpty(mAdData!!.linkUrl)) {
                 val intent = Intent(baseContext, CommonWebActivity::class.java)

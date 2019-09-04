@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchPartnerItem implements Serializable {
 
 
-    public class ResponseWrapper {
+    public static class ResponseWrapper {
 
         @Expose
         @SerializedName("pn")

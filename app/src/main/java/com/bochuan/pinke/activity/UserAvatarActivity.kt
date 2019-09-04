@@ -10,6 +10,7 @@ import com.bochuan.pinke.R
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.imageloader.ImageLoader
+import com.gome.work.core.model.UploadFileResultInfo
 import com.gome.work.core.model.UserInfo
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.upload.IUploadListener
@@ -67,7 +68,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
     override fun onImageGetResult(isSuccess: Boolean, uri: Uri?, file: File?) {
         if (isSuccess) {
             ImageLoader.loadImage(this, uri, photo_view)
-            WebApi.getInstance().updateUserAvatar(file, object : IUploadListener<String>() {
+            WebApi.getInstance().uploadFile(file, object : IUploadListener<UploadFileResultInfo>() {
                 override fun onProcess(totalBytes: Long, transferBytes: Long, speed: SpeedCalculator) {
                     val progress = transferBytes * 100 / totalBytes.toDouble()
                     pb_progress.progress = progress.toInt()
@@ -88,7 +89,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
                     ToastUtil.showToast(baseContext, message)
                 }
 
-                override fun onSuccess(result: String) {
+                override fun onSuccess(result: UploadFileResultInfo) {
                     isUpdateSuccess = true
                     pb_progress.visibility = View.GONE
                     pb_progress.progress = 0

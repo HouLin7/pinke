@@ -14,6 +14,10 @@ import java.util.List;
 public class SysCfgData implements Serializable {
 
     @Expose
+    @SerializedName("price")
+    public List<CfgDicItem> price;
+
+    @Expose
     @SerializedName("subject")
     public List<CfgDicItem> course;
 
@@ -55,7 +59,6 @@ public class SysCfgData implements Serializable {
         result.add(new CfgDicItem("男", "1"));
         result.add(new CfgDicItem("女", "2"));
         return result;
-
     }
 
 

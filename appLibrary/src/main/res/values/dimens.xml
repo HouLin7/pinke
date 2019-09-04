@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="divier_height">1dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
 
     <!--<dimen name="text_size_mini">12sp</dimen>-->
     <!--<dimen name="text_size_small">13sp</dimen>-->

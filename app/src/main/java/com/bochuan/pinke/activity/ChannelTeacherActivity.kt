@@ -34,6 +34,11 @@ class ChannelTeacherActivity : BaseGomeWorkActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_channel_course)
         mAdapter = SearchTeacherAdapter(this)
+        mAdapter.setOnItemClickListener { parent, view, position, id ->
+            var intent = Intent(mActivity,TeacherHomeActivity::class.java)
+            startActivity(intent)
+
+        }
         getCustomToolbar(my_tool_bar).bindActivity(this,"")
         initView()
         getLocation()

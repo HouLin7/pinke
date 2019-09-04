@@ -23,7 +23,7 @@ class SearchConditionFragment : BaseFragment() {
 
     init {
 
-        distanceConditions.add(CfgDicItem("dd", "1"))
+        distanceConditions.add(CfgDicItem("距离最近", "1"))
 
     }
 
@@ -52,7 +52,7 @@ class SearchConditionFragment : BaseFragment() {
         }
         layout_condition2.setOnClickListener {
             if (gradePopWindow == null) {
-                var popWindow = ListSelectPopWindow(mActivity!!, mActivity!!.sysCfgData.grade)
+                var popWindow = ListSelectPopWindow(mActivity!!, mActivity!!.sysCfgData!!.grade)
                 popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                     override fun onSelect(dataList: List<CfgDicItem>) {
 
@@ -65,7 +65,7 @@ class SearchConditionFragment : BaseFragment() {
         }
         layout_condition3.setOnClickListener {
             if (coursePopWindow == null) {
-                var popWindow = ListSelectPopWindow(mActivity!!, mActivity!!.sysCfgData.course)
+                var popWindow = ListSelectPopWindow(mActivity!!, mActivity!!.sysCfgData!!.course)
                 popWindow.listener = object : BaseSelectPopWindow.OnCfgItemSelectListener {
                     override fun onSelect(dataList: List<CfgDicItem>) {
 

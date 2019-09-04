@@ -24,9 +24,9 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun getCity() {
-        WebApi.getInstance().getCityData(object : IResponseListener<List<RegionItem>> {
-            override fun onSuccess(result: List<RegionItem>?) {
+    fun login() {
+        WebApi.getInstance().login("13141403343", "123456", "PASSWORD", object : IResponseListener<AccessTokenInfo> {
+            override fun onSuccess(result: AccessTokenInfo) {
 
                 var result1 = result;
             }
@@ -39,66 +39,96 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun getCaptcha() {
-        WebApi.getInstance().getCaptcha("13141403343", object : IResponseListener<CaptchaItem> {
-            override fun onError(code: String?, message: String?) {
+    fun getUserInfo() {
+        WebApi.getInstance().getUserInfo("24", object : IResponseListener<UserInfo> {
+            override fun onSuccess(result: UserInfo) {
 
+                var result1 = result;
             }
 
-            override fun onSuccess(result: CaptchaItem?) {
+            override fun onError(code: String?, message: String?) {
 
             }
 
         })
     }
 
-
-    @Test
-    fun getDataDic() {
-        WebApi.getInstance().getConfigDataDic("all", object : IResponseListener<List<CfgDicItem>> {
-            override fun onError(code: String?, message: String?) {
-
-            }
-
-            override fun onSuccess(result: List<CfgDicItem>?) {
-
-            }
-
-        })
-    }
-
-    @Test
-    fun testAPi() {
-        WebApi.getInstance().getAd(null)
-
-        WebApi.getInstance().getBanner("1", object : IResponseListener<List<BannerBean>> {
-            override fun onError(code: String?, message: String?) {
-
-            }
-
-            override fun onSuccess(result: List<BannerBean>?) {
-
-            }
-
-        })
-
-        WebApi.getInstance().getRecommendList("1", "TEACHER", object : IResponseListener<String> {
-            override fun onError(code: String?, message: String?) {
-            }
-
-            override fun onSuccess(result: String?) {
-            }
-
-        })
-
-        WebApi.getInstance().getLauncherPic(object : IResponseListener<List<AdBean>> {
-            override fun onError(code: String?, message: String?) {
-            }
-
-            override fun onSuccess(result: List<AdBean>?) {
-            }
-
-        })
-    }
+//    @Test
+//    fun getCity() {
+//        WebApi.getInstance().getCityData(object : IResponseListener<List<RegionItem>> {
+//            override fun onSuccess(result: List<RegionItem>?) {
+//
+//                var result1 = result;
+//            }
+//
+//            override fun onError(code: String?, message: String?) {
+//
+//            }
+//
+//        })
+//    }
+//
+//    @Test
+//    fun getCaptcha() {
+//        WebApi.getInstance().getCaptcha("13141403343", object : IResponseListener<CaptchaItem> {
+//            override fun onError(code: String?, message: String?) {
+//
+//            }
+//
+//            override fun onSuccess(result: CaptchaItem?) {
+//
+//            }
+//
+//        })
+//    }
+//
+//
+//    @Test
+//    fun getDataDic() {
+//        WebApi.getInstance().getConfigDataDic("all", object : IResponseListener<SysCfgData> {
+//            override fun onError(code: String?, message: String?) {
+//
+//            }
+//
+//            override fun onSuccess(result: SysCfgData?) {
+//
+//            }
+//
+//        })
+//    }
+//
+//    @Test
+//    fun testAPi() {
+//        WebApi.getInstance().getAd(null)
+//
+//        WebApi.getInstance().getBanner("1", object : IResponseListener<List<BannerBean>> {
+//            override fun onError(code: String?, message: String?) {
+//
+//            }
+//
+//            override fun onSuccess(result: List<BannerBean>?) {
+//
+//            }
+//
+//        })
+//
+//        WebApi.getInstance().getRecommendList("1", "TEACHER", object : IResponseListener<String> {
+//            override fun onError(code: String?, message: String?) {
+//            }
+//
+//            override fun onSuccess(result: String?) {
+//            }
+//
+//        })
+//
+//        WebApi.getInstance().getLauncherPic(object : IResponseListener<List<AdBean>> {
+//            override fun onError(code: String?, message: String?) {
+//            }
+//
+//            override fun onSuccess(result: List<AdBean>?) {
+//            }
+//
+//        })
+//    }
 
 }

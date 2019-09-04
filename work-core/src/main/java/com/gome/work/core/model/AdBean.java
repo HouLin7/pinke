@@ -19,7 +19,7 @@ public class AdBean {
     public String image;
 
     @Expose
-    public int stayDuration = 3;
+    public int stayDuration = 1;
 
     @Expose
     public String mediaType;

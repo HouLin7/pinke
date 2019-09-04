@@ -24,17 +24,6 @@ public interface APIConstants {
     String GET_SEARCH_FRIENDS_LIST = "app/friends/search.do";
 
     /**
-     * 添加好友
-     */
-    String ADD_FRIEND = "app/user/friends/add.do";
-
-    /**
-     * 删除好友
-     */
-    String REMOVE_FRIEND = "app/user/friends/remove.do";
-
-
-    /**
      * 搜索用户
      */
     String SEARCH_USER = "app/user/search.do";

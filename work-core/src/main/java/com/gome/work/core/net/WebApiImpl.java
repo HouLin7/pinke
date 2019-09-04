@@ -3,19 +3,34 @@ package com.gome.work.core.net;
 
 
 import android.text.TextUtils;
-import com.gome.work.core.model.*;
-import com.gome.work.core.model.im.*;
+
+import com.gome.work.core.model.AccessTokenInfo;
+import com.gome.work.core.model.AdBean;
+import com.gome.work.core.model.BannerBean;
+import com.gome.work.core.model.BaseRspInfo;
+import com.gome.work.core.model.CaptchaItem;
+import com.gome.work.core.model.FeedBackBean;
+import com.gome.work.core.model.PostSearchPartnerItem;
+import com.gome.work.core.model.PostUserInfo;
+import com.gome.work.core.model.RegionItem;
+import com.gome.work.core.model.RequestDataInfo;
+import com.gome.work.core.model.RequestGrantBean;
+import com.gome.work.core.model.SearchPartnerItem;
+import com.gome.work.core.model.SysCfgData;
+import com.gome.work.core.model.UploadFileResultInfo;
+import com.gome.work.core.model.UserInfo;
+import com.gome.work.core.model.UsersRspInfo;
+import com.gome.work.core.model.im.EditGroupInfo;
+import com.gome.work.core.model.im.GroupInfo;
+import com.gome.work.core.model.im.GroupMemberInfo;
+import com.gome.work.core.model.im.GroupNoticeBean;
+import com.gome.work.core.model.im.GroupQrcode;
+import com.gome.work.core.model.im.GroupSetRequestInfo;
 import com.gome.work.core.model.schedule.ScheduleInfo;
 import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.net.api.ApiService;
 import com.gome.work.core.upload.FileUploadManager;
 import com.gome.work.core.upload.IUploadListener;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +38,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 class WebApiImpl extends WebApi {
 
@@ -44,12 +66,12 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void register(String account, String password, String captcha, IResponseListener<String> listener) {
+    public void register(String account, String password, String captcha, IResponseListener<UserInfo> listener) {
         Map<String, String> params = new HashMap<>();
         params.put("username", account);
         params.put("password", password);
         params.put("code", captcha);
-        Call<BaseRspInfo<String>> result = service.register(params);
+        Call<BaseRspInfo<UserInfo>> result = service.register(params);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -79,7 +101,7 @@ class WebApiImpl extends WebApi {
 
     @Override
     public void getAd(IResponseListener<List<AdBean>> listener) {
-        Call<BaseRspInfo<AdBean>> result = service.getAd();
+        Call<BaseRspInfo<List<AdBean>>> result = service.getAd();
         result.enqueue(new MyCallback(listener));
     }
 
@@ -152,23 +174,6 @@ class WebApiImpl extends WebApi {
 
 
     @Override
-    public void addFriends(UserInfo user, IResponseListener<String> listener) {
-        Map<String, String> params = new HashMap<>();
-        params.put("userId", user.getId() + "");
-
-        Call<BaseRspInfo<String>> result = service.addFriend(params);
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
-    public void removeFriends(UserInfo user, IResponseListener<String> listener) {
-        Map<String, String> params = new HashMap<>();
-        params.put("userId", user.getId() + "");
-        Call<BaseRspInfo<String>> result = service.removeFriend(params);
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
     public void getUserInfo(String userId, IResponseListener<UserInfo> listener) {
         Call<BaseRspInfo<UserInfo>> result = service.getUserInfo(userId);
         result.enqueue(new MyCallback(listener));
@@ -185,12 +190,63 @@ class WebApiImpl extends WebApi {
         return null;
     }
 
+
     @Override
-    public void updateUserAvatar(File file, IUploadListener<String> listener) {
-        RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
-        RequestBody requestProgressFile = new FileUploadManager.FileRequestBody(requestFile, listener);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("myfile", file.getName(), requestProgressFile);
-        Call<BaseRspInfo<String>> result = service.updateUserAvatar(body);
+    public void follow(String userId, IResponseListener<String> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("uid", userId);
+        Call<BaseRspInfo<String>> result = service.follow(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void followCancel(String userId, IResponseListener<String> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("uid", userId);
+        Call<BaseRspInfo<String>> result = service.followCancel(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void partner(String userId, IResponseListener<String> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("uid", userId);
+        Call<BaseRspInfo<String>> result = service.partner(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void partnerCancel(String userId, IResponseListener<String> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("uid", userId);
+        Call<BaseRspInfo<String>> result = service.partnerCancel(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getPartners(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener) {
+        Call<BaseRspInfo<UsersRspInfo>> result = service.getPartners(pageIndex,pageSize);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getFriends(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener) {
+        Call<BaseRspInfo<UsersRspInfo>> result = service.getFriends(pageIndex, pageSize);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getFollowers(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener) {
+        Call<BaseRspInfo<UsersRspInfo>> result = service.getFollowers(pageIndex, pageSize);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getMySearchPartnerList(int pageIndex, int pageSize, IResponseListener<SearchPartnerItem.ResponseWrapper> listener) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("pn", pageIndex);
+        params.put("ps", pageSize);
+        Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> result = service.getMyPostSearchPartnerList(params);
         result.enqueue(new MyCallback(listener));
     }
 
@@ -430,12 +486,6 @@ class WebApiImpl extends WebApi {
         map.put("request_token", requestToken);
         map.put("captcha", captcha);
         Call<BaseRspInfo<AccessTokenInfo>> result = service.getRequestGeantLogin(map);
-        result.enqueue(new MyCallback(listener));
-    }
-
-    @Override
-    public void getAppCategory(IResponseListener<List<CategoryBean>> listener) {
-        Call<BaseRspInfo<List<CategoryBean>>> result = service.getAppCategory();
         result.enqueue(new MyCallback(listener));
     }
 

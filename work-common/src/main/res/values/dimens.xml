@@ -31,7 +31,7 @@
     <dimen name="text_size_mini">12sp</dimen>
     <dimen name="text_size_small">13sp</dimen>
 
-    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_normal">17sp</dimen>
     <dimen name="text_size_big">19sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
     <dimen name="index_width">20dp</dimen>

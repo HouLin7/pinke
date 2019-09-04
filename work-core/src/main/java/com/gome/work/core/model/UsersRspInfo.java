@@ -12,5 +12,15 @@ import java.util.List;
 public class UsersRspInfo {
 
     @Expose
+    public int pn;
+
+    @Expose
+    public int ps;
+
+    @Expose
+    public int total;
+    
+    @Expose
+    @SerializedName("data")
     public List<UserInfo> items;
 }

@@ -50,7 +50,7 @@ public class JsNativeImpl implements MyJavascriptInterface, JsTaskCallbackable {
     /**
      * 转发选择
      */
-    public final static int REQUEST_CODE_FORWARDING= 4;
+    public final static int REQUEST_CODE_FORWARDING = 4;
 
     /**
      * 人脸识别
@@ -126,7 +126,7 @@ public class JsNativeImpl implements MyJavascriptInterface, JsTaskCallbackable {
                     mActivity.onFileGetResult(false, null);
                 }
             } else {
-                mActivity.getWebChromeClient().freeUploadCallback();
+                mActivity.freeUploadCallback();
             }
             return true;
         } else {

@@ -28,6 +28,7 @@ public class AccessTokenInfo {
     public long expireDate;
 
 
+
     /**
      * 存取令牌是否有效
      *

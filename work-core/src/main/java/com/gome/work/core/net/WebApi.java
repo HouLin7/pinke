@@ -2,15 +2,33 @@
 package com.gome.work.core.net;
 
 
-import com.gome.work.core.model.*;
-import com.gome.work.core.model.im.*;
+import com.gome.work.core.model.AccessTokenInfo;
+import com.gome.work.core.model.AdBean;
+import com.gome.work.core.model.BannerBean;
+import com.gome.work.core.model.BaseRspInfo;
+import com.gome.work.core.model.CaptchaItem;
+import com.gome.work.core.model.FeedBackBean;
+import com.gome.work.core.model.PostSearchPartnerItem;
+import com.gome.work.core.model.PostUserInfo;
+import com.gome.work.core.model.RegionItem;
+import com.gome.work.core.model.RequestGrantBean;
+import com.gome.work.core.model.SearchPartnerItem;
+import com.gome.work.core.model.SysCfgData;
+import com.gome.work.core.model.UploadFileResultInfo;
+import com.gome.work.core.model.UserInfo;
+import com.gome.work.core.model.UsersRspInfo;
+import com.gome.work.core.model.im.GroupInfo;
+import com.gome.work.core.model.im.GroupMemberInfo;
+import com.gome.work.core.model.im.GroupNoticeBean;
+import com.gome.work.core.model.im.GroupQrcode;
 import com.gome.work.core.model.schedule.ScheduleInfo;
 import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.upload.IUploadListener;
-import retrofit2.Response;
 
 import java.io.File;
 import java.util.List;
+
+import retrofit2.Response;
 
 public abstract class WebApi {
 
@@ -35,7 +53,7 @@ public abstract class WebApi {
      */
     public abstract void login(String account, String password, String loginType, IResponseListener<AccessTokenInfo> listener);
 
-    public abstract void register(String account, String password, String captcha, IResponseListener<String> listener);
+    public abstract void register(String account, String password, String captcha, IResponseListener<UserInfo> listener);
 
     public abstract void getCityData(IResponseListener<List<RegionItem>> listener);
 
@@ -77,19 +95,6 @@ public abstract class WebApi {
 
 
     /**
-     * @param user
-     * @param listener
-     */
-    public abstract void addFriends(UserInfo user, IResponseListener<String> listener);
-
-    /**
-     * @param users
-     * @param listener
-     */
-    public abstract void removeFriends(UserInfo users, IResponseListener<String> listener);
-
-
-    /**
      * @param userId
      * @param listener
      */
@@ -101,15 +106,69 @@ public abstract class WebApi {
     public abstract Response<BaseRspInfo<UserInfo>> getUserInfoSyn(String userId);
 
 
+
     /**
-     * 更新用户头像
-     *
-     * @param file
+     * 关注某人
+     * @param userId
      * @param listener
      */
-    public abstract void updateUserAvatar(File file, IUploadListener<String> listener);
+    public abstract void follow(String userId,  IResponseListener<String> listener);
+
+    /**
+     * 取消关注
+     * @param userId
+     * @param listener
+     */
+    public abstract void followCancel(String userId,  IResponseListener<String> listener);
+
+    /**
+     * 伴读某人
+     * @param userId
+     * @param listener
+     */
+    public abstract void partner(String userId,  IResponseListener<String> listener);
+
+    /**
+     * 伴读关系取消
+     * @param userId
+     * @param listener
+     */
+    public abstract void partnerCancel(String userId,  IResponseListener<String> listener);
 
 
+    /**
+     * 获取伴读好友列表
+     * @param pageIndex
+     * @param pageSize
+     * @param listener
+     */
+    public abstract void getPartners(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener);
+
+    /**
+     * 获取好友列表
+     * @param pageIndex
+     * @param pageSize
+     * @param listener
+     */
+    public abstract void getFriends(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener);
+
+
+    /**
+     *
+     * @param pageIndex
+     * @param pageSize
+     * @param listener
+     */
+    public abstract void getFollowers(int pageIndex, int pageSize, IResponseListener<UsersRspInfo> listener);
+
+
+    /**
+     * 获取我发布的伴读信息
+     * @param pageIndex
+     * @param pageSize
+     * @param listener
+     */
+    public abstract void getMySearchPartnerList(int pageIndex, int pageSize, IResponseListener<SearchPartnerItem.ResponseWrapper> listener);
 
 
     /**
@@ -135,13 +194,6 @@ public abstract class WebApi {
      */
     public abstract void getRequestGeantLogin(String requestToken, String captcha, IResponseListener<AccessTokenInfo> listener);
 
-
-    /**
-     * app分类
-     *
-     * @param listener
-     */
-    public abstract void getAppCategory(IResponseListener<List<CategoryBean>> listener);
 
     /**
      * 发表评论

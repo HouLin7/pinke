@@ -42,7 +42,7 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_channel_course)
         mPartnerAdapter = SearchPartnerAdapter(this)
         initView()
-        getCustomToolbar(my_tool_bar).bindActivity(this,"")
+        getCustomToolbar(my_tool_bar).bindActivity(this, "")
         getLocation()
     }
 
@@ -97,6 +97,11 @@ class ChannelPartnerActivity : BaseGomeWorkActivity() {
         }
 
         smart_refresh_layout.autoRefresh(300)
+        mPartnerAdapter.setOnItemClickListener { parent, view, position, id ->
+            var intent = Intent(this, SearchPartnerDetailActivity::class.java)
+            intent.putExtra(EXTRA_DATA, mPartnerAdapter.getItem(position))
+            startActivity(intent)
+        }
     }
 
     private fun getData(pageIndex: Int, courseCode: String) {

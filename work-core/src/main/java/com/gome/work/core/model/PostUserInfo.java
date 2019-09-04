@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class PostUserInfo {
 
-    @SerializedName("uid")
+    @Expose
     private String id;
 
     @Expose

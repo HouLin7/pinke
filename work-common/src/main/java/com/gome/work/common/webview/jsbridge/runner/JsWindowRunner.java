@@ -36,8 +36,8 @@ public class JsWindowRunner extends MyBaseJsRunner {
                 break;
             case JsActions.ACTION_OPEN_NEW_WINDOW:
                 Intent intent = new Intent(mActivity, CommonWebActivity.class);
-                intent.putExtra(CommonWebActivity.EXTRA_URL, task.param);
-                intent.putExtra(CommonWebActivity.EXTRA_IS_ASSEMBLE_SIGN, false);
+                intent.putExtra(CommonWebActivity.Companion.getEXTRA_URL(), task.param);
+                intent.putExtra(CommonWebActivity.Companion.getEXTRA_IS_ASSEMBLE_SIGN(), false);
                 mActivity.startActivity(intent);
             default:
                 break;
