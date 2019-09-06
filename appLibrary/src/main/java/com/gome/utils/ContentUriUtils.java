@@ -94,8 +94,22 @@ public class ContentUriUtils {
     public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
 
         Cursor cursor = null;
-        final String column = "_data";
+        final String column = "path";
         final String[] projection = {column};
+
+//        try {
+//            cursor = context.getContentResolver().query(uri, null, selection, selectionArgs, null);
+//            if (cursor != null && cursor.moveToFirst()) {
+//                int count = cursor.getColumnCount();
+//                for (int i = 0; i < count; i++) {
+//                    String name = cursor.getColumnName(i);
+//                    String name1 = name;
+//                }
+//            }
+//        } finally {
+//            if (cursor != null)
+//                cursor.close();
+//        }
 
         try {
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);

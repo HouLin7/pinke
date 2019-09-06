@@ -20,7 +20,6 @@ public class PhotoPickerActivity extends TakePhotoActivity {
     public static final String PHOTO_TYPE = "PHOTO_TYPE";
     public static final int PHOTO_TYPE_PICKER = 1;  //从相册选择
     public static final int PHOTO_TYPE_CAMERA = 2;  //从拍照获取
-    private static final String TAG = PhotoPickerActivity.class.getSimpleName();
     private int photo_type;
     private TakePhoto takePhoto;
 
@@ -29,7 +28,7 @@ public class PhotoPickerActivity extends TakePhotoActivity {
         super.onCreate(savedInstanceState);
         takePhoto = getTakePhoto();
         takePhoto.onEnableCompress(getCompressConfig(),false);
-        photo_type = getIntent().getIntExtra(PHOTO_TYPE, -1);
+        photo_type = getIntent().getIntExtra(PHOTO_TYPE, PHOTO_TYPE_CAMERA);
         if (photo_type == PHOTO_TYPE_PICKER) {
             takePhoto.onPickMultiple(9);
         } else if (photo_type == PHOTO_TYPE_CAMERA) {

@@ -41,5 +41,6 @@
             android:name=".activity.PhotoPickerActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".activity.ImageCropActivity" />
     </application>
 </manifest>

@@ -41,9 +41,9 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
         const val REQUEST_CODE_SCHEDULE_SELECT = 2
     }
 
-    var currModel = TO_SEARCH_PARTNER
+    private var currModel = TO_SEARCH_PARTNER
 
-    var sexList: ArrayList<CfgDicItem> = SysCfgData.getSexCfgItems()!!
+    private var sexList: ArrayList<CfgDicItem> = SysCfgData.getSexCfgItems()!!
 
     /**
      * 上课时间

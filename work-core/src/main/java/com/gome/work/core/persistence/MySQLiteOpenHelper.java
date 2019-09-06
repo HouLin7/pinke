@@ -20,20 +20,16 @@ class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
     public void onUpgrade(Database db, int oldVersion, int newVersion) {
         super.onUpgrade(db, oldVersion, newVersion);
         MigrationHelper2.migrate(db,
-                FileItemInfoDao.class,
-                FileTransferTaskInfoDao.class,
-                FileUploadRecordInfoDao.class,
+//                FileItemInfoDao.class,
+//                FileTransferTaskInfoDao.class,
+//                FileUploadRecordInfoDao.class,
+                UserInfoDao.class,
                 ConversationInfoDao.class,
                 PushDataExtraInfoDao.class,
-                MyGroupInfoDao.class,
+//                MyGroupInfoDao.class,
                 MyFriendInfoDao.class,
-                MyAppInfoDao.class,
-                MyFavoriteAppInfoDao.class,
-                TagDataInfoDao.class,
-                FileTransferTaskInfoDao.class,
-                UserInfoDao.class,
-                FileUploadRecordInfoDao.class
-
+//                MyAppInfoDao.class,
+                TagDataInfoDao.class
         );
 
     }

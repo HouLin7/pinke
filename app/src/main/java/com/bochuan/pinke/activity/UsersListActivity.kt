@@ -105,7 +105,7 @@ class UsersListActivity : BaseGomeWorkActivity() {
 
 
     private fun getData(index: Int) {
-        when (index) {
+        when (relationType) {
             RELATION_TYPE_FRIEND -> getFriends(index)
             RELATION_TYPE_FOLLOWER -> getFollowers(index)
             RELATION_TYPE_PARTNER -> getPartners(index)

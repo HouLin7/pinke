@@ -7,8 +7,10 @@ import com.bochuan.pinke.R
 import com.gome.applibrary.activity.BaseActivity
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
+import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.common.widget.BaseSelectPopWindow
 import com.gome.work.common.widget.ListSelectPopWindow
+import com.gome.work.core.event.model.EventInfo
 import com.gome.work.core.model.CfgDicItem
 import com.gome.work.core.model.PostUserInfo
 import com.gome.work.core.model.SysCfgData
@@ -22,34 +24,24 @@ import kotlinx.android.synthetic.main.activity_mine_info.*
 /**
  * 我的资料
  */
-class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResultListener {
+class MineInfoActivity : BaseGomeWorkActivity() {
 
     companion object {
         const val REQUEST_CODE_NICKNAME = 100
-        const val REQUEST_CODE_SCHOOLE = 101
+        const val REQUEST_CODE_SCHOOL = 101
     }
 
     lateinit var mUserInfo: UserInfo
 
     lateinit var selectGrade: CfgDicItem
 
-
-    var sexList = SysCfgData.getSexCfgItems()
+    var sexList: ArrayList<CfgDicItem> = SysCfgData.getSexCfgItems()
     lateinit var selectSex: CfgDicItem
 
     private var selectGradePopWindow: ListSelectPopWindow? = null
 
     private var selectSexPopWindow: ListSelectPopWindow? = null
 
-    init {
-
-
-    }
-
-    override fun onResult(result: UserInfo) {
-        mUserInfo = result;
-        updateUI(result)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +52,6 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
         if (mUserInfo == null) {
             return
         }
-
         layout_nickname.setOnClickListener {
             var intent = Intent(mActivity, EditTextActivity::class.java)
             intent.putExtra(EditTextActivity.EXTRA_TITLE, "修改昵称")
@@ -69,14 +60,17 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
 
         layout_avatar.setOnClickListener {
             var intent = Intent(mActivity, UserAvatarActivity::class.java)
-            var accessToke = SharedPreferencesHelper.getAccessTokenInfo()
-            intent.putExtra(BaseActivity.EXTRA_DATA, accessToke.userInfo)
+            var accessToken = SharedPreferencesHelper.getAccessTokenInfo()
+            mUserInfo?.let {
+                accessToken.userInfo = mUserInfo
+            }
+            intent.putExtra(BaseActivity.EXTRA_DATA, accessToken.userInfo)
             startActivity(intent)
         }
 
         layout_school.setOnClickListener {
             var intent = Intent(mActivity, SchoolChooseActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_SCHOOLE)
+            startActivityForResult(intent, REQUEST_CODE_SCHOOL)
         }
 
 
@@ -144,15 +138,34 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
 
         }
 
-        var result = UserCacheManager.get(this).getUserInfo(mUserInfo!!.id)
+        var result = UserCacheManager.get(this).getCacheUser(loginUserId)
         if (result != null) {
             updateUI(result)
             mUserInfo = result
+
         }
+        getLastInfo()
+        observeEvents(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
+    }
 
-        UserCacheManager.get(this).addListener(this)
+    private fun getLastInfo() {
+        var result = UserCacheManager.get(this).getLastUserInfo(mUserInfo!!.id, object : UserCacheManager.IUserGetResultListener {
+            override fun onResult(result: UserInfo) {
+                updateUI(result)
+                mUserInfo = result
+            }
 
+        })
 
+    }
+
+    override fun handleEvent(event: EventInfo) {
+        if (!isFinishing) {
+            var userInfo = UserCacheManager.get(mActivity).getCacheUser(loginUserId)
+            userInfo.let {
+                updateUI(userInfo!!)
+            }
+        }
     }
 
 
@@ -160,6 +173,15 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
         if (userInfo == null) {
             return
         }
+        tv_nickname.text = userInfo.nickname
+        tv_username.text = userInfo.username
+        tv_grade.text = userInfo.grade
+
+        tv_school.text = userInfo.school
+        tv_sex.text = userInfo.sex
+
+        ImageLoader.loadImage(this, userInfo.avatar, iv_avatar)
+
 
     }
 
@@ -167,7 +189,7 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                REQUEST_CODE_SCHOOLE -> {
+                REQUEST_CODE_SCHOOL -> {
                     tv_school.text = data!!.getStringExtra(BaseActivity.EXTRA_DATA)
                     var data = PostUserInfo()
                     data.id = mUserInfo.id
@@ -209,7 +231,6 @@ class MineInfoActivity : BaseGomeWorkActivity(), UserCacheManager.IUserGetResult
 
     override fun onDestroy() {
         super.onDestroy()
-        UserCacheManager.get(this).removeListener(this)
     }
 
 

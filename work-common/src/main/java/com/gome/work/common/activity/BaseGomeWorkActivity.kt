@@ -157,7 +157,7 @@ open class BaseGomeWorkActivity : BaseActivity() {
     }
 
 
-    protected fun handleEvent(event: EventInfo) {}
+    protected open fun handleEvent(event: EventInfo) {}
 
 
     override fun onDestroy() {
@@ -234,7 +234,10 @@ open class BaseGomeWorkActivity : BaseActivity() {
                 } else {
                     val filePath = handlePickedImage(mFileCamera!!.absolutePath)
                     mFileCamera = File(filePath)
-                    startImageCropIntent(getImageContentUri(mFileCamera!!))
+//                    startImageCropIntent(getImageContentUri(mFileCamera!!))
+                    var intent = Intent(mActivity, ImageCropActivity::class.java)
+                    intent.putExtra(EXTRA_DATA, mFileCamera?.absolutePath)
+                    startActivityForResult(intent, REQUEST_CODE_IMAGE_CROP_SELF)
                 }
             } else {
                 onImageGetResult(false, null, null)
@@ -249,7 +252,10 @@ open class BaseGomeWorkActivity : BaseActivity() {
                 if (!isNeedCrop) {
                     onImageGetResult(true, result, File(filePath))
                 } else {
-                    startImageCropIntent(originalUri)
+//                    startImageCropIntent(originalUri)
+                    var intent = Intent(mActivity, ImageCropActivity::class.java)
+                    intent.putExtra(EXTRA_DATA, filePath)
+                    startActivityForResult(intent, REQUEST_CODE_IMAGE_CROP_SELF)
                 }
             } else {
                 onImageGetResult(false, null, null)
@@ -259,6 +265,16 @@ open class BaseGomeWorkActivity : BaseActivity() {
             } else {
                 onImageGetResult(false, null, null)
             }
+
+            REQUEST_CODE_IMAGE_CROP_SELF ->
+                if (resultCode == Activity.RESULT_OK) {
+                    var filePath = data!!.getStringExtra(EXTRA_DATA)
+                    var fielUri = getUriForFile(filePath)
+                    onImageGetResult(true, fielUri, File(filePath))
+                } else {
+                    onImageGetResult(false, null, null)
+                }
+
             else -> {
             }
         }
@@ -335,7 +351,7 @@ open class BaseGomeWorkActivity : BaseActivity() {
         }
     }
 
-    protected fun getUriForFile(filePath: String?): Uri {
+    private fun getUriForFile(filePath: String?): Uri {
         return getUriForFile(File(filePath))
     }
 
@@ -419,7 +435,7 @@ open class BaseGomeWorkActivity : BaseActivity() {
 
     }
 
-    fun showPopWindowMenu(anchorView: View, menuList: List<String>, listener: BaseMenuPopupWindow.OnMenuItemClickListener?) {
+    fun sshowPopWindowMenu(anchorView: View, menuList: List<String>, listener: BaseMenuPopupWindow.OnMenuItemClickListener?) {
         val menu = MenuMenuPopup(this, menuList)
         menu.showPopupWindow(anchorView)
         menu.setOnMenuItemClickListener { position ->
@@ -439,6 +455,8 @@ open class BaseGomeWorkActivity : BaseActivity() {
         protected val REQUEST_CODE_CAMERA_PHOTO = 20001
 
         protected val REQUEST_CODE_IMAGE_CROP = 20002
+
+        protected val REQUEST_CODE_IMAGE_CROP_SELF = 20003
     }
 
 

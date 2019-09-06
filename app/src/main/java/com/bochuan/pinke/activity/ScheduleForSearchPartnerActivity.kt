@@ -24,7 +24,7 @@ class ScheduleForSearchPartnerActivity : BaseGomeWorkActivity() {
 
         var fragment = ScheduleFragment()
         var args = Bundle()
-        args.putInt(ScheduleFragment.EXTEA_VIEW_MDDEL, ScheduleFragment.WEEK_SCHEDULE)
+        args.putInt(ScheduleFragment.EXTRA_SCHEDULE_TYPE, ScheduleFragment.WEEK_SCHEDULE)
         fragment.arguments = args
         supportFragmentManager.beginTransaction().replace(R.id.layout_content, fragment).commit()
         mFragment = fragment

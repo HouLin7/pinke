@@ -8,6 +8,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
+import com.gome.work.core.net.SSLFactoryUtil;
 
 import java.io.InputStream;
 import java.security.cert.CertificateException;
@@ -22,8 +23,7 @@ import javax.net.ssl.X509TrustManager;
 import okhttp3.OkHttpClient;
 
 /**
- * 功能：
- * ＊创建者：赵然 on 2017/11/20 18:02
+ *
  * ＊
  */
 
@@ -37,7 +37,7 @@ public class SimpleGlideModule implements GlideModule {
     @Override
     public void registerComponents(Context context, Glide glide) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .sslSocketFactory(overlockCard().getSocketFactory())
+                .sslSocketFactory(SSLFactoryUtil.getTrustAllFactory())
                 .hostnameVerifier(new HostnameVerifier() {
                     @Override
                     public boolean verify(String hostname, SSLSession session) {
@@ -47,34 +47,4 @@ public class SimpleGlideModule implements GlideModule {
         glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
     }
 
-    /**
-     * 忽略所有https证书
-     */
-    private SSLContext overlockCard() {
-        final TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-            @Override
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws
-                    CertificateException {
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws
-                    CertificateException {
-            }
-
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                X509Certificate[] x509Certificates = new X509Certificate[0];
-                return x509Certificates;
-            }
-        }};
-        try {
-            SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            return sslContext;
-        } catch (Exception e) {
-            Log.e(SimpleGlideModule.class.getSimpleName(), "ssl出现异常");
-            return null;
-        }
-    }
 }

@@ -37,6 +37,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         public final static Property Grade = new Property(10, String.class, "grade", false, "GRADE");
         public final static Property School = new Property(11, String.class, "school", false, "SCHOOL");
         public final static Property Identity = new Property(12, String.class, "identity", false, "IDENTITY");
+        public final static Property PartnerRelation = new Property(13, String.class, "partnerRelation", false, "PARTNER_RELATION");
+        public final static Property FollowRelation = new Property(14, String.class, "followRelation", false, "FOLLOW_RELATION");
     }
 
 
@@ -52,7 +54,7 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER_INFO\" (" + //
-                "\"ID\" TEXT PRIMARY KEY NOT NULL UNIQUE ," + // 0: id
+                "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"IM_ID\" TEXT," + // 1: imId
                 "\"AVATAR\" TEXT," + // 2: avatar
                 "\"EMAIL\" TEXT," + // 3: email
@@ -64,7 +66,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
                 "\"FIRST_LETTER\" TEXT," + // 9: firstLetter
                 "\"GRADE\" TEXT," + // 10: grade
                 "\"SCHOOL\" TEXT," + // 11: school
-                "\"IDENTITY\" TEXT);"); // 12: identity
+                "\"IDENTITY\" TEXT," + // 12: identity
+                "\"PARTNER_RELATION\" TEXT," + // 13: partnerRelation
+                "\"FOLLOW_RELATION\" TEXT);"); // 14: followRelation
     }
 
     /** Drops the underlying database table. */
@@ -141,6 +145,16 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         if (identity != null) {
             stmt.bindString(13, identity);
         }
+ 
+        String partnerRelation = entity.getPartnerRelation();
+        if (partnerRelation != null) {
+            stmt.bindString(14, partnerRelation);
+        }
+ 
+        String followRelation = entity.getFollowRelation();
+        if (followRelation != null) {
+            stmt.bindString(15, followRelation);
+        }
     }
 
     @Override
@@ -211,6 +225,16 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         if (identity != null) {
             stmt.bindString(13, identity);
         }
+ 
+        String partnerRelation = entity.getPartnerRelation();
+        if (partnerRelation != null) {
+            stmt.bindString(14, partnerRelation);
+        }
+ 
+        String followRelation = entity.getFollowRelation();
+        if (followRelation != null) {
+            stmt.bindString(15, followRelation);
+        }
     }
 
     @Override
@@ -233,7 +257,9 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // firstLetter
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // grade
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // school
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12) // identity
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // identity
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // partnerRelation
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // followRelation
         );
         return entity;
     }
@@ -253,6 +279,8 @@ public class UserInfoDao extends AbstractDao<UserInfo, String> {
         entity.setGrade(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setSchool(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setIdentity(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setPartnerRelation(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setFollowRelation(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

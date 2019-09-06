@@ -60,7 +60,7 @@ public class PhotoViewFragment extends BaseWorkFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageUrl = getArguments().getString(EXTRA_DATA);
+        imageUrl = getArguments().getString(Companion.getEXTRA_DATA());
     }
 
     private void refresh() {

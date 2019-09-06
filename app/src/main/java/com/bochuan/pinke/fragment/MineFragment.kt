@@ -1,5 +1,6 @@
 package com.bochuan.pinke.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,19 +10,54 @@ import com.bochuan.pinke.activity.MyPostSearchPartnerListActivity
 import com.bochuan.pinke.activity.SettingActivity
 import com.bochuan.pinke.activity.UsersListActivity
 import com.gome.work.common.imageloader.ImageLoader
+import com.gome.work.core.event.model.EventInfo
+import com.gome.work.core.model.UserInfo
+import com.gome.work.core.persistence.DaoUtil
+import com.gome.work.core.persistence.UserCacheManager
 import com.gome.work.core.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.greenrobot.eventbus.EventBus
 
 class MineFragment : BaseFragment() {
 
+    var daoUtils: DaoUtil? = null
     override fun getLayoutID(): Int {
         return R.layout.fragment_mine
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        daoUtils?.let {
+            daoUtils = DaoUtil(mActivity)
+
+        }
+        getUserInfo(mActivity!!)
+
+        observeEvents(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
+    }
+
+    override fun handleEvent(event: EventInfo) {
+        super.handleEvent(event)
+        mActivity?.let {
+            var userInfo = UserCacheManager.get(mActivity!!).getCacheUser(loginUserId)
+            userInfo?.let {
+                updateUI(userInfo)
+            }
+        }
+
+    }
+
+    private fun updateUI(user: UserInfo) {
+        tv_nickname.text = user.nickname
+        tv_username.text = user.username
+        ImageLoader.loadImage(mActivity, user.avatar, iv_avatar)
+
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var tokenInfo = SharedPreferencesHelper.getAccessTokenInfo()
-        ImageLoader.loadImage(context, tokenInfo.userInfo.avatar, iv_avatar)
 
         tv_nickname.text = tokenInfo.userInfo.nickname
         tv_username.text = tokenInfo.userInfo.username
@@ -51,11 +87,18 @@ class MineFragment : BaseFragment() {
             var intent = Intent(mActivity, MyPostSearchPartnerListActivity::class.java)
             startActivity(intent)
         }
+
     }
 
 
-    override fun refreshData() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun getUserInfo(activity: Activity) {
+        UserCacheManager.get(activity).getLastUserInfo(loginUserId, object : UserCacheManager.IUserGetResultListener {
+            override fun onResult(result: UserInfo) {
+                updateUI(result)
+            }
+
+        })
+
     }
 
 

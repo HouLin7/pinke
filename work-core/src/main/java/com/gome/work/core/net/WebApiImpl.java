@@ -29,7 +29,7 @@ import com.gome.work.core.model.im.GroupSetRequestInfo;
 import com.gome.work.core.model.schedule.ScheduleInfo;
 import com.gome.work.core.model.schedule.ScheduleRemindInfo;
 import com.gome.work.core.net.api.ApiService;
-import com.gome.work.core.upload.FileUploadManager;
+import com.gome.work.core.upload.FileRequestBody;
 import com.gome.work.core.upload.IUploadListener;
 
 import java.io.File;
@@ -297,7 +297,7 @@ class WebApiImpl extends WebApi {
     @Override
     public void uploadFile(File file, IUploadListener<UploadFileResultInfo> listener) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/otcet-stream"), file);
-        RequestBody requestProgressFile = new FileUploadManager.FileRequestBody(requestFile, listener);
+        RequestBody requestProgressFile = new FileRequestBody(requestFile, listener);
         MultipartBody.Part body = MultipartBody.Part.createFormData("ufile", file.getName(), requestProgressFile);
         Call<BaseRspInfo<UploadFileResultInfo>> result = service.uploadFile(body);
         result.enqueue(new MyCallback(listener));

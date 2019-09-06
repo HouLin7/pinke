@@ -35,7 +35,7 @@ public class HeaderParamsInterceptor implements Interceptor {
             builder.addHeader("Content-Type", "application/json;charset=utf-8");
         }
         if (SharedPreferencesHelper.isLogin()) {
-            builder.addHeader("Authorization", "Bearer " + SharedPreferencesHelper.getAccessToken());
+            builder.addHeader("Authorization", "bearer " + SharedPreferencesHelper.getAccessToken());
         } else {
             builder.addHeader("Authorization", SharedPreferencesHelper.getRequestToken());
         }

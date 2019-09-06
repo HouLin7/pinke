@@ -18,4 +18,5 @@ public class UploadFileResultInfo {
     @Expose
     public String url;
 
+
 }

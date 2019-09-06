@@ -1,17 +1,24 @@
 package com.bochuan.pinke.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.EventLog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.bochuan.pinke.R
 import com.gome.utils.ToastUtil
 import com.gome.work.common.activity.BaseGomeWorkActivity
+import com.gome.work.common.activity.PhotoPickerActivity
 import com.gome.work.common.imageloader.ImageLoader
+import com.gome.work.core.event.EventDispatcher
+import com.gome.work.core.event.model.EventInfo
+import com.gome.work.core.model.PostUserInfo
 import com.gome.work.core.model.UploadFileResultInfo
 import com.gome.work.core.model.UserInfo
+import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.upload.IUploadListener
 import com.liulishuo.okdownload.SpeedCalculator
@@ -47,6 +54,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
+//        mUserInfo!!.avatar = "https://api.baichuan11.com/upload/image/2019/09/07/p_1567787327_59327418.jpg"
         ImageLoader.loadImage(this, mUserInfo!!.avatar, photo_view)
     }
 
@@ -61,6 +69,8 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         showImagePickerWindow(true, null)
+//        var intent = Intent(this, PhotoPickerActivity::class.java);
+//        startActivity(intent)
         return super.onOptionsItemSelected(item)
     }
 
@@ -75,8 +85,11 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
                 }
 
                 override fun onStart() {
-                    pb_progress.visibility = View.VISIBLE
-                    pb_progress.progress = 0
+                    runOnUiThread {
+                        pb_progress.visibility = View.VISIBLE
+                        pb_progress.progress = 0
+                    }
+
                 }
 
                 override fun onEnd() {
@@ -93,11 +106,33 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
                     isUpdateSuccess = true
                     pb_progress.visibility = View.GONE
                     pb_progress.progress = 0
-                    ToastUtil.showToast(baseContext, "修改成功")
-                    getMyInfo()
+                    postAvatarInfo(result.url)
+
                 }
             })
         }
+    }
+
+    private fun postAvatarInfo(fileUrl: String) {
+        showProgressDlg()
+        var postInfo = PostUserInfo()
+        postInfo.id = loginUserId
+        postInfo.avatar = fileUrl
+        WebApi.getInstance().postUserInfo(postInfo, object : IResponseListener<String> {
+            override fun onError(code: String?, message: String?) {
+                ToastUtil.showToast(mActivity, message)
+                dismissProgressDlg()
+            }
+
+            override fun onSuccess(result: String?) {
+                ToastUtil.showToast(baseContext, "修改成功")
+                dismissProgressDlg()
+                getMyInfo()
+                var event = EventInfo.obtain(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
+                EventDispatcher.postEvent(event)
+            }
+
+        })
     }
 
 

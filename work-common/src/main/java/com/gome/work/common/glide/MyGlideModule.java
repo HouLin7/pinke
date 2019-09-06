@@ -2,6 +2,7 @@ package com.gome.work.common.glide;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -9,9 +10,22 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
+import com.gome.work.core.net.SSLFactoryUtil;
 
 import java.io.File;
+import java.io.InputStream;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by tanxingchun on 2017/3/22.
@@ -38,6 +52,17 @@ public class MyGlideModule implements GlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide) {
-
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .sslSocketFactory(SSLFactoryUtil.getTrustAllFactory())
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                });
+        glide.register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
     }
+
+
+
 }

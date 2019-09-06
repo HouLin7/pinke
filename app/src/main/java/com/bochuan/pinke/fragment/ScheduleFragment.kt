@@ -29,6 +29,8 @@ import kotlin.collections.HashSet
 class ScheduleFragment : BaseFragment() {
 
     companion object {
+
+        const val EXTRA_SCHEDULE_TYPE = "extra.schedule.type"
         /**
          * 周计划
          */
@@ -38,13 +40,25 @@ class ScheduleFragment : BaseFragment() {
          */
         const val WEEK_DAILY: Int = 2
 
-        const val EXTEA_VIEW_MDDEL = "extra.view.model"
+        const val EXTRA_MODEL = "extra.model"
+
+        /**
+         * 周计划
+         */
+        const val MODEL_VIEW: String = "model.view"
+        /**
+         *  可编辑状态
+         */
+        const val MODEL_EDIT = "model.edit"
+
+
     }
 
+    private var currModel: String = MODEL_VIEW
 
     var mAdapter: Adapter? = null;
 
-    var nowWeekHeaderData: WeekHeaderItem? = null
+    private var nowWeekHeaderData: WeekHeaderItem? = null
 
     var currWeekHeaderData: WeekHeaderItem = getWeekHeaderData(getFirstDayOfWeek())
 
@@ -70,7 +84,12 @@ class ScheduleFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var type = arguments?.getInt(EXTEA_VIEW_MDDEL)
+        var type = arguments?.getInt(EXTRA_SCHEDULE_TYPE)
+
+        arguments?.let {
+            currModel = arguments!!.getString(EXTRA_MODEL)
+        }
+
         if (type != null) {
             if (WEEK_SCHEDULE == type) {
                 layout_control.visibility = View.GONE
@@ -346,8 +365,9 @@ class ScheduleFragment : BaseFragment() {
 
             init {
                 for (item in textViews) {
-                    item.setOnClickListener { handleViewClick(it.id) }
-
+                    if (MODEL_EDIT == currModel) {
+                        item.setOnClickListener { handleViewClick(it.id) }
+                    }
                 }
             }
 
@@ -407,7 +427,7 @@ class ScheduleFragment : BaseFragment() {
                 notifyDataSetChanged()
             }
 
-            var dateFormat = SimpleDateFormat("HH:mm")
+            private var dateFormat = SimpleDateFormat("HH:mm")
             override fun bind(t: CourseScheduleItem, position: Int) {
                 var strStart = dateFormat.format(Date(t.startTime))
                 var strEnd = dateFormat.format(Date(t.endTime))

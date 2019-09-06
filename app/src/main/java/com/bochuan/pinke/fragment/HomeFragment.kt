@@ -80,16 +80,14 @@ class HomeFragment : BaseFragment() {
         observeEvents(EventInfo.FLAG_LOCATION_RECEIVE)
     }
 
-    override fun handleEvent(event: EventInfo?) {
+    override fun handleEvent(event: EventInfo) {
         super.handleEvent(event)
         var location = event!!.data as AMapLocation
         if (isAdded) {
             tv_address.text = location.aoiName
             tv_city.text = location.city
-        } else {
-            mBDLocation = location
         }
-
+        mBDLocation = location
     }
 
 
@@ -250,7 +248,6 @@ class HomeFragment : BaseFragment() {
 
 
         iv_message.setOnClickListener { startActivity(Intent(mActivity, ConversationActivity::class.java)) }
-
 
         tv_city.setOnClickListener {
             var intent = Intent(mActivity, CitySelectActivity::class.java)

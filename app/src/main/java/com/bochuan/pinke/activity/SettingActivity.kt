@@ -3,6 +3,7 @@ package com.bochuan.pinke.activity
 import android.content.Intent
 import android.os.Bundle
 import com.bochuan.pinke.R
+import com.gome.utils.CommonUtils
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.core.utils.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -28,7 +29,7 @@ class SettingActivity : BaseGomeWorkActivity() {
             var intent = Intent(mActivity, PwdModifyActivity::class.java)
             startActivity(intent)
         }
-
+        tv_version_name.text = CommonUtils.getVersionName(this)
     }
 
 

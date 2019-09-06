@@ -149,7 +149,7 @@ class UserCacheManager private constructor(context: Context) {
             override fun onSuccess(result: UserInfo?) {
                 if (listener != null) {
                     listener.onResult(result!!)
-                    executor.submit { userDao!!.insert(result!!) }
+                    executor.submit { userDao!!.insertOrReplace(result!!) }
                 }
             }
         })

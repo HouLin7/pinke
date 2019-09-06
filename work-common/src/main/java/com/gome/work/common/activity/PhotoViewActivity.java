@@ -297,7 +297,7 @@ public class PhotoViewActivity extends BaseGomeWorkActivity {
         public Fragment getItem(int i) {
             PhotoViewFragment fragment = new PhotoViewFragment();
             Bundle data = new Bundle();
-            data.putString(PhotoViewFragment.EXTRA_DATA, imageUrls.get(i));
+            data.putString(PhotoViewFragment.Companion.getEXTRA_DATA(), imageUrls.get(i));
             data.putString(Constants.EXTRA_MODEL, mEditModel);
             fragment.setArguments(data);
             return fragment;

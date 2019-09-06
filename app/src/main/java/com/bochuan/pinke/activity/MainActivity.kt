@@ -171,8 +171,8 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
         naviBar.setMode(BottomNavigationBar.MODE_FIXED)
             .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "首页")
-                .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(0))
+            BottomNavigationItem(R.mipmap.ic_tab_home, "首页")
+                .setInactiveIconResource(R.mipmap.ic_tab_home_disable).setBadgeItem(mTextBadgeItemList.get(0))
         )
 //        naviBar.addItem(
 //            BottomNavigationItem(R.mipmap.ic_launcher, "消息")
@@ -180,18 +180,18 @@ open class MainActivity : BaseGomeWorkActivity(), ViewPager.OnPageChangeListener
 //        )
 
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "课程")
-                .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(2))
+            BottomNavigationItem(R.mipmap.ic_tab_course, "课程")
+                .setInactiveIconResource(R.mipmap.ic_tab_course_disable).setBadgeItem(mTextBadgeItemList.get(2))
         )
 
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "课表")
-                .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(3))
+            BottomNavigationItem(R.mipmap.ic_tab_schedule, "课表")
+                .setInactiveIconResource(R.mipmap.ic_tab_schedule_disable).setBadgeItem(mTextBadgeItemList.get(3))
         )
 
         naviBar.addItem(
-            BottomNavigationItem(R.mipmap.ic_launcher, "我")
-                .setInactiveIconResource(R.mipmap.ic_launcher).setBadgeItem(mTextBadgeItemList.get(3))
+            BottomNavigationItem(R.mipmap.ic_tab_mine, "我")
+                .setInactiveIconResource(R.mipmap.ic_tab_mine_disable).setBadgeItem(mTextBadgeItemList.get(3))
         )
 
 

@@ -11,7 +11,6 @@ import org.greenrobot.greendao.internal.DaoConfig;
 import com.gome.work.core.model.dao.FileTransferTaskInfo;
 import com.gome.work.core.model.dao.MyAppInfo;
 import com.gome.work.core.model.dao.TagDataInfo;
-import com.gome.work.core.model.dao.MyFavoriteAppInfo;
 import com.gome.work.core.model.dao.FileUploadRecordInfo;
 import com.gome.work.core.model.dao.MyGroupInfo;
 import com.gome.work.core.model.dao.FileItemInfo;
@@ -25,7 +24,6 @@ import com.gome.work.core.model.im.GroupInfo;
 import com.gome.core.greendao.FileTransferTaskInfoDao;
 import com.gome.core.greendao.MyAppInfoDao;
 import com.gome.core.greendao.TagDataInfoDao;
-import com.gome.core.greendao.MyFavoriteAppInfoDao;
 import com.gome.core.greendao.FileUploadRecordInfoDao;
 import com.gome.core.greendao.MyGroupInfoDao;
 import com.gome.core.greendao.FileItemInfoDao;
@@ -48,7 +46,6 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig fileTransferTaskInfoDaoConfig;
     private final DaoConfig myAppInfoDaoConfig;
     private final DaoConfig tagDataInfoDaoConfig;
-    private final DaoConfig myFavoriteAppInfoDaoConfig;
     private final DaoConfig fileUploadRecordInfoDaoConfig;
     private final DaoConfig myGroupInfoDaoConfig;
     private final DaoConfig fileItemInfoDaoConfig;
@@ -62,7 +59,6 @@ public class DaoSession extends AbstractDaoSession {
     private final FileTransferTaskInfoDao fileTransferTaskInfoDao;
     private final MyAppInfoDao myAppInfoDao;
     private final TagDataInfoDao tagDataInfoDao;
-    private final MyFavoriteAppInfoDao myFavoriteAppInfoDao;
     private final FileUploadRecordInfoDao fileUploadRecordInfoDao;
     private final MyGroupInfoDao myGroupInfoDao;
     private final FileItemInfoDao fileItemInfoDao;
@@ -85,9 +81,6 @@ public class DaoSession extends AbstractDaoSession {
 
         tagDataInfoDaoConfig = daoConfigMap.get(TagDataInfoDao.class).clone();
         tagDataInfoDaoConfig.initIdentityScope(type);
-
-        myFavoriteAppInfoDaoConfig = daoConfigMap.get(MyFavoriteAppInfoDao.class).clone();
-        myFavoriteAppInfoDaoConfig.initIdentityScope(type);
 
         fileUploadRecordInfoDaoConfig = daoConfigMap.get(FileUploadRecordInfoDao.class).clone();
         fileUploadRecordInfoDaoConfig.initIdentityScope(type);
@@ -119,7 +112,6 @@ public class DaoSession extends AbstractDaoSession {
         fileTransferTaskInfoDao = new FileTransferTaskInfoDao(fileTransferTaskInfoDaoConfig, this);
         myAppInfoDao = new MyAppInfoDao(myAppInfoDaoConfig, this);
         tagDataInfoDao = new TagDataInfoDao(tagDataInfoDaoConfig, this);
-        myFavoriteAppInfoDao = new MyFavoriteAppInfoDao(myFavoriteAppInfoDaoConfig, this);
         fileUploadRecordInfoDao = new FileUploadRecordInfoDao(fileUploadRecordInfoDaoConfig, this);
         myGroupInfoDao = new MyGroupInfoDao(myGroupInfoDaoConfig, this);
         fileItemInfoDao = new FileItemInfoDao(fileItemInfoDaoConfig, this);
@@ -133,7 +125,6 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(FileTransferTaskInfo.class, fileTransferTaskInfoDao);
         registerDao(MyAppInfo.class, myAppInfoDao);
         registerDao(TagDataInfo.class, tagDataInfoDao);
-        registerDao(MyFavoriteAppInfo.class, myFavoriteAppInfoDao);
         registerDao(FileUploadRecordInfo.class, fileUploadRecordInfoDao);
         registerDao(MyGroupInfo.class, myGroupInfoDao);
         registerDao(FileItemInfo.class, fileItemInfoDao);
@@ -149,7 +140,6 @@ public class DaoSession extends AbstractDaoSession {
         fileTransferTaskInfoDaoConfig.clearIdentityScope();
         myAppInfoDaoConfig.clearIdentityScope();
         tagDataInfoDaoConfig.clearIdentityScope();
-        myFavoriteAppInfoDaoConfig.clearIdentityScope();
         fileUploadRecordInfoDaoConfig.clearIdentityScope();
         myGroupInfoDaoConfig.clearIdentityScope();
         fileItemInfoDaoConfig.clearIdentityScope();
@@ -171,10 +161,6 @@ public class DaoSession extends AbstractDaoSession {
 
     public TagDataInfoDao getTagDataInfoDao() {
         return tagDataInfoDao;
-    }
-
-    public MyFavoriteAppInfoDao getMyFavoriteAppInfoDao() {
-        return myFavoriteAppInfoDao;
     }
 
     public FileUploadRecordInfoDao getFileUploadRecordInfoDao() {

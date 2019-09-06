@@ -95,6 +95,13 @@ public interface ApiService {
     Call<BaseRspInfo<List<AdBean>>> getLauncherPic();
 
     /**
+     * 获取推荐数据
+     */
+    @GET("communal/recommend")
+    Call<BaseRspInfo<List<AdBean>>> getRecommend();
+
+
+    /**
      * 修改密码
      */
     @POST("auth/passwd/modify")
@@ -157,8 +164,8 @@ public interface ApiService {
      *
      * @param params 学科分类
      */
-    @POST("v1/teacher/list")
-    Call<BaseRspInfo<UsersRspInfo>> getTeacherList(@Body Map<String, Object> params);
+    @GET("v1/teacher/list")
+    Call<BaseRspInfo<UsersRspInfo>> getTeacherList(@QueryMap Map<String, Object> params);
 
     /**
      * 关注
@@ -218,7 +225,7 @@ public interface ApiService {
      * @param pageSize
      * @return
      */
-    @GET("communal/relation/friends")
+    @GET("student/partner")
     Call<BaseRspInfo<UsersRspInfo>> getPartners(@Query("pn") int pageIndex,@Query("ps") int pageSize);
 
 
@@ -297,7 +304,7 @@ public interface ApiService {
      * 上传文件
      */
     @Multipart
-    @POST("communal/uploader")
+    @POST("communal/file/upload")
     Call<BaseRspInfo<UploadFileResultInfo>> uploadFile(@Part MultipartBody.Part file);
 
 

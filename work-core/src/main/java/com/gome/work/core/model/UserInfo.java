@@ -20,7 +20,6 @@ public class UserInfo implements Serializable, ISelectableItem {
     private static final long serialVersionUID = 510041171037518010L;
 
     @Expose
-    @Unique
     @Id
     @SerializedName("id")
     private String id;
@@ -65,12 +64,18 @@ public class UserInfo implements Serializable, ISelectableItem {
     @Expose
     private String identity;
 
+    @Expose
+    private  String partnerRelation;
 
-    @Generated(hash = 1397350230)
+    @Expose
+    private  String followRelation;
+
+
+    @Generated(hash = 255747935)
     public UserInfo(String id, String imId, String avatar, String email,
-                    String username, String nickname, String sex, String address,
-                    String phone, String firstLetter, String grade, String school,
-                    String identity) {
+            String username, String nickname, String sex, String address,
+            String phone, String firstLetter, String grade, String school,
+            String identity, String partnerRelation, String followRelation) {
         this.id = id;
         this.imId = imId;
         this.avatar = avatar;
@@ -84,12 +89,14 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.grade = grade;
         this.school = school;
         this.identity = identity;
+        this.partnerRelation = partnerRelation;
+        this.followRelation = followRelation;
     }
 
     @Generated(hash = 1279772520)
     public UserInfo() {
     }
-
+    
 
     public String getId() {
         return this.id;
@@ -221,6 +228,22 @@ public class UserInfo implements Serializable, ISelectableItem {
         } else {
             return "未知";
         }
+    }
+
+    public String getPartnerRelation() {
+        return this.partnerRelation;
+    }
+
+    public void setPartnerRelation(String partnerRelation) {
+        this.partnerRelation = partnerRelation;
+    }
+
+    public String getFollowRelation() {
+        return this.followRelation;
+    }
+
+    public void setFollowRelation(String followRelation) {
+        this.followRelation = followRelation;
     }
 
 }

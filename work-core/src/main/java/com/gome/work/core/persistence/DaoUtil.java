@@ -69,10 +69,6 @@ public class DaoUtil {
         return mManager.getDaoSession().getMyAppInfoDao();
     }
 
-    public MyFavoriteAppInfoDao getMyFavoriteAppInfoDao() {
-        return mManager.getDaoSession().getMyFavoriteAppInfoDao();
-    }
-
 
     public TagDataInfoDao getTagDataInfo() {
         return mManager.getDaoSession().getTagDataInfoDao();

@@ -1,11 +1,13 @@
 package com.bochuan.pinke.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bochuan.pinke.R
 import com.bochuan.pinke.activity.ChannelPartnerActivity
+import com.bochuan.pinke.activity.SearchPartnerDetailActivity
 import com.bochuan.pinke.adapter.SearchPartnerAdapter
 import com.gome.work.common.divider.CustomNewsDivider
 import com.gome.work.core.model.SearchPartnerItem
@@ -29,6 +31,14 @@ class SearchPartnerListFragment : BaseFragment() {
                 CustomNewsDivider(context, DividerItemDecoration.HORIZONTAL, 2, R.color.divider_color)
             )
             getData(index, "")
+
+            mAdapter!!.setOnItemClickListener { parent, view, position, id ->
+                val item = mAdapter!!.getItem(position)
+                var intent = Intent(mActivity, SearchPartnerDetailActivity::class.java)
+                intent.putExtra(EXTRA_DATA, item)
+                startActivity(intent)
+
+            }
         }
     }
 

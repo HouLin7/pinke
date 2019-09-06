@@ -15,7 +15,7 @@
         android:id="@+id/layout_modify_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:background="@drawable/recycler_item_selector"
         android:padding="10dp">
 
         <TextView
@@ -35,11 +35,58 @@
             android:src="@mipmap/ic_arrow_right" />
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_color" />
+
+    <RelativeLayout
+        android:id="@+id/layout_version_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recycler_item_selector"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="版本"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/tv_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/iv_arrow_version"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_normal" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_arrow_right" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_color" />
+
     <Button
         android:id="@+id/button_logout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dip"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_login_btn_selector"
         android:text="退出登录"
         android:textColor="@color/white"
