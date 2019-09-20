@@ -54,7 +54,6 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
     }
 
     private fun initView() {
-//        mUserInfo!!.avatar = "https://api.baichuan11.com/upload/image/2019/09/07/p_1567787327_59327418.jpg"
         ImageLoader.loadImage(this, mUserInfo!!.avatar, photo_view)
     }
 
@@ -80,8 +79,10 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
             ImageLoader.loadImage(this, uri, photo_view)
             WebApi.getInstance().uploadFile(file, object : IUploadListener<UploadFileResultInfo>() {
                 override fun onProcess(totalBytes: Long, transferBytes: Long, speed: SpeedCalculator) {
-                    val progress = transferBytes * 100 / totalBytes.toDouble()
-                    pb_progress.progress = progress.toInt()
+                    runOnUiThread {
+                        val progress = transferBytes * 100 / totalBytes.toDouble()
+                        pb_progress.progress = progress.toInt()
+                    }
                 }
 
                 override fun onStart() {
@@ -127,7 +128,7 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
             override fun onSuccess(result: String?) {
                 ToastUtil.showToast(baseContext, "修改成功")
                 dismissProgressDlg()
-                getMyInfo()
+
                 var event = EventInfo.obtain(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
                 EventDispatcher.postEvent(event)
             }
@@ -136,21 +137,4 @@ class UserAvatarActivity : BaseGomeWorkActivity() {
     }
 
 
-    /**
-     * 与服务器同步个人信息
-     */
-    fun getMyInfo() {
-//        WebApi.getInstance().getUserDetail(loginUserId, object : IResponseListener<UserDetailBean> {
-//            override fun onError(code: String, message: String) {
-//
-//            }
-//
-//            override fun onSuccess(result: UserDetailBean?) {
-//                if (result != null) {
-//                    SharedPreferencesHelper.saveUserDetailInfo(result)
-//                    EventDispatcher.postEvent(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
-//                }
-//            }
-//        })
-    }
 }

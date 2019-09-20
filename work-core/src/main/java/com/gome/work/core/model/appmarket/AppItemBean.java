@@ -1,7 +1,7 @@
 package com.gome.work.core.model.appmarket;
 
 import com.gome.work.core.model.UserInfo;
-import com.gome.work.core.model.converter.AppDeatilScrConverter;
+import com.gome.work.core.model.converter.AppDetailScrConverter;
 import com.gome.work.core.model.converter.UserDetailBeanConverter;
 import org.greenrobot.greendao.annotation.*;
 
@@ -88,7 +88,7 @@ public class AppItemBean implements Serializable {
     /**
      * 应用截图，
      */
-    @Convert(columnType = String.class, converter = AppDeatilScrConverter.class)
+    @Convert(columnType = String.class, converter = AppDetailScrConverter.class)
     public List<String> screenshotUrls;
 
     /**

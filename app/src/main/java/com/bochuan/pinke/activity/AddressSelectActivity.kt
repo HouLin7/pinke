@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.adapter_location_list_item.*
 /**
  * 地址编辑界面
  */
-class AddressEditActivity : BaseGomeWorkActivity() {
+class AddressSelectActivity : BaseGomeWorkActivity() {
 
     companion object {
         const val REQUEST_CODE_CITY_SELECT = 1
@@ -43,7 +43,7 @@ class AddressEditActivity : BaseGomeWorkActivity() {
 
     var mLocation: AMapLocation? = null
 
-    lateinit var mLocationManager: AMapLocationManager
+    private lateinit var mLocationManager: AMapLocationManager
 
     private var searchAdapter: SearchPoiAdapter? = null
 
@@ -107,14 +107,23 @@ class AddressEditActivity : BaseGomeWorkActivity() {
         cover_mask.visibility = View.GONE
 
         searchAdapter!!.setOnItemClickListener { parent, view, position, id ->
-            if (mLocation != null) {
-                var data = Intent()
-                var tip = searchAdapter!!.getItem(position)
-                mLocation!!.poiName = tip.name
-                mLocation!!.latitude = tip.point.latitude
-                mLocation!!.longitude = tip.point.longitude
-                var addressInfo = AMapLocationManager.toAddressItem(mLocation!!)
 
+            var data = Intent()
+            var tip = searchAdapter!!.getItem(position)
+
+            var addressInfo = AddressItem()
+
+            if (newSelectCity != null) {
+                addressInfo = AMapLocationManager.toAddressItem(tip, newSelectCity!!)
+            } else {
+                if (mLocation != null) {
+                    mLocation!!.poiName = tip.name
+                    mLocation!!.latitude = tip.point.latitude
+                    mLocation!!.longitude = tip.point.longitude
+                    addressInfo = AMapLocationManager.toAddressItem(mLocation!!)
+                }
+            }
+            if (addressInfo != null) {
                 data.putExtra(EXTRA_DATA, addressInfo)
                 setResult(Activity.RESULT_OK, data)
                 finish()
@@ -207,13 +216,13 @@ class AddressEditActivity : BaseGomeWorkActivity() {
             if (isSuccess) {
                 mLocationManager.getLocation(object : AMapLocationManager.ILocationCallback {
                     override fun call(loc: AMapLocation) {
-                        var province = loc.province
-                        var city = loc.city
-                        var district = loc.district
-                        var cityCode = loc.cityCode
-                        var street = loc.street
-                        var adCode = loc.adCode
-                        var address = loc.address
+//                        var province = loc.province
+//                        var city = loc.city
+//                        var district = loc.district
+//                        var cityCode = loc.cityCode
+//                        var street = loc.street
+//                        var adCode = loc.adCode
+//                        var address = loc.address
                         mLocation = loc
                         refreshLocationView(loc)
                         searchNearPoi(loc.latitude, loc.longitude)
@@ -272,7 +281,27 @@ class AddressEditActivity : BaseGomeWorkActivity() {
     inner class AddressCategoryAdapter(fragmentActivity: FragmentActivity) : BaseRecyclerAdapter<Int>(fragmentActivity) {
 
         var nearbyAdapter = PoiAdapter(fragmentActivity)
+
         var myAddressAdapter = MyAddressAdapter(fragmentActivity)
+
+        init {
+            nearbyAdapter.setOnItemClickListener { parent, view, position, id ->
+                var poiItem = nearbyAdapter!!.getItem(position)
+                var addressInfo = AddressItem()
+                var data = Intent()
+                if (mLocation != null) {
+                    mLocation!!.poiName = poiItem.title
+                    mLocation!!.latitude = poiItem.latLonPoint.latitude
+                    mLocation!!.longitude = poiItem.latLonPoint.longitude
+                    addressInfo = AMapLocationManager.toAddressItem(mLocation!!)
+                    data.putExtra(EXTRA_DATA, addressInfo)
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
+            }
+
+
+        }
 
 
         override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<Int> {

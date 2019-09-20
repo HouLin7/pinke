@@ -21,6 +21,6 @@ public class UsersRspInfo {
     public int total;
     
     @Expose
-    @SerializedName("data")
+    @SerializedName("datas")
     public List<UserInfo> items;
 }

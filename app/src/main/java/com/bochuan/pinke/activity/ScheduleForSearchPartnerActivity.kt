@@ -3,6 +3,7 @@ package com.bochuan.pinke.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import com.bochuan.pinke.R
@@ -24,6 +25,10 @@ class ScheduleForSearchPartnerActivity : BaseGomeWorkActivity() {
 
         var fragment = ScheduleFragment()
         var args = Bundle()
+        var editModel = intent.getStringExtra(ScheduleFragment.EXTRA_VIEW_MODEL)
+        if (!TextUtils.isEmpty(editModel)) {
+            args.putString(ScheduleFragment.EXTRA_VIEW_MODEL, editModel)
+        }
         args.putInt(ScheduleFragment.EXTRA_SCHEDULE_TYPE, ScheduleFragment.WEEK_SCHEDULE)
         fragment.arguments = args
         supportFragmentManager.beginTransaction().replace(R.id.layout_content, fragment).commit()
@@ -34,7 +39,6 @@ class ScheduleForSearchPartnerActivity : BaseGomeWorkActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val item = menu.add("确定")
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS or MenuItem.SHOW_AS_ACTION_WITH_TEXT)
-
         return true
     }
 

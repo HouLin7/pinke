@@ -14,7 +14,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.SparseArray
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -25,6 +24,7 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator
 import com.bigkoo.convenientbanner.holder.Holder
 import com.bochuan.pinke.R
 import com.bochuan.pinke.activity.*
+import com.bochuan.pinke.model.CityItem
 import com.getbase.floatingactionbutton.FloatingActionsMenu
 import com.gome.utils.GsonUtil
 import com.gome.work.common.KotlinViewHolder
@@ -34,10 +34,7 @@ import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.common.utils.BlurUtils
 import com.gome.work.core.Constants
 import com.gome.work.core.event.model.EventInfo
-import com.gome.work.core.model.AdBean
-import com.gome.work.core.model.BannerBean
-import com.gome.work.core.model.OrganizationItem
-import com.gome.work.core.model.UserInfo
+import com.gome.work.core.model.*
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import com.gome.work.core.utils.SharedPreferencesHelper
@@ -51,6 +48,8 @@ class HomeFragment : BaseFragment() {
 
     companion object {
         const val REQUEST_CODE_CITY_SELECT = 1
+
+        const val REQUEST_CODE_ADDRESS_SELECT = 2
     }
 
     private val mBannerList = ArrayList<BannerBean>();
@@ -66,6 +65,10 @@ class HomeFragment : BaseFragment() {
     private var mAdapterAd: AdapterAd? = null;
 
     private var mBDLocation: AMapLocation? = null
+
+    private var mSelectAddressItem: AddressItem? = null
+
+    private var mSelectCityItem: RegionItem? = null
 
     private var bitmap: Bitmap? = null
 
@@ -146,8 +149,8 @@ class HomeFragment : BaseFragment() {
         tv_city.text = ""
         tv_address.text = ""
         tv_address.setOnClickListener {
-            var intent = Intent(mActivity, AddressEditActivity::class.java)
-            startActivity(intent)
+            var intent = Intent(mActivity, AddressSelectActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_ADDRESS_SELECT)
         }
 
 //        iv_ad_1.setImageResource(R.mipmap.ic_launcher)
@@ -252,16 +255,33 @@ class HomeFragment : BaseFragment() {
         tv_city.setOnClickListener {
             var intent = Intent(mActivity, CitySelectActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_CITY_SELECT)
+
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_CITY_SELECT) {
-            if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_ADDRESS_SELECT -> {
+                    mSelectAddressItem = data!!.getSerializableExtra(EXTRA_DATA) as AddressItem
 
+                    mSelectAddressItem?.let {
+                        tv_address.text = mSelectAddressItem!!.address
+                    }
+                }
+                REQUEST_CODE_CITY_SELECT -> {
+                    mSelectCityItem = data!!.getSerializableExtra(EXTRA_DATA) as RegionItem
+                    mSelectCityItem?.let {
+                        tv_city.text= mSelectCityItem!!.name
+                    }
+                }
             }
+
         }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -462,6 +482,11 @@ class HomeFragment : BaseFragment() {
                 ImageLoader.loadImage(activity, t.image, iv_ad);
             }
         }
+
+    }
+
+
+    fun getRecommendTeachers(){
 
     }
 

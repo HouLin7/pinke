@@ -15,8 +15,8 @@ public class CfgDicItem implements Serializable {
 
     private static final long serialVersionUID = -6507871928142789829L;
 
-    @Expose
-    public String id;
+//    @Expose
+//    public String id;
 
     @Expose
     public String name;

@@ -10,7 +10,7 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
 
 import com.gome.work.core.model.UserInfo;
-import com.gome.work.core.model.converter.AppDeatilScrConverter;
+import com.gome.work.core.model.converter.AppDetailScrConverter;
 import com.gome.work.core.model.converter.UserDetailBeanConverter;
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class AppItemBeanDao extends AbstractDao<AppItemBean, Long> {
         public final static Property DeveloperUser = new Property(22, String.class, "developerUser", false, "DEVELOPER_USER");
     }
 
-    private final AppDeatilScrConverter screenshotUrlsConverter = new AppDeatilScrConverter();
+    private final AppDetailScrConverter screenshotUrlsConverter = new AppDetailScrConverter();
     private final UserDetailBeanConverter helperUserConverter = new UserDetailBeanConverter();
     private final UserDetailBeanConverter developerUserConverter = new UserDetailBeanConverter();
 

@@ -97,24 +97,6 @@ class BDLocationManager(context: Context) {
             }
             locationManager?.let { it.stop() }
 
-
-            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
-            //以下只列举部分获取经纬度相关（常用）的结果信息
-            var latitude = location.latitude
-            var longitude = location.longitude
-            var radius = location.radius
-            var coordType = location.coorType
-
-            //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
-            var errorCode = location.locType
-
-            var errorDsc = location.locTypeDescription
-            var str = location.addrStr
-            var cityInfo = location.city
-
-            var street = location.street
-
-
         }
     }
 

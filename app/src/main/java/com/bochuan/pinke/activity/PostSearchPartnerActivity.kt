@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.amap.api.location.AMapLocation
 import com.bochuan.pinke.R
+import com.bochuan.pinke.fragment.ScheduleFragment
 import com.bochuan.pinke.util.AMapLocationManager
 import com.bochuan.pinke.util.AMapLocationManager.ILocationCallback
 import com.gome.applibrary.activity.BaseActivity
@@ -48,7 +49,7 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
     /**
      * 上课时间
      */
-    var attendDate: Calendar? = null
+    private var attendDate: Calendar? = null
 
     var selectGrade: CfgDicItem? = null
 
@@ -175,11 +176,12 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
         layout_schedule_attend.setOnClickListener {
             var intent = Intent(mActivity, ScheduleForSearchPartnerActivity::class.java)
+//            intent.putExtra(ScheduleFragment.EXTRA_VIEW_MODEL, ScheduleFragment.MODEL_EDIT)
             startActivityForResult(intent, REQUEST_CODE_SCHEDULE_SELECT)
         }
 
         tv_address_modify.setOnClickListener {
-            var intent = Intent(mActivity, AddressEditActivity::class.java)
+            var intent = Intent(mActivity, AddressSelectActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_ADDRESS_SELECT)
         }
 
@@ -208,7 +210,7 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
 
     private fun getPostData(): PostSearchPartnerItem {
         var result = PostSearchPartnerItem()
-        result.classType = selectClassType!!.id
+        result.classType = selectClassType!!.code
         result.position = PostSearchPartnerItem.Position()
         if (selectAddress != null) {
             result.position.assign(selectAddress)
@@ -222,13 +224,13 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
                 result.position.longitude = location!!.longitude
             }
         }
-        result.discipline = selectCourse!!.id
+        result.discipline = selectCourse!!.code
 
-        selectSex?.let { result.sex = selectSex!!.id }
+        selectSex?.let { result.sex = selectSex!!.code }
 
         result.note = edit_note.text.toString()
         selectGrade?.let {
-            result.grade = selectGrade!!.id
+            result.grade = selectGrade!!.code
         }
 
         result.score = edit_course_score.text.toString()
@@ -272,6 +274,19 @@ class PostSearchPartnerActivity : BaseGomeWorkActivity() {
             return false
         }
 
+        if (selectCourse!!.code.startsWith("11", true)) {
+            if (edit_course_score.text.isBlank()) {
+                ToastUtil.showToast(mActivity, "请填写分数")
+                edit_course_score.requestFocus()
+                return false
+            }
+        } else {
+            if (edit_note.text.isBlank()) {
+                ToastUtil.showToast(mActivity, "请填写近况")
+                edit_note.requestFocus()
+                return false
+            }
+        }
 //        if (selectGrade == null) {
 //            ToastUtil.showToast(mActivity, "请选择年级")
 //            return false

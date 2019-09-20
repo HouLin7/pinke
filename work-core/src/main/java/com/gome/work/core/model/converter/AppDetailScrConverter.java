@@ -15,7 +15,7 @@ import java.util.List;
  * Create by liupeiquan on 2018/11/3
  * 应用截图
  */
-public class AppDeatilScrConverter implements PropertyConverter<List<String>, String> {
+public class AppDetailScrConverter implements PropertyConverter<List<String>, String> {
     @Override
     public List<String> convertToEntityProperty(String databaseValue) {
         if (TextUtils.isEmpty(databaseValue)) {

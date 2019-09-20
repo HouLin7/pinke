@@ -29,11 +29,9 @@ class MineFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         daoUtils?.let {
             daoUtils = DaoUtil(mActivity)
-
+            getUserInfo(mActivity!!)
+            observeEvents(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
         }
-        getUserInfo(mActivity!!)
-
-        observeEvents(EventInfo.FLAG_LOGIN_USER_INFO_CHANGED)
     }
 
     override fun handleEvent(event: EventInfo) {
@@ -48,10 +46,11 @@ class MineFragment : BaseFragment() {
     }
 
     private fun updateUI(user: UserInfo) {
-        tv_nickname.text = user.nickname
-        tv_username.text = user.username
-        ImageLoader.loadImage(mActivity, user.avatar, iv_avatar)
-
+        if (isAdded) {
+            tv_nickname.text = user.nickname
+            tv_username.text = user.username
+            ImageLoader.loadImage(mActivity, user.avatar, iv_avatar)
+        }
     }
 
 
@@ -92,6 +91,10 @@ class MineFragment : BaseFragment() {
 
 
     private fun getUserInfo(activity: Activity) {
+        var userInfo = UserCacheManager.get(activity).getCacheUser(loginUserId)
+        userInfo?.let {
+            updateUI(userInfo)
+        }
         UserCacheManager.get(activity).getLastUserInfo(loginUserId, object : UserCacheManager.IUserGetResultListener {
             override fun onResult(result: UserInfo) {
                 updateUI(result)

@@ -88,9 +88,8 @@ class WebApiImpl extends WebApi {
     }
 
     @Override
-    public void getRecommendList(String pos, String type, IResponseListener<String> listener) {
-        Call<BaseRspInfo<String>> result = service.getRecommendList(pos, type);
-        result.enqueue(new MyCallback(listener));
+    public void getRecommendTeachers(String posCode, double latitude, double longitude, IResponseListener<UsersRspInfo> listener) {
+
     }
 
     @Override
@@ -247,6 +246,12 @@ class WebApiImpl extends WebApi {
         params.put("pn", pageIndex);
         params.put("ps", pageSize);
         Call<BaseRspInfo<SearchPartnerItem.ResponseWrapper>> result = service.getMyPostSearchPartnerList(params);
+        result.enqueue(new MyCallback(listener));
+    }
+
+    @Override
+    public void getScheduleList(IResponseListener<String> listener) {
+        Call<BaseRspInfo<String>> result = service.getScheduleList();
         result.enqueue(new MyCallback(listener));
     }
 
@@ -489,12 +494,6 @@ class WebApiImpl extends WebApi {
         result.enqueue(new MyCallback(listener));
     }
 
-
-    @Override
-    public void getScheduleDateList(int userId, String startDate, String endDate, IResponseListener<List<String>> listener) {
-        Call<BaseRspInfo<List<String>>> call = service.getScheduleDateList(userId, startDate, endDate);
-        call.enqueue(new MyCallback(listener));
-    }
 
     @Override
     public void saveOrUpdateSchedule(ScheduleInfo data, IResponseListener<String> listener) {

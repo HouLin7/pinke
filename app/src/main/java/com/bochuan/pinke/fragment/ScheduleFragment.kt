@@ -1,11 +1,13 @@
 package com.bochuan.pinke.fragment
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import com.bochuan.pinke.R
@@ -40,23 +42,24 @@ class ScheduleFragment : BaseFragment() {
          */
         const val WEEK_DAILY: Int = 2
 
-        const val EXTRA_MODEL = "extra.model"
+        const val EXTRA_VIEW_MODEL = "extra.model"
 
         /**
          * 周计划
          */
-        const val MODEL_VIEW: String = "model.view"
+        const val MODEL_PREVIEW: String = "model.view"
         /**
          *  可编辑状态
          */
-        const val MODEL_EDIT = "model.edit"
-
+        const val MODEL_MATCH = "model.match"
 
     }
 
-    private var currModel: String = MODEL_VIEW
+    private var currModel: String = MODEL_PREVIEW
 
-    var mAdapter: Adapter? = null;
+    var mAdapter: AdapterColumn? = null
+
+    var mAdapterFirstColumn: AdapterFistColumn? = null
 
     private var nowWeekHeaderData: WeekHeaderItem? = null
 
@@ -64,14 +67,31 @@ class ScheduleFragment : BaseFragment() {
 
     private val currSelectCourseScheduleList = HashMap<String, HashSet<CourseScheduleItem>>()
 
+    private var scrollYColumn = false
+
+    private var scrollYHeader = false
+
+    private var scrollXColumn = false
+
+    private var scrollXHeader = false
+
+    /**
+     *  当前登录者的生效日程
+     */
+    var myExistScheduleItems: ArrayList<ScheduleTimeItem>? = null
+
+    var targetExistScheduleItems: ArrayList<ScheduleTimeItem>? = null
+
+    private val ymdDateFormat = SimpleDateFormat("yyyy-MM-dd")
+
     var selectScheduleItems: ArrayList<ScheduleTimeItem>? = null
         get() {
             var result = ArrayList<ScheduleTimeItem>()
-            val sDateFormat = SimpleDateFormat("yyyy-MM-dd")
+
             for (item in currSelectCourseScheduleList) {
-                var date = sDateFormat.parse(item.key)
+                var date = ymdDateFormat.parse(item.key)
                 for (value in item.value) {
-                    result.add(calculateSchedueTime(date.time, value.startTime, value.endTime))
+                    result.add(calculateScheduleTime(date.time, value.startTime, value.endTime))
                 }
             }
             return result
@@ -81,13 +101,24 @@ class ScheduleFragment : BaseFragment() {
         return R.layout.fragment_schedule
     }
 
+    private fun findMyExistScheduleImeItem(startTime: Long, endTime: Long): ScheduleTimeItem? {
+        myExistScheduleItems?.let {
+            for (item in myExistScheduleItems!!) {
+                if (item.startTime < endTime && item.endTime > startTime) {
+                    return item
+                }
+            }
+        }
+        return null
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var type = arguments?.getInt(EXTRA_SCHEDULE_TYPE)
 
         arguments?.let {
-            currModel = arguments!!.getString(EXTRA_MODEL)
+            currModel = arguments!!.getString(EXTRA_VIEW_MODEL)
         }
 
         if (type != null) {
@@ -98,8 +129,8 @@ class ScheduleFragment : BaseFragment() {
             }
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false);
-        recyclerView.addItemDecoration(
+        recyclerView_value.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false);
+        recyclerView_value.addItemDecoration(
             CustomNewsDivider(
                 context,
                 DividerItemDecoration.HORIZONTAL,
@@ -107,6 +138,71 @@ class ScheduleFragment : BaseFragment() {
                 R.color.theme_blue
             )
         )
+
+        recyclerView_column_1.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (!scrollYColumn) {
+                    recyclerView_value.scrollBy(0, dy)
+                }
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        scrollYHeader = false
+
+                    }
+                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                        scrollYHeader = true
+                    }
+                    RecyclerView.SCROLL_STATE_SETTLING -> {
+                        scrollYHeader = true
+                    }
+                }
+            }
+        })
+
+
+        recyclerView_value.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        scrollYColumn = false
+
+                    }
+                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                        scrollYColumn = true
+                    }
+                    RecyclerView.SCROLL_STATE_SETTLING -> {
+                        scrollYColumn = true
+                    }
+                }
+
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (!scrollYHeader) {
+                    recyclerView_column_1.scrollBy(0, dy)
+                }
+
+            }
+
+        })
+
+        recyclerView_column_1.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false);
+        recyclerView_column_1.addItemDecoration(
+            CustomNewsDivider(
+                context,
+                DividerItemDecoration.HORIZONTAL,
+                (1 * resources.displayMetrics.density).toInt(),
+                R.color.theme_blue
+            )
+        )
+
         if (nowWeekHeaderData == null) {
             nowWeekHeaderData = currWeekHeaderData
         }
@@ -164,6 +260,11 @@ class ScheduleFragment : BaseFragment() {
             })
         }
 
+//        scroll_view_header.setBindView(scroll_view_value)
+        scroll_view_header.setOnTouchListener { v, event ->
+            return@setOnTouchListener true
+        }
+        scroll_view_value.setBindView(scroll_view_header)
     }
 
     private fun showDatePickerDlg(cal: Calendar, listener: DatePickerDialog.OnDateSetListener) {
@@ -183,6 +284,7 @@ class ScheduleFragment : BaseFragment() {
     }
 
     /**
+     * 生成时间表格数据
      * @param intervalTime 时间间隔 单位分钟
      */
     private fun getWeekColumnData(intervalTime: Int, count: Int): List<CourseScheduleItem> {
@@ -192,7 +294,6 @@ class ScheduleFragment : BaseFragment() {
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
 
-//        var random = Random()
         var startTime = calendar.timeInMillis;
         var offsetByMillis = TimeUnit.MINUTES.toMillis(intervalTime.toLong())
         for (index in 0 until count) {
@@ -200,8 +301,6 @@ class ScheduleFragment : BaseFragment() {
             item.startTime = startTime + index * offsetByMillis
             item.endTime = startTime + (index + 1) * offsetByMillis
             result.add(item)
-//            var i = random.nextInt(6)
-//            item.weeks[i]!!.state = 0
         }
 
         return result
@@ -236,6 +335,7 @@ class ScheduleFragment : BaseFragment() {
         if (dateList.size != 7) {
             return
         }
+        var simpleDateFormat = SimpleDateFormat("MM-dd")
         var calNow = Calendar.getInstance()
         var cal = Calendar.getInstance()
         var textViews = listOf(
@@ -244,12 +344,13 @@ class ScheduleFragment : BaseFragment() {
             tv_header_week4, tv_header_week5,
             tv_header_week6
         )
-        var numZH = listOf<String>("一", "二", "三", "四", "五", "六", "日")
+        var numZH = listOf("一", "二", "三", "四", "五", "六", "日")
         var index = 0
         for (date in dateList) {
-            cal.setTimeInMillis(date)
-            var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
-            textViews[index].setText(dayOfMonth.toString() + "\n" + numZH[index])
+            cal.timeInMillis = date
+//            var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+            var mmdd = simpleDateFormat.format(Date(cal.timeInMillis))
+            textViews[index].text = numZH[index] + "\n" + mmdd
 
             if (DateUtils.isSameDay(calNow, cal)) {
                 textViews[index].setTextColor(UiUtils.getColor(R.color.theme_blue))
@@ -268,8 +369,10 @@ class ScheduleFragment : BaseFragment() {
         if (mAdapter != null) {
             return;
         }
-        mAdapter = Adapter(activity)
-        recyclerView.adapter = mAdapter
+        mAdapter = AdapterColumn(activity)
+        recyclerView_value.adapter = mAdapter
+        mAdapterFirstColumn = AdapterFistColumn(activity)
+        recyclerView_column_1.adapter = mAdapterFirstColumn
 
         radio_group.setOnCheckedChangeListener { group, checkedId ->
             var intervalTime = 0
@@ -287,6 +390,7 @@ class ScheduleFragment : BaseFragment() {
 
             var dataList = getWeekColumnData(intervalTime, count)
             mAdapter!!.setItemList(dataList)
+            mAdapterFirstColumn!!.setItemList(dataList)
             currSelectCourseScheduleList.clear()
         }
 
@@ -304,7 +408,7 @@ class ScheduleFragment : BaseFragment() {
         }
         var dataList = getWeekColumnData(intervalTime, count)
         mAdapter!!.setItemList(dataList)
-
+        mAdapterFirstColumn!!.setItemList(dataList)
 
         updateHeaderView(currWeekHeaderData.values!!)
     }
@@ -313,12 +417,13 @@ class ScheduleFragment : BaseFragment() {
 
     }
 
+
     /**
      * @param date 当前的日期
      * @param start 开始的时间
      * @param end  结束的时间
      */
-    private fun calculateSchedueTime(date: Long, startTime: Long, endTime: Long): ScheduleTimeItem {
+    private fun calculateScheduleTime(date: Long, startTime: Long, endTime: Long): ScheduleTimeItem {
         val calDate = Calendar.getInstance()
 
         val calStartTime = Calendar.getInstance()
@@ -344,7 +449,33 @@ class ScheduleFragment : BaseFragment() {
         return result
     }
 
-    inner class Adapter(activity: FragmentActivity?) : BaseRecyclerAdapter<CourseScheduleItem>(activity) {
+
+    inner class AdapterFistColumn(activity: FragmentActivity?) : BaseRecyclerAdapter<CourseScheduleItem>(activity) {
+
+        override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CourseScheduleItem> {
+            var view: View = layoutInflater.inflate(R.layout.adapter_course_schedule_first_column_list_item, parent, false);
+            return MyViewHolder(view)
+        }
+
+        override fun onBindMyViewHolder(holder: BaseViewHolder<CourseScheduleItem>?, dataItem: CourseScheduleItem?, position: Int) {
+            var myViewHolder: MyViewHolder = holder as MyViewHolder
+            myViewHolder.bind(dataItem!!, position)
+
+        }
+
+        inner class MyViewHolder(view: View) : KotlinViewHolder<CourseScheduleItem>(view) {
+
+            private var dateFormat = SimpleDateFormat("HH:mm")
+            override fun bind(t: CourseScheduleItem, position: Int) {
+                var strStart = dateFormat.format(Date(t.startTime))
+                var strEnd = dateFormat.format(Date(t.endTime))
+                tv_date_dsc.text = strStart + "-" + strEnd;
+            }
+        }
+
+    }
+
+    inner class AdapterColumn(activity: FragmentActivity?) : BaseRecyclerAdapter<CourseScheduleItem>(activity) {
 
         override fun onCreateMyViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder<CourseScheduleItem> {
             var view: View = layoutInflater.inflate(R.layout.adapter_course_schedule_list_item, parent, false);
@@ -352,8 +483,8 @@ class ScheduleFragment : BaseFragment() {
         }
 
         override fun onBindMyViewHolder(holder: BaseViewHolder<CourseScheduleItem>?, dataItem: CourseScheduleItem?, position: Int) {
-            var myViewholder: MyViewHolder = holder as MyViewHolder
-            myViewholder.bind(dataItem!!, position)
+            var myViewHolder: MyViewHolder = holder as MyViewHolder
+            myViewHolder.bind(dataItem!!, position)
 
         }
 
@@ -361,14 +492,12 @@ class ScheduleFragment : BaseFragment() {
 
             private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
 
-            var textViews = arrayOf(tv_week0, tv_week1, tv_week2, tv_week3, tv_week4, tv_week5, tv_week6)
+            private var textViews = arrayOf(tv_week0, tv_week1, tv_week2, tv_week3, tv_week4, tv_week5, tv_week6)
 
             init {
-                for (item in textViews) {
-                    if (MODEL_EDIT == currModel) {
-                        item.setOnClickListener { handleViewClick(it.id) }
-                    }
-                }
+//                for (item in textViews) {
+//                    item.setOnClickListener { handleViewClick(it.id) }
+//                }
             }
 
             private fun handleViewClick(viewId: Int) {
@@ -424,16 +553,13 @@ class ScheduleFragment : BaseFragment() {
                         }
                     }
                 }
+
                 notifyDataSetChanged()
             }
 
-            private var dateFormat = SimpleDateFormat("HH:mm")
+
             override fun bind(t: CourseScheduleItem, position: Int) {
-                var strStart = dateFormat.format(Date(t.startTime))
-                var strEnd = dateFormat.format(Date(t.endTime))
-                tv_date_dsc.text = strStart + "-" + strEnd;
-                var index = 0
-                for (item in t.weeks) {
+                for ((index, item) in t.weeks.withIndex()) {
                     var targetView = textViews[index]
                     if (item!!.state == 0) {
                         targetView.isEnabled = true
@@ -442,7 +568,24 @@ class ScheduleFragment : BaseFragment() {
                         targetView.setBackgroundColor(UiUtils.getColor(R.color.theme_green))
                         targetView.isEnabled = false
                     }
-                    index++
+
+                    var result = calculateScheduleTime(currWeekHeaderData.values?.get(index)!!, dataItem.startTime, dataItem.endTime)
+
+                    var existScheduleItem = findMyExistScheduleImeItem(result.startTime, result.endTime);
+                    if (existScheduleItem != null) {
+                        var str = existScheduleItem.colorValue
+                        if (!TextUtils.isEmpty(str)) {
+                            var rgbStr = str.split(",")
+                            if (rgbStr != null && rgbStr.size == 3) {
+                                var red = rgbStr[0].toFloat()
+                                var green = rgbStr[1].toFloat()
+                                var blue = rgbStr[2].toFloat()
+                                var colorValue=  existScheduleItem.colorValue.toInt(16)
+                                textViews[position].setBackgroundColor(colorValue)
+                            }
+                        }
+                    }
+
                 }
             }
         }
@@ -509,6 +652,8 @@ class ScheduleFragment : BaseFragment() {
         var endTime: Long = 0
 
         var weeks: Array<ActivityItem?> = arrayOfNulls(7)
+
+        var targetObj: ScheduleTimeItem? = null
 
         init {
             for (i in 0 until 7) {

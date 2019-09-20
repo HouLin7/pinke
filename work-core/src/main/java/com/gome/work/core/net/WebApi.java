@@ -59,7 +59,7 @@ public abstract class WebApi {
 
     public abstract void getCaptcha(String phoneNum, IResponseListener<CaptchaItem> listener);
 
-    public abstract void getRecommendList(String pos, String type, IResponseListener<String> listener);
+    public abstract void getRecommendTeachers(String posCode, double latitude, double longitude, IResponseListener<UsersRspInfo> listener);
 
     public abstract void getBanner(String pos, IResponseListener<List<BannerBean>> listener);
 
@@ -106,38 +106,42 @@ public abstract class WebApi {
     public abstract Response<BaseRspInfo<UserInfo>> getUserInfoSyn(String userId);
 
 
-
     /**
      * 关注某人
+     *
      * @param userId
      * @param listener
      */
-    public abstract void follow(String userId,  IResponseListener<String> listener);
+    public abstract void follow(String userId, IResponseListener<String> listener);
 
     /**
      * 取消关注
+     *
      * @param userId
      * @param listener
      */
-    public abstract void followCancel(String userId,  IResponseListener<String> listener);
+    public abstract void followCancel(String userId, IResponseListener<String> listener);
 
     /**
      * 伴读某人
+     *
      * @param userId
      * @param listener
      */
-    public abstract void partner(String userId,  IResponseListener<String> listener);
+    public abstract void partner(String userId, IResponseListener<String> listener);
 
     /**
      * 伴读关系取消
+     *
      * @param userId
      * @param listener
      */
-    public abstract void partnerCancel(String userId,  IResponseListener<String> listener);
+    public abstract void partnerCancel(String userId, IResponseListener<String> listener);
 
 
     /**
      * 获取伴读好友列表
+     *
      * @param pageIndex
      * @param pageSize
      * @param listener
@@ -146,6 +150,7 @@ public abstract class WebApi {
 
     /**
      * 获取好友列表
+     *
      * @param pageIndex
      * @param pageSize
      * @param listener
@@ -154,7 +159,6 @@ public abstract class WebApi {
 
 
     /**
-     *
      * @param pageIndex
      * @param pageSize
      * @param listener
@@ -164,11 +168,18 @@ public abstract class WebApi {
 
     /**
      * 获取我发布的伴读信息
+     *
      * @param pageIndex
      * @param pageSize
      * @param listener
      */
     public abstract void getMySearchPartnerList(int pageIndex, int pageSize, IResponseListener<SearchPartnerItem.ResponseWrapper> listener);
+
+    /**
+     *
+     * @param listener
+     */
+    public abstract void getScheduleList(IResponseListener<String> listener);
 
 
     /**
@@ -329,11 +340,6 @@ public abstract class WebApi {
      */
     public abstract void imGetGroupNotice(String groupId, IResponseListener<GroupNoticeBean> listener);
 
-
-    /**
-     * 日程-查询有日程的日期接口
-     */
-    public abstract void getScheduleDateList(int userId, String startDate, String endDate, IResponseListener<List<String>> listener);
 
     /**
      * 日程-日程添加修改接口

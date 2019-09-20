@@ -6,6 +6,8 @@ import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode
 import com.amap.api.location.AMapLocationListener
+import com.amap.api.navi.services.search.model.PoiItem
+import com.amap.api.services.help.Tip
 import com.gome.utils.GsonUtil
 import com.gome.work.core.Constants
 import com.gome.work.core.model.AddressItem
@@ -15,7 +17,7 @@ import com.gome.work.core.utils.SharedPreferencesHelper
 
 class AMapLocationManager {
 
-    private  var context: Context
+    private var context: Context
 
     private var locationClient: AMapLocationClient
 
@@ -84,6 +86,28 @@ class AMapLocationManager {
 
     companion object {
 
+        fun toAddressItem(tip: Tip, city: RegionItem): AddressItem {
+            var addressItem = AddressItem()
+            addressItem.city = city
+
+            addressItem.address = tip.name
+            addressItem.latitude = tip.point.latitude
+            addressItem.longitude = tip.point.longitude
+            return addressItem
+        }
+
+        fun toAddressItem(poiItem: PoiItem): AddressItem {
+            var addressItem = AddressItem()
+            addressItem.city = RegionItem()
+            addressItem.city.code = poiItem.cityCode
+            addressItem.city.name = poiItem.cityName
+
+            addressItem.latitude = poiItem.latLonPoint.latitude
+            addressItem.longitude = poiItem.latLonPoint.longitude
+            addressItem.address = poiItem.title
+
+            return addressItem
+        }
 
         fun toAddressItem(location: AMapLocation): AddressItem {
             var addressItem = AddressItem()

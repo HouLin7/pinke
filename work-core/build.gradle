@@ -23,7 +23,7 @@ android {
     }
 
     greendao {
-        schemaVersion 36//数据库版本号
+        schemaVersion 37//数据库版本号
         daoPackage 'com.gome.core.greendao'//设置DaoMaster、DaoSession、Dao包名
         targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
         //targetGenDirTest：设置生成单元测试目录

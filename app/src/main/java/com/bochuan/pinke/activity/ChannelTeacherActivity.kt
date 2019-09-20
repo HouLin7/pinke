@@ -17,11 +17,13 @@ import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.activity.BaseGomeWorkActivity
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
+import com.gome.work.common.imageloader.ImageLoader
 import com.gome.work.core.model.UserInfo
 import com.gome.work.core.model.UsersRspInfo
 import com.gome.work.core.net.IResponseListener
 import com.gome.work.core.net.WebApi
 import kotlinx.android.synthetic.main.activity_channel_course.*
+import kotlinx.android.synthetic.main.adapter_teacher_list_item.*
 
 
 class ChannelTeacherActivity : BaseGomeWorkActivity() {
@@ -35,11 +37,11 @@ class ChannelTeacherActivity : BaseGomeWorkActivity() {
         setContentView(R.layout.activity_channel_course)
         mAdapter = SearchTeacherAdapter(this)
         mAdapter.setOnItemClickListener { parent, view, position, id ->
-            var intent = Intent(mActivity,TeacherHomeActivity::class.java)
+            var intent = Intent(mActivity, TeacherHomeActivity::class.java)
             startActivity(intent)
 
         }
-        getCustomToolbar(my_tool_bar).bindActivity(this,"")
+        getCustomToolbar(my_tool_bar).bindActivity(this, "")
         initView()
         getLocation()
     }
@@ -119,7 +121,18 @@ class ChannelTeacherActivity : BaseGomeWorkActivity() {
 
         inner class ViewHolderItem(view: View) : KotlinViewHolder<UserInfo>(view) {
             override fun bind(t: UserInfo, position: Int) {
+                if (isFinishing) {
+                    return
+                }
 
+                tv_teach_age.text = t.teachAge
+                cb_on_site.isChecked = "1" == t.doorVisit
+                cb_identity_auth.isChecked = "1".equals("1" == t.verifyProperty?.idcard)
+                tv_teach_course.text = t.teachCourse
+                tv_sex.text = t.sex
+                tv_nick_name.text = t.nickname
+                tv_distance.text = t.distance
+                ImageLoader.loadImage(mActivity, t.avatar, iv_avatar)
 
             }
         }

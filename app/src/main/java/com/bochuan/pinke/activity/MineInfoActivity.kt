@@ -87,7 +87,7 @@ class MineInfoActivity : BaseGomeWorkActivity() {
 
                         var data = PostUserInfo()
                         data.id = mUserInfo.id
-                        data.grade = selectGrade.id
+                        data.grade = selectGrade.code
                         WebApi.getInstance().postUserInfo(data, object : IResponseListener<String> {
                             override fun onError(code: String?, message: String?) {
                                 ToastUtil.showToast(mActivity, message)
@@ -118,7 +118,7 @@ class MineInfoActivity : BaseGomeWorkActivity() {
 
                         var data = PostUserInfo()
                         data.id = mUserInfo.id
-                        data.sex = selectSex.id
+                        data.sex = selectSex.code
                         WebApi.getInstance().postUserInfo(data, object : IResponseListener<String> {
                             override fun onError(code: String?, message: String?) {
                                 ToastUtil.showToast(mActivity, message)
@@ -160,12 +160,7 @@ class MineInfoActivity : BaseGomeWorkActivity() {
     }
 
     override fun handleEvent(event: EventInfo) {
-        if (!isFinishing) {
-            var userInfo = UserCacheManager.get(mActivity).getCacheUser(loginUserId)
-            userInfo.let {
-                updateUI(userInfo!!)
-            }
-        }
+        getLastInfo()
     }
 
 
@@ -227,10 +222,6 @@ class MineInfoActivity : BaseGomeWorkActivity() {
             }
 
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 

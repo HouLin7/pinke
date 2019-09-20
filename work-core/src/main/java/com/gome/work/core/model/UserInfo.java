@@ -1,16 +1,16 @@
 package com.gome.work.core.model;
 
+import com.gome.work.core.model.converter.UserVerifyPropertyConverter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
-import org.greenrobot.greendao.annotation.Unique;
 
 import java.io.Serializable;
-
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 用户信息详情
@@ -65,17 +65,32 @@ public class UserInfo implements Serializable, ISelectableItem {
     private String identity;
 
     @Expose
-    private  String partnerRelation;
+    private String partnerRelation;
 
     @Expose
-    private  String followRelation;
+    private String followRelation;
 
+    @Expose
+    private String teachAge;
 
-    @Generated(hash = 255747935)
-    public UserInfo(String id, String imId, String avatar, String email,
-            String username, String nickname, String sex, String address,
-            String phone, String firstLetter, String grade, String school,
-            String identity, String partnerRelation, String followRelation) {
+    @Expose
+    private String teachCourse;
+
+    @Expose
+    private String doorVisit;
+    
+    @Expose
+    private String distance;
+    
+    @Convert(columnType = String.class, converter = UserVerifyPropertyConverter.class)
+    private UserVerifyPropertyItem verifyProperty;
+
+    @Generated(hash = 1142766567)
+    public UserInfo(String id, String imId, String avatar, String email, String username,
+            String nickname, String sex, String address, String phone, String firstLetter,
+            String grade, String school, String identity, String partnerRelation,
+            String followRelation, String teachAge, String teachCourse, String doorVisit,
+            String distance, UserVerifyPropertyItem verifyProperty) {
         this.id = id;
         this.imId = imId;
         this.avatar = avatar;
@@ -91,12 +106,17 @@ public class UserInfo implements Serializable, ISelectableItem {
         this.identity = identity;
         this.partnerRelation = partnerRelation;
         this.followRelation = followRelation;
+        this.teachAge = teachAge;
+        this.teachCourse = teachCourse;
+        this.doorVisit = doorVisit;
+        this.distance = distance;
+        this.verifyProperty = verifyProperty;
     }
 
     @Generated(hash = 1279772520)
     public UserInfo() {
     }
-    
+
 
     public String getId() {
         return this.id;
@@ -244,6 +264,46 @@ public class UserInfo implements Serializable, ISelectableItem {
 
     public void setFollowRelation(String followRelation) {
         this.followRelation = followRelation;
+    }
+
+    public UserVerifyPropertyItem getVerifyProperty() {
+        return this.verifyProperty;
+    }
+
+    public void setVerifyProperty(UserVerifyPropertyItem verifyProperty) {
+        this.verifyProperty = verifyProperty;
+    }
+
+    public String getTeachAge() {
+        return this.teachAge;
+    }
+
+    public void setTeachAge(String teachAge) {
+        this.teachAge = teachAge;
+    }
+
+    public String getDoorVisit() {
+        return this.doorVisit;
+    }
+
+    public void setDoorVisit(String doorVisit) {
+        this.doorVisit = doorVisit;
+    }
+
+    public String getTeachCourse() {
+        return this.teachCourse;
+    }
+
+    public void setTeachCourse(String teachCourse) {
+        this.teachCourse = teachCourse;
+    }
+
+    public String getDistance() {
+        return this.distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
 }

@@ -53,6 +53,21 @@ class ExampleInstrumentedTest {
         })
     }
 
+    @Test
+    fun getScheduleList() {
+        WebApi.getInstance().getScheduleList(object : IResponseListener<String> {
+            override fun onSuccess(result: String?) {
+
+                var result1 = result;
+            }
+
+            override fun onError(code: String?, message: String?) {
+
+            }
+
+        })
+    }
+
 //    @Test
 //    fun getCity() {
 //        WebApi.getInstance().getCityData(object : IResponseListener<List<RegionItem>> {

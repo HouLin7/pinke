@@ -29,7 +29,7 @@ class TeacherAdapter(fragmentActivity: FragmentActivity) : BaseRecyclerAdapter<U
     inner class MyViewHolder(view: View) : KotlinViewHolder<UserInfo>(view) {
 
         override fun bind(t: UserInfo, position: Int) {
-            tv_user_name.text = t.nickname;
+            tv_nick_name.text = t.nickname;
             ImageLoader.loadImage(mActivity, t.avatar, iv_avatar);
         }
     }

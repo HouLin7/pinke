@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.adapter_simple_textview_item.*
 class ListSelectPopWindow(fragmentActivity: FragmentActivity, dataList: List<CfgDicItem>, selectModel: SelectModel) :
     BaseSelectPopWindow(fragmentActivity, dataList, selectModel) {
 
-
     constructor(fragmentActivity: FragmentActivity, dataList: List<CfgDicItem>) : this(fragmentActivity, dataList, SelectModel.Single) {
 
     }

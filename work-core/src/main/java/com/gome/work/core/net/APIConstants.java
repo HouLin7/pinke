@@ -9,12 +9,6 @@ public interface APIConstants {
     String GET_CAPTCHA = "communal/verify/sms";
 
     /**
-     * 更新头像
-     */
-
-    String UPDATE_USER_AVATA = "app/user/headportrait.do";
-
-    /**
      * 获取好友列表
      */
     String GET_FRIENDS = "app/user/friends.do";
@@ -181,18 +175,6 @@ public interface APIConstants {
     String CANCEL_APP_PRAISE_DATA = "app_shop/apps/praise_cancel.do";
 
 
-    /**
-     * 日程查询接口
-     */
-    String GET_SCHEDULE_LIST="app/gateway/mobile/selectScheduleList.do";
-    /**
-     * 日程-查询有日程的日期接口
-     */
-    String GET_SCHEDULE_DATE_LIST="app/gateway/mobile/selectScheduleDateList.do";
-    /**
-     * 日程-日程添加修改接口
-     */
-    String SAVE_OR_UPDATE_SCHEDULE="app/gateway/mobile/saveOrUpdateSchedule.do";
     /**
      * 日程-日程详情接口
      */

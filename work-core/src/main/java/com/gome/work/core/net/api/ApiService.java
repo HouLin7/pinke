@@ -74,7 +74,7 @@ public interface ApiService {
      * 获取推荐列表
      */
     @GET("communal/recommend")
-    Call<BaseRspInfo<String>> getRecommendList(@Query("position") String pos, @Query("recommend") String type);
+    Call<BaseRspInfo<UsersRspInfo>> getRecommendTeachers(@Query("position") String pos, @Query("recommend") String type);
 
     /**
      * 获取广告位
@@ -169,6 +169,7 @@ public interface ApiService {
 
     /**
      * 关注
+     *
      * @param params
      * @return
      */
@@ -177,6 +178,7 @@ public interface ApiService {
 
     /**
      * 取消关注
+     *
      * @param params
      * @return
      */
@@ -185,24 +187,27 @@ public interface ApiService {
 
     /**
      * 获取粉丝列表
+     *
      * @param pageIndex
      * @param pageSize
      * @return
      */
     @GET("communal/relation/followers")
-    Call<BaseRspInfo<UsersRspInfo>> getFollowers(@Query("pn") int pageIndex,@Query("ps") int pageSize);
+    Call<BaseRspInfo<UsersRspInfo>> getFollowers(@Query("pn") int pageIndex, @Query("ps") int pageSize);
 
     /**
      * 获取好友列表
+     *
      * @param pageIndex
      * @param pageSize
      * @return
      */
     @GET("communal/relation/friends")
-    Call<BaseRspInfo<UsersRspInfo>> getFriends(@Query("pn") int pageIndex,@Query("ps") int pageSize);
+    Call<BaseRspInfo<UsersRspInfo>> getFriends(@Query("pn") int pageIndex, @Query("ps") int pageSize);
 
     /**
      * 伴读某人
+     *
      * @param params
      * @return
      */
@@ -212,6 +217,7 @@ public interface ApiService {
 
     /**
      * 取消伴读关系
+     *
      * @param params
      * @return
      */
@@ -221,20 +227,20 @@ public interface ApiService {
 
     /**
      * 获取伴读列表
+     *
      * @param pageIndex
      * @param pageSize
      * @return
      */
     @GET("student/partner")
-    Call<BaseRspInfo<UsersRspInfo>> getPartners(@Query("pn") int pageIndex,@Query("ps") int pageSize);
+    Call<BaseRspInfo<UsersRspInfo>> getPartners(@Query("pn") int pageIndex, @Query("ps") int pageSize);
 
 
     /**
-     * 更新头像
+     * 获取日程
      */
-    @Multipart
-    @POST(APIConstants.UPDATE_USER_AVATA)
-    Call<BaseRspInfo<String>> updateUserAvatar(@Part MultipartBody.Part file);
+    @GET("communal/schedule-card")
+    Call<BaseRspInfo<String>> getScheduleList();
 
 
     /**
@@ -311,15 +317,9 @@ public interface ApiService {
     //******************************日程相关接口↓↓↓↓↓↓↓*****************************************
 
     /**
-     * 日程-查询有日程的日期接口
-     */
-    @GET(APIConstants.GET_SCHEDULE_DATE_LIST)
-    Call<BaseRspInfo<List<String>>> getScheduleDateList(@Query("userId") int userId, @Query("startDate") String startDate, @Query("endDate") String endDate);
-
-    /**
      * 日程-日程添加修改接口
      */
-    @POST(APIConstants.SAVE_OR_UPDATE_SCHEDULE)
+    @POST("communal/schedule-card/update")
     Call<BaseRspInfo<String>> saveOrUpdateSchedule(@Body Map<String, Object> params);
 
     /**

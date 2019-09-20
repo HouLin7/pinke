@@ -37,5 +37,8 @@
     <dimen name="index_width">20dp</dimen>
 
 
+    <dimen name="schedule_cell_width">70dp</dimen>
+    <dimen name="schedule_cell_height">45dp</dimen>
+
 
 </resources>
