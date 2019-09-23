@@ -53,6 +53,27 @@ public class SysCfgData implements Serializable {
     @SerializedName("teacher_auth_type")
     public List<CfgDicItem> teacherAuthType;
 
+    /**
+     * 价格区间
+     */
+    @Expose
+    @SerializedName("price_interval")
+    public List<CfgDicItem> priceRange;
+
+    /**
+     *
+     */
+    @Expose
+    @SerializedName("color")
+    public List<CfgDicItem> colors;
+
+    /**
+     *
+     */
+    @Expose
+    @SerializedName("sort")
+    public List<CfgDicItem> sort;
+
 
     public static ArrayList<CfgDicItem> getSexCfgItems() {
         ArrayList<CfgDicItem> result = new ArrayList<>();

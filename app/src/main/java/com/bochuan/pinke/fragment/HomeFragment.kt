@@ -159,7 +159,7 @@ class HomeFragment : BaseFragment() {
 //        iv_ad_4.setImageResource(R.mipmap.ic_launcher)
 
 
-        recyclerView_ad_list.layoutManager = GridLayoutManager(activity, 2, RecyclerView.VERTICAL, false)
+        recyclerView_ad_list.layoutManager = GridLayoutManager(activity, 2, RecyclerView.HORIZONTAL, false)
 
         mAdapterAd = AdapterAd(activity)
         recyclerView_ad_list.adapter = mAdapterAd

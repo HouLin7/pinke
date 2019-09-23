@@ -60,7 +60,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -70,6 +70,8 @@
             android:id="@+id/radio_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:orientation="horizontal">
 
             <RadioButton
@@ -86,7 +88,18 @@
                 android:text="0.5小时" />
         </RadioGroup>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_schedule_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+
+            android:text="添加"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_normal" />
+
+    </RelativeLayout>
 
     <!--    <ImageView-->
     <!--        android:layout_width="match_parent"-->
@@ -98,7 +111,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="@dimen/schedule_cell_width"

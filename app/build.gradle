@@ -153,6 +153,8 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'
     implementation 'com.amap.api:map2d:latest.integration'
     implementation 'com.amap.api:navi-3dmap:latest.integration'
+//    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    implementation 'com.contrarywind:wheelview:4.0.9'
 
 
 

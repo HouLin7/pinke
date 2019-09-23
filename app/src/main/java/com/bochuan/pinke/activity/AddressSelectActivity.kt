@@ -155,7 +155,7 @@ class AddressSelectActivity : BaseGomeWorkActivity() {
         }
     }
 
-    fun searchPoi(keyword: String) {
+    private fun searchPoi(keyword: String) {
         var city = ""
         mLocation?.let {
             city = mLocation!!.cityCode
@@ -176,7 +176,7 @@ class AddressSelectActivity : BaseGomeWorkActivity() {
     }
 
 
-    fun searchNearPoi(lat: Double, lon: Double) {
+    private fun searchNearPoi(lat: Double, lon: Double) {
         var query = PoiSearch.Query("", "120300", "北京")
         query.pageSize = 10
         var poiSearch = PoiSearch(this, query)

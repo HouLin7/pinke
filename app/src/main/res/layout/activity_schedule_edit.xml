@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height" />
+
+    <EditText
+        android:id="@+id/ed_schedule_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入课程名称"
+        android:textColor="@color/app_black"
+        android:textSize="@dimen/text_size_normal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="颜色"
+        android:textColor="@color/app_black_light"
+        android:textSize="@dimen/text_size_normal" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_color"
+        android:layout_width="match_parent"
+        android:layout_height="110dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时间选择"
+        android:textColor="@color/app_black_light"
+        android:textSize="@dimen/text_size_normal" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_selected_time"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+
+    <TextView
+        android:id="@+id/tv_add_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击添加上课时间"
+        android:textColor="@color/app_black"
+        android:textSize="@dimen/text_size_normal"></TextView>
+</LinearLayout>
+
+

@@ -1,6 +1,7 @@
 package com.bochuan.pinke.fragment
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
@@ -11,6 +12,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import com.bochuan.pinke.R
+import com.bochuan.pinke.activity.ScheduleEditActivity
 import com.gome.work.common.KotlinViewHolder
 import com.gome.work.common.adapter.BaseRecyclerAdapter
 import com.gome.work.common.adapter.BaseViewHolder
@@ -265,6 +267,11 @@ class ScheduleFragment : BaseFragment() {
             return@setOnTouchListener true
         }
         scroll_view_value.setBindView(scroll_view_header)
+
+        tv_schedule_edit.setOnClickListener {
+            var intent = Intent(mActivity, ScheduleEditActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun showDatePickerDlg(cal: Calendar, listener: DatePickerDialog.OnDateSetListener) {
@@ -580,7 +587,7 @@ class ScheduleFragment : BaseFragment() {
                                 var red = rgbStr[0].toFloat()
                                 var green = rgbStr[1].toFloat()
                                 var blue = rgbStr[2].toFloat()
-                                var colorValue=  existScheduleItem.colorValue.toInt(16)
+                                var colorValue = existScheduleItem.colorValue.toInt(16)
                                 textViews[position].setBackgroundColor(colorValue)
                             }
                         }

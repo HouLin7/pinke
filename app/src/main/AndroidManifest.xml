@@ -127,6 +127,7 @@
         <activity android:name=".activity.SearchPartnerDetailActivity" />
         <activity android:name=".activity.UsersListActivity" />
         <activity android:name=".activity.MyPostSearchPartnerListActivity" />
+        <activity android:name=".activity.ScheduleEditActivity" />
 
         <service
             android:name="com.baidu.location.f"
